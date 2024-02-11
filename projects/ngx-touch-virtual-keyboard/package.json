@@ -1,6 +1,12 @@
 {
   "name": "ngx-touch-virtual-keyboard",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Draw flow tree component",
+  "author": "domi92",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/domi92/ngx-touch-virtual-keyboard"
+  },
   "peerDependencies": {
     "@angular/common": "^15.2.0",
     "@angular/core": "^15.2.0"
@@ -8,5 +14,13 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "keywords": [
+    "angular",
+    "javascript",
+    "typescript",
+    "keyboard"
+  ],
+  "license": "MIT",
+  "private": false
 }

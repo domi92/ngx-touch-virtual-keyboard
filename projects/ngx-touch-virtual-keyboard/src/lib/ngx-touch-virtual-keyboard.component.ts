@@ -1,7 +1,11 @@
-import {Component, OnDestroy, OnInit, HostListener, ElementRef} from '@angular/core';
+import {Component, OnDestroy, OnInit, HostListener, ElementRef, Inject} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {NgxTouchVirtualKeyboardService} from './ngx-touch-virtual-keyboard.service';
 import {Subscription} from 'rxjs';
+import {InjectionToken} from '@angular/core';
+
+export const ICON_KEYBOARD = new InjectionToken<string>('assets/icons/keyboard.svg');
+export const ICON_DELETE = new InjectionToken<string>('assets/icons/delete-left.svg');
 
 @Component({
   selector: 'ngx-touch-virtual-keyboard',
@@ -64,7 +68,12 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     // console.log('HERE IT IS A CLICK' + event);
   }
 
-  constructor(private elementRef: ElementRef, private keyboardService: NgxTouchVirtualKeyboardService) {}
+  constructor(
+    @Inject(ICON_KEYBOARD) public iconKeyboard: string,
+    @Inject(ICON_DELETE) public iconDelete: string,
+    private elementRef: ElementRef,
+    private keyboardService: NgxTouchVirtualKeyboardService
+  ) {}
 
   ngOnInit(): void {
     this.elementRef.nativeElement.addEventListener('mousedown', this.handleMouseDown);
@@ -83,7 +92,6 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   }
 
   toggleKeyboard() {
-    console.log('toggle' + this.isOpen);
     this.isOpen = !this.isOpen;
   }
 
