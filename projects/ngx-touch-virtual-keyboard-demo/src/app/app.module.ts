@@ -3,12 +3,12 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {NgxTouchVirtualKeyboardModule} from 'ngx-touch-virtual-keyboard';
+import {ICON_KEYBOARD, NgxTouchVirtualKeyboardModule} from 'ngx-touch-virtual-keyboard';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, NgxTouchVirtualKeyboardModule],
-  providers: [],
+  providers: [{provide: ICON_KEYBOARD, useValue: 'assets/icons/keyboard-test.svg'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
