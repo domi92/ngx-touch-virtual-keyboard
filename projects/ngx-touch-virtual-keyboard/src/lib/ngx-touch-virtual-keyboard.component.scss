@@ -1,0 +1,52 @@
+/* keyboard.component.css */
+
+.keyboard-wrapper {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.keyboard {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Make the keyboard take up 100% width */
+  background-color: #f5f5f5;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  transition: transform 0.3s ease-in-out;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+}
+
+.keyboard-key {
+  padding: 10px 15px;
+  margin: 5px;
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.keyboard-key:hover {
+  background-color: #ddd;
+}
+
+.toggle-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}

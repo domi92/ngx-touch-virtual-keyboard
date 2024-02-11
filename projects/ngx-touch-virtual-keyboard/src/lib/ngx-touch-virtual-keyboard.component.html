@@ -1,0 +1,32 @@
+<div class="keyboard-wrapper">
+  <div class="keyboard" [@slideInOut]="isOpen ? 'in' : 'out'">
+    <!-- <input type="text" [value]="textInput" (input)="onInputChange($event.target.value)" /> -->
+    <div class="keyboard-row"><input type="text" [(ngModel)]="textInput" disabled /></div>
+    <ng-container *ngIf="!isNumericOnly && keyboardLayout">
+      <ng-container *ngTemplateOutlet="content; context: {data: keyboardLayout}"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="isNumericOnly">
+      <ng-container *ngTemplateOutlet="content; context: {data: numericOnlyLayout}"></ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<button class="toggle-button" (click)="toggleKeyboard()">
+  <i class="fas fa-keyboard"></i>
+  <!-- Font Awesome keyboard icon -->
+</button>
+
+<ng-template #content let-data="data">
+  <div *ngFor="let row of data" class="keyboard-row">
+    <ng-container *ngFor="let key of row">
+      <button *ngIf="key === 'delete'; else standardKey" class="keyboard-key" (click)="emitDeletePressed()">
+        <i class="fas fa-backspace"></i>
+      </button>
+      <ng-template #standardKey>
+        <button class="keyboard-key" (click)="pressKey(key)">
+          {{ key }}
+        </button>
+      </ng-template>
+    </ng-container>
+  </div>
+</ng-template>
