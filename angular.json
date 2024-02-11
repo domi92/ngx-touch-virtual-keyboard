@@ -3,5 +3,135 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "ngx-touch-virtual-keyboard": {
+      "projectType": "library",
+      "root": "projects/ngx-touch-virtual-keyboard",
+      "sourceRoot": "projects/ngx-touch-virtual-keyboard/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-touch-virtual-keyboard/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-touch-virtual-keyboard/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-touch-virtual-keyboard/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ngx-touch-virtual-keyboard/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-touch-virtual-keyboard-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/ngx-touch-virtual-keyboard-demo",
+      "sourceRoot": "projects/ngx-touch-virtual-keyboard-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-touch-virtual-keyboard-demo",
+            "index": "projects/ngx-touch-virtual-keyboard-demo/src/index.html",
+            "main": "projects/ngx-touch-virtual-keyboard-demo/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/ngx-touch-virtual-keyboard-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ngx-touch-virtual-keyboard-demo/src/favicon.ico",
+              "projects/ngx-touch-virtual-keyboard-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-touch-virtual-keyboard-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-touch-virtual-keyboard-demo:build:production"
+            },
+            "development": {
+              "browserTarget": "ngx-touch-virtual-keyboard-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-touch-virtual-keyboard-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/ngx-touch-virtual-keyboard-demo/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ngx-touch-virtual-keyboard-demo/src/favicon.ico",
+              "projects/ngx-touch-virtual-keyboard-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-touch-virtual-keyboard-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
   }
 }
