@@ -1,18 +1,34 @@
 import {Directive, ElementRef, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
-import {NgxTouchVirtualKeyboardService} from './ngx-touch-virtual-keyboard.service';
+import {KeyboardType, NgxTouchVirtualKeyboardService} from './ngx-touch-virtual-keyboard.service';
 import {Subscription} from 'rxjs';
 
 @Directive({
   selector: '[useVirtualKeyboard]',
-  inputs: ['isNumericOnly'],
+  // inputs: ['isNumericOnly'],
 })
 export class UseKeyboardDirective implements OnInit, OnDestroy {
   private inputValueSubscription!: Subscription;
-  @Input() isNumericOnly?: boolean = false;
+  keyboardType!: KeyboardType;
+  // @Input() isNumericOnly?: boolean = false;
 
   constructor(private elementRef: ElementRef<HTMLInputElement>, private keyboardService: NgxTouchVirtualKeyboardService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const inputType = this.elementRef.nativeElement.type;
+    console.log('Input type:', inputType);
+    switch (inputType) {
+      case 'text':
+        this.keyboardType = 'full';
+        break;
+      case 'number':
+        this.keyboardType = 'number';
+        break;
+
+      default:
+        this.keyboardType = 'full';
+        break;
+    }
+  }
 
   ngOnDestroy(): void {
     if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
@@ -26,9 +42,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
   @HostListener('focus') onFocus() {
     if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
     // Open the keyboard using the service
-    if (this.isNumericOnly === true) this.keyboardService.setNumericOnly(true);
-    else this.keyboardService.setNumericOnly(false);
-
+    this.keyboardService.setType(this.keyboardType);
     this.keyboardService.openKeyboard(this.elementRef.nativeElement.value);
 
     this.inputValueSubscription = this.keyboardService.inputValue$.subscribe((value) => {

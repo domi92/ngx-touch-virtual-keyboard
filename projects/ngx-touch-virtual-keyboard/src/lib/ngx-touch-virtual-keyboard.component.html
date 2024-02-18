@@ -1,7 +1,9 @@
 <div class="keyboard-wrapper">
   <div class="keyboard" [@slideInOut]="isOpen ? 'in' : 'out'">
     <!-- <input type="text" [value]="textInput" (input)="onInputChange($event.target.value)" /> -->
-    <div class="keyboard-row"><input type="text" [(ngModel)]="textInput" disabled /></div>
+    <div class="keyboard-row">
+      <input style="pointer-events: none" type="text" [(ngModel)]="textInput" disabled />
+    </div>
     <ng-container *ngIf="!isNumericOnly && keyboardLayout">
       <ng-container *ngTemplateOutlet="content; context: {data: keyboardLayout}"></ng-container>
     </ng-container>

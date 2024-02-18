@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
+export type KeyboardType = 'full' | 'number';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,9 +38,20 @@ export class NgxTouchVirtualKeyboardService {
     this.isNumericOnlySubject.next(this.isNumericOnly);
   }
 
-  setNumericOnly(isNumericOnly: boolean) {
-    this.isNumericOnly = isNumericOnly;
-    this.isNumericOnlySubject.next(isNumericOnly);
+  setType(type: KeyboardType) {
+    switch (type) {
+      case 'full':
+        this.isNumericOnly = false;
+        this.isNumericOnlySubject.next(false);
+        break;
+      case 'number':
+        this.isNumericOnly = true;
+        this.isNumericOnlySubject.next(true);
+        break;
+
+      default:
+        break;
+    }
   }
 
   changeValue(value: string) {

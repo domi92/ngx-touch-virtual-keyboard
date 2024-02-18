@@ -33,7 +33,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   // @Output() keyPressed = new EventEmitter<string>();
   // @Output() deletePressed = new EventEmitter<void>();
 
-  isOpen: boolean = false;
+  isOpen: boolean = true;
 
   textInput: string = '';
   isNumericOnly: boolean = false;
