@@ -53,7 +53,15 @@
             "polyfills": ["zone.js"],
             "tsConfig": "projects/ngx-touch-virtual-keyboard-demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["projects/ngx-touch-virtual-keyboard-demo/src/favicon.ico", "projects/ngx-touch-virtual-keyboard-demo/src/assets/**"],
+            "assets": [
+              "projects/ngx-touch-virtual-keyboard-demo/src/favicon.ico",
+              "projects/ngx-touch-virtual-keyboard-demo/src/assets/**",
+              {
+                "glob": "**/*",
+                "input": "dist/ngx-touch-virtual-keyboard/assets/",
+                "output": "/assets/"
+              }
+            ],
             "styles": ["projects/ngx-touch-virtual-keyboard-demo/src/styles.scss"],
             "scripts": []
           },
