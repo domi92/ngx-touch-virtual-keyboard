@@ -1,24 +1,24 @@
 # NgxTouchVirtualKeyboard
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
+Simple angular virtual keyboard component.
 
-## Code scaffolding
+# Usage
 
-Run `ng generate component component-name --project ngx-touch-virtual-keyboard` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-touch-virtual-keyboard`.
-> Note: Don't forget to add `--project ngx-touch-virtual-keyboard` or else it will be added to the default project in your `angular.json` file. 
+Inside appComponent. Add component
 
-## Build
+```
+<router-outlet></router-outlet>
 
-Run `ng build ngx-touch-virtual-keyboard` to build the project. The build artifacts will be stored in the `dist/` directory.
+<ngx-touch-virtual-keyboard></ngx-touch-virtual-keyboard>
 
-## Publishing
+```
 
-After building your library with `ng build ngx-touch-virtual-keyboard`, go to the dist folder `cd dist/ngx-touch-virtual-keyboard` and run `npm publish`.
+Use directive useVirtualKeyboard in input component to connect input element with keyboard
 
-## Running unit tests
+```
 
-Run `ng test ngx-touch-virtual-keyboard` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  <input type="text" useVirtualKeyboard [isNumericOnly]="false" placeholder="Type here..." />
 
-## Further help
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+TODO..
