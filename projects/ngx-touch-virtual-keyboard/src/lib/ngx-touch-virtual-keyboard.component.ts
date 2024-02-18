@@ -30,6 +30,20 @@ import {ICON_KEYBOARD, ICON_DELETE} from '../public-api';
   ],
 })
 export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.shiftKey) {
+      this.isShift = true;
+    }
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyUp(event: KeyboardEvent) {
+    if (!event.shiftKey) {
+      this.isShift = false;
+    }
+  }
   // @Output() keyPressed = new EventEmitter<string>();
   // @Output() deletePressed = new EventEmitter<void>();
   isOpen: boolean = false;
