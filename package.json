@@ -4,10 +4,8 @@
   "scripts": {
     "ng": "ng",
     "test": "npm run build-lib",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "build-lib": "ng build ngx-touch-virtual-keyboard --watch",
+    "start": "ng serve ngx-touch-virtual-keyboard-demo",
+    "watch-lib": "ng build ngx-touch-virtual-keyboard --watch",
     "github-package": "ng build ngx-touch-virtual-keyboard && npm run github_copy_files  && cd dist/ngx-touch-virtual-keyboard && npm pack",
     "github_copy_files": "cp LICENSE dist/ && cp README.md dist/ngx-touch-virtual-keyboard &&  cp dist/ngx-touch-virtual-keyboard/package.json dist/"
   },

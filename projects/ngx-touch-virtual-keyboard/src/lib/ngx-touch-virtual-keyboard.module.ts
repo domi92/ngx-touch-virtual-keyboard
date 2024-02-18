@@ -16,6 +16,6 @@ export const ICON_DELETE = new InjectionToken<string>('');
   ],
   imports: [FormsModule, BrowserModule, BrowserAnimationsModule],
 
-  exports: [FormsModule, BrowserModule, BrowserAnimationsModule, UseKeyboardDirective, NgxTouchVirtualKeyboardComponent],
+  exports: [UseKeyboardDirective, NgxTouchVirtualKeyboardComponent],
 })
 export class NgxTouchVirtualKeyboardModule {}
