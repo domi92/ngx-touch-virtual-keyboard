@@ -53,6 +53,10 @@
   background-color: #ddd;
 }
 
+.keyboard-shift{
+  background-color: lightblue !important;
+}
+
 .keyboard-key-icon {
   @extend .keyboard-key;
   display: flex;

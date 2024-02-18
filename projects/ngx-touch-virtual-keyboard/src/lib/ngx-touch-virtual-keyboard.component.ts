@@ -101,8 +101,10 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   }
 
   pressKey(key: string) {
-    this.onInputChange(this.textInput + key);
+    this.onInputChange(this.textInput + (this.isShift ? key.toUpperCase() : key));
   }
+
+
 
   emitDeletePressed() {
     // this.deletePressed.emit();
@@ -119,6 +121,12 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   private handleMouseDown(event: MouseEvent) {
     // Prevent the default behavior which causes the input field to lose focus
     event.preventDefault();
+  }
+
+  protected isShift = false;
+
+  shiftClick(){
+    this.isShift = !this.isShift;
   }
 
   moveCursorLeft() {

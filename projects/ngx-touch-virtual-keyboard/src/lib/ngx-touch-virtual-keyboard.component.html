@@ -34,17 +34,21 @@
         </button>
       </ng-template>
       <ng-template #shift >
-        <button *ngIf="key === 'shift'; else space" class="keyboard-key keyboard-key-icon">
+        <button *ngIf="key === 'shift'; else space"
+        [class.keyboard-shift]="isShift"
+        class="keyboard-key keyboard-key-icon" (click)="shiftClick()">
           <img [src]="shift" alt="shift" />
         </button>
       </ng-template>
       <ng-template #space >
-        <button *ngIf="key === 'space'; else standardKey" class="keyboard-key keyboard-key-icon keyboard-space" appRepeatAction (repeatAction)="pressKey(' ')">
+        <button *ngIf="key === 'space'; else standardKey"
+        class="keyboard-key keyboard-key-icon keyboard-space" appRepeatAction (repeatAction)="pressKey(' ')">
           <img [src]="space" alt="space" />
+          {{isShift}}
         </button>
       </ng-template>
       <ng-template #standardKey>
-        <button class="keyboard-key" appRepeatAction (repeatAction)="pressKey(key)">{{ key }}</button>
+        <button class="keyboard-key" appRepeatAction (repeatAction)="pressKey(key)">{{ isShift ? (key | uppercase) : key  }}</button>
       </ng-template>
     </ng-container>
   </div>
