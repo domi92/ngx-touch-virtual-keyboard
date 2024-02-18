@@ -1,9 +1,14 @@
 /* keyboard.component.css */
 
-input {
+.keyboard-input {
+  padding-left: 0.2rem;
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   height: 2.2rem;
-  border-radius: 0.5rem; /* Adjust as needed */
-  /* You can add more styles here as needed */
+  display: flex;
+  align-items: center;
+  min-width: 12rem;
 }
 
 .keyboard-wrapper {
@@ -37,6 +42,11 @@ input {
   min-height: 3rem;
   min-width: 3rem;
   cursor: pointer;
+}
+
+.keyboard-space{
+  @extend .keyboard-key;
+  min-width: 15rem;
 }
 
 .keyboard-key:hover {

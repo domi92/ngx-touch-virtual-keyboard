@@ -1,8 +1,7 @@
 <div class="keyboard-wrapper">
   <div class="keyboard" [@slideInOut]="isOpen ? 'in' : 'out'">
-    <!-- <input type="text" [value]="textInput" (input)="onInputChange($event.target.value)" /> -->
     <div class="keyboard-row">
-      <input style="pointer-events: none" type="text" [(ngModel)]="textInput" disabled />
+      <div class="keyboard-input">{{textInput }}</div>
     </div>
     <ng-container *ngIf="!isNumericOnly && keyboardLayout">
       <ng-container *ngTemplateOutlet="content; context: {data: keyboardLayout}"></ng-container>
@@ -21,11 +20,31 @@
 <ng-template #content let-data="data">
   <div *ngFor="let row of data" class="keyboard-row">
     <ng-container *ngFor="let key of row">
-      <button *ngIf="key === 'delete'; else standardKey" class="keyboard-key keyboard-key-icon" (click)="emitDeletePressed()">
+      <button *ngIf="key === 'delete'; else left" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="emitDeletePressed()">
         <img [src]="iconDelete" alt="Delete" />
       </button>
+      <ng-template #left >
+        <button *ngIf="key === 'left'; else right" class="keyboard-key keyboard-key-icon" (click)="moveCursorLeft()">
+          <img [src]="left" alt="left" />
+        </button>
+      </ng-template>
+      <ng-template #right >
+        <button *ngIf="key === 'right'; else shift" class="keyboard-key keyboard-key-icon">
+          <img [src]="right" alt="right" />
+        </button>
+      </ng-template>
+      <ng-template #shift >
+        <button *ngIf="key === 'shift'; else space" class="keyboard-key keyboard-key-icon">
+          <img [src]="shift" alt="shift" />
+        </button>
+      </ng-template>
+      <ng-template #space >
+        <button *ngIf="key === 'space'; else standardKey" class="keyboard-key keyboard-key-icon keyboard-space" appRepeatAction (repeatAction)="pressKey(' ')">
+          <img [src]="space" alt="space" />
+        </button>
+      </ng-template>
       <ng-template #standardKey>
-        <button class="keyboard-key" (click)="pressKey(key)">{{ key }}</button>
+        <button class="keyboard-key" appRepeatAction (repeatAction)="pressKey(key)">{{ key }}</button>
       </ng-template>
     </ng-container>
   </div>

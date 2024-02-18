@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, HostListener, ElementRef, Inject} from '@angular/core';
+import {Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChild} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {NgxTouchVirtualKeyboardService} from './ngx-touch-virtual-keyboard.service';
 import {Subscription} from 'rxjs';
@@ -32,7 +32,6 @@ import {ICON_KEYBOARD, ICON_DELETE} from '../public-api';
 export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   // @Output() keyPressed = new EventEmitter<string>();
   // @Output() deletePressed = new EventEmitter<void>();
-
   isOpen: boolean = false;
 
   textInput: string = '';
@@ -46,7 +45,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'delete'],
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-    ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+    ['shift','z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.','shift'],
+    ['space', 'left', 'right'],
   ];
 
   numericOnlyLayout: string[][] = [
@@ -119,5 +119,11 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   private handleMouseDown(event: MouseEvent) {
     // Prevent the default behavior which causes the input field to lose focus
     event.preventDefault();
+  }
+
+  moveCursorLeft() {
+  }
+
+  moveCursorRight() {
   }
 }
