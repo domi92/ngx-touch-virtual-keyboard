@@ -10,8 +10,8 @@ import {ICON_DELETE, ICON_KEYBOARD, NgxTouchVirtualKeyboardModule} from 'dist/ng
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, NgxTouchVirtualKeyboardModule],
   providers: [
-    {provide: ICON_DELETE, useValue: 'assets/icons/my-delete-left.svg'},
-    {provide: ICON_KEYBOARD, useValue: 'assets/icons/my-keyboard.svg'},
+    // {provide: ICON_DELETE, useValue: 'assets/icons/my-delete-left.svg'},
+    // {provide: ICON_KEYBOARD, useValue: 'assets/icons/my-keyboard.svg'},
   ],
   bootstrap: [AppComponent],
 })

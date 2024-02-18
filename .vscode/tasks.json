@@ -5,10 +5,10 @@
     {
       "label": "preLaunchTasks",
       "dependsOrder": "parallel",
-      "dependsOn": ["task1", "serveDemo"]
+      "dependsOn": ["watcher", "serveDemo"]
     },
     {
-      "label": "task1",
+      "label": "watcher",
       "type": "npm",
       "isBackground": true,
       "script": "watch-lib",

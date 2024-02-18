@@ -1,13 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/ngx-touch-virtual-keyboard",
-  "assets": [
-    {
-      "glob": "**",
-      "input": "./src/assets",
-      "output": "ngx-touch-virtual-keyboard-assets/"
-    }
-  ],
+  "assets": ["./assets/**"],
   "lib": {
     "entryFile": "src/public-api.ts"
   }
