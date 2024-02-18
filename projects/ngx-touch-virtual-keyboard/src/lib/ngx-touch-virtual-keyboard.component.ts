@@ -2,10 +2,7 @@ import {Component, OnDestroy, OnInit, HostListener, ElementRef, Inject} from '@a
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {NgxTouchVirtualKeyboardService} from './ngx-touch-virtual-keyboard.service';
 import {Subscription} from 'rxjs';
-import {InjectionToken} from '@angular/core';
-
-export const ICON_KEYBOARD = new InjectionToken<string>('assets/icons/keyboard.svg');
-export const ICON_DELETE = new InjectionToken<string>('assets/icons/delete-left.svg');
+import {ICON_KEYBOARD, ICON_DELETE} from '../public-api';
 
 @Component({
   selector: 'ngx-touch-virtual-keyboard',
@@ -74,6 +71,9 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     private elementRef: ElementRef,
     private keyboardService: NgxTouchVirtualKeyboardService
   ) {}
+
+  protected base =
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAMFBMVEUAAAD///////////////////////////////////9XgC7WAAAAEHRSTlMACj9PNGtZlBbTnGGzKLoAAABpSURBVHjaY2BAgHGMAQYw5gYMUADA3YDFYAcgRjE1EkwuB0EwAAJTVTcoQyeikAAAAASUVORK5CYII='; // Base64-encoded string of a simple 1x1 transparent PNG
 
   ngOnInit(): void {
     this.elementRef.nativeElement.addEventListener('mousedown', this.handleMouseDown);

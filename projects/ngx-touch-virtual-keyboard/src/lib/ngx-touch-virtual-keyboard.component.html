@@ -11,21 +11,19 @@
   </div>
 </div>
 
-<button class="toggle-button" (click)="toggleKeyboard()">
-  <img [src]="iconKeyboard" alt="Keyboard Icon" />
+<button class="toggle-button keyboard-key-icon" (click)="toggleKeyboard()">
+  <img [src]="iconKeyboard" alt="keyboard" />
   <!-- Font Awesome keyboard icon -->
 </button>
 
 <ng-template #content let-data="data">
   <div *ngFor="let row of data" class="keyboard-row">
     <ng-container *ngFor="let key of row">
-      <button *ngIf="key === 'delete'; else standardKey" class="keyboard-key" (click)="emitDeletePressed()">
-        <img [src]="iconDelete" alt="Keyboard Icon" />
+      <button *ngIf="key === 'delete'; else standardKey" class="keyboard-key keyboard-key-icon" (click)="emitDeletePressed()">
+        <img [src]="iconDelete" alt="Delete" />
       </button>
       <ng-template #standardKey>
-        <button class="keyboard-key" (click)="pressKey(key)">
-          {{ key }}
-        </button>
+        <button class="keyboard-key" (click)="pressKey(key)">{{ key }}</button>
       </ng-template>
     </ng-container>
   </div>

@@ -37,6 +37,14 @@
   background-color: #ddd;
 }
 
+.keyboard-key-icon {
+  @extend .keyboard-key;
+  display: flex;
+  align-items: center;
+  max-height: 3rem;
+  max-width: 3rem;
+}
+
 .toggle-button {
   position: fixed;
   bottom: 20px;
