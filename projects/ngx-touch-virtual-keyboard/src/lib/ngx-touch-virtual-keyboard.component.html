@@ -1,7 +1,11 @@
 <div class="keyboard-wrapper">
   <div class="keyboard" [@slideInOut]="isOpen ? 'in' : 'out'">
-    <div class="keyboard-row">
-      <div class="keyboard-input">{{textInput }}</div>
+    <div class="keyboard-row" style="display: flex; align-items: center;">
+      <div class="keyboard-input">{{ (isPassword ? textInputPassword : textInput) }}</div>
+      <button class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="clear()">
+        <img [src]="iconDelete" alt="cl" />
+        <!-- Font Awesome keyboard icon -->
+      </button>
     </div>
     <ng-container *ngIf="!isNumericOnly && keyboardLayout">
       <ng-container *ngTemplateOutlet="content; context: {data: keyboardLayout}"></ng-container>
@@ -44,7 +48,6 @@
         <button *ngIf="key === 'space'; else standardKey"
         class="keyboard-key keyboard-key-icon keyboard-space" appRepeatAction (repeatAction)="pressKey(' ')">
           <img [src]="space" alt="space" />
-          {{isShift}}
         </button>
       </ng-template>
       <ng-template #standardKey>

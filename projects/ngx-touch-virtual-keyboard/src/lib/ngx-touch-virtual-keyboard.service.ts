@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
-export type KeyboardType = 'full' | 'number';
+export type KeyboardType = 'full' | 'number' | 'password';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +10,17 @@ export class NgxTouchVirtualKeyboardService {
   private isOpenSubject = new Subject<boolean>();
   isOpen$ = this.isOpenSubject.asObservable();
 
+  private isPassword: boolean = false;
+  private isPasswordSubject = new Subject<boolean>();
+  get isPassword$(){
+    return this.isPasswordSubject.asObservable();
+  }
+
   private isNumericOnly: boolean = false;
   private isNumericOnlySubject = new Subject<boolean>();
-  isNumericOnly$ = this.isNumericOnlySubject.asObservable();
+  get isNumericOnly$() {
+    return this.isNumericOnlySubject.asObservable();
+  }
 
   private inputValueSubject$ = new BehaviorSubject<string>('');
 
@@ -43,10 +51,17 @@ export class NgxTouchVirtualKeyboardService {
       case 'full':
         this.isNumericOnly = false;
         this.isNumericOnlySubject.next(false);
+        this.isPasswordSubject.next(false);
+        break;
+      case 'password':
+        this.isNumericOnly = false;
+        this.isNumericOnlySubject.next(false);
+        this.isPasswordSubject.next(true);
         break;
       case 'number':
         this.isNumericOnly = true;
         this.isNumericOnlySubject.next(true);
+        this.isPasswordSubject.next(false);
         break;
 
       default:

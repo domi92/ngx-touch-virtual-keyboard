@@ -20,8 +20,13 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
       case 'text':
         this.keyboardType = 'full';
         break;
+      case 'tel':
       case 'number':
+      case 'range':
         this.keyboardType = 'number';
+        break;
+      case 'password':
+        this.keyboardType = 'password';
         break;
 
       default:

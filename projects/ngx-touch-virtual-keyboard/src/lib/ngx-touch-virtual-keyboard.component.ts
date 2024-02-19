@@ -47,13 +47,20 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   // @Output() keyPressed = new EventEmitter<string>();
   // @Output() deletePressed = new EventEmitter<void>();
   isOpen: boolean = false;
-
   textInput: string = '';
   isNumericOnly: boolean = false;
+  isPassword: boolean = false;
+
+  private _textInputPassword = ";"
+  get textInputPassword(){
+
+    return this._textInputPassword;
+  }
 
   private numericOnlySubscription!: Subscription;
   private inputValueSubscription!: Subscription;
   private keyboardSubscription!: Subscription;
+  private passwordSubscription!: Subscription;
 
   numericOnlyLayout: string[][] = [
     ['1', '2', '3'],
@@ -93,6 +100,10 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
       this.isNumericOnly = isNumericOnly;
     });
 
+    this.passwordSubscription = this.keyboardService.isPassword$.subscribe((isPassword) => {
+      this.isPassword = isPassword;
+    });
+
     this.inputValueSubscription = this.keyboardService.inputValue$.subscribe((value) => {
       this.onInputChange(value);
     });
@@ -105,13 +116,19 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.keyboardSubscription.unsubscribe();
     this.numericOnlySubscription.unsubscribe();
+    this.passwordSubscription.unsubscribe();
+    this.inputValueSubscription.unsubscribe();
   }
 
   pressKey(key: string) {
     this.onInputChange(this.textInput + (this.isShift ? key.toUpperCase() : key));
   }
 
+  clear(){
 
+    this.textInput = "";
+    this.keyboardService.changeValue(this.textInput);
+  }
 
   emitDeletePressed() {
     // this.deletePressed.emit();
@@ -122,6 +139,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     if (this.textInput === value) return;
 
     this.textInput = value;
+    this._textInputPassword = '*'.repeat(this.textInput.length);
     this.keyboardService.changeValue(this.textInput);
   }
 
