@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChil
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {NgxTouchVirtualKeyboardService} from './ngx-touch-virtual-keyboard.service';
 import {Subscription} from 'rxjs';
-import {ICON_KEYBOARD, ICON_DELETE} from '../public-api';
+import {ICON_KEYBOARD, ICON_DELETE, KEYBOARD_LAYOUT} from '../public-api';
 
 @Component({
   selector: 'ngx-touch-virtual-keyboard',
@@ -55,14 +55,6 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   private inputValueSubscription!: Subscription;
   private keyboardSubscription!: Subscription;
 
-  keyboardLayout: string[][] = [
-    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'delete'],
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-    ['shift','z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.','shift'],
-    ['space', 'left', 'right'],
-  ];
-
   numericOnlyLayout: string[][] = [
     ['1', '2', '3'],
     ['4', '5', '6'],
@@ -82,6 +74,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(ICON_KEYBOARD) public iconKeyboard: string,
     @Inject(ICON_DELETE) public iconDelete: string,
+    @Inject(KEYBOARD_LAYOUT) public keyboardLayout: string[][],
     private elementRef: ElementRef,
     private keyboardService: NgxTouchVirtualKeyboardService
   ) {}
