@@ -7,6 +7,7 @@ export type KeyboardType = 'full' | 'number' | 'password';
   providedIn: 'root',
 })
 export class NgxTouchVirtualKeyboardService {
+  private isOpen = false;
   private isOpenSubject = new Subject<boolean>();
   isOpen$ = this.isOpenSubject.asObservable();
 
@@ -31,7 +32,8 @@ export class NgxTouchVirtualKeyboardService {
   constructor() {}
 
   openKeyboard(value?: string) {
-    this.isOpenSubject.next(true);
+    this.isOpen = true;
+    this.isOpenSubject.next(this.isOpen);
     this.isNumericOnlySubject.next(this.isNumericOnly);
     this.inputValueSubject$.next(value ?? '');
   }
@@ -42,7 +44,8 @@ export class NgxTouchVirtualKeyboardService {
   }
 
   closeKeyboard() {
-    this.isOpenSubject.next(false);
+    this.isOpen = false;
+    this.isOpenSubject.next(this.isOpen);
     this.isNumericOnlySubject.next(this.isNumericOnly);
   }
 

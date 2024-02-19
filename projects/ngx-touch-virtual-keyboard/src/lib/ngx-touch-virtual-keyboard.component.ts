@@ -50,8 +50,9 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   textInput: string = '';
   isNumericOnly: boolean = false;
   isPassword: boolean = false;
+  show: boolean = false;
 
-  private _textInputPassword = ";"
+  private _textInputPassword = "";
   get textInputPassword(){
 
     return this._textInputPassword;
@@ -94,6 +95,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
 
     this.keyboardSubscription = this.keyboardService.isOpen$.subscribe((isOpen) => {
       this.isOpen = isOpen;
+      this.show = false;
     });
 
     this.numericOnlySubscription = this.keyboardService.isNumericOnly$.subscribe((isNumericOnly) => {
@@ -152,6 +154,11 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
 
   shiftClick(){
     this.isShift = !this.isShift;
+  }
+
+  showHide(){
+    if(this.isPassword)
+      this.show = !this.show;
   }
 
   moveCursorLeft() {

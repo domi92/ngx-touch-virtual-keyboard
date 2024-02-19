@@ -29,7 +29,7 @@ export const KEYBOARD_LAYOUT = new InjectionToken<string[][]>('keyboardLayout');
       ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
       ['shift','z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.','shift'],
       ['space', 'left', 'right']
-    ]},
+    ]}
   ],
   imports: [FormsModule, BrowserModule, BrowserAnimationsModule],
 
