@@ -2,7 +2,8 @@ import {Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChil
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {NgxTouchVirtualKeyboardService} from './ngx-touch-virtual-keyboard.service';
 import {Subscription} from 'rxjs';
-import {ICON_KEYBOARD, ICON_DELETE, KEYBOARD_LAYOUT} from '../public-api';
+import { ICON_DELETE, ICON_ERASE, ICON_EYE, ICON_EYE_SLASH, ICON_KEYBOARD,
+  ICON_LEFT, ICON_RIGHT, ICON_SHIFT, ICON_SPACE, KEYBOARD_LAYOUT } from '../public-api';
 
 @Component({
   selector: 'ngx-touch-virtual-keyboard',
@@ -50,7 +51,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   textInput: string = '';
   isNumericOnly: boolean = false;
   isPassword: boolean = false;
-  show: boolean = false;
+  passwordShow: boolean = false;
 
   private _textInputPassword = "";
   get textInputPassword(){
@@ -80,22 +81,26 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    @Inject(ICON_KEYBOARD) public iconKeyboard: string,
     @Inject(ICON_DELETE) public iconDelete: string,
+    @Inject(ICON_ERASE) public iconErase: string,
+    @Inject(ICON_EYE_SLASH) public iconEyeSlash: string,
+    @Inject(ICON_EYE) public iconEye: string,
+    @Inject(ICON_LEFT) public iconLeft: string,
+    @Inject(ICON_RIGHT) public iconRight: string,
+    @Inject(ICON_SHIFT) public iconShift: string,
+    @Inject(ICON_SPACE) public iconSpace: string,
+    @Inject(ICON_KEYBOARD) public iconKeyboard: string,
     @Inject(KEYBOARD_LAYOUT) public keyboardLayout: string[][],
     private elementRef: ElementRef,
     private keyboardService: NgxTouchVirtualKeyboardService
   ) {}
-
-  protected base =
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAMFBMVEUAAAD///////////////////////////////////9XgC7WAAAAEHRSTlMACj9PNGtZlBbTnGGzKLoAAABpSURBVHjaY2BAgHGMAQYw5gYMUADA3YDFYAcgRjE1EkwuB0EwAAJTVTcoQyeikAAAAASUVORK5CYII='; // Base64-encoded string of a simple 1x1 transparent PNG
 
   ngOnInit(): void {
     this.elementRef.nativeElement.addEventListener('mousedown', this.handleMouseDown);
 
     this.keyboardSubscription = this.keyboardService.isOpen$.subscribe((isOpen) => {
       this.isOpen = isOpen;
-      this.show = false;
+      this.passwordShow = false;
     });
 
     this.numericOnlySubscription = this.keyboardService.isNumericOnly$.subscribe((isNumericOnly) => {
@@ -158,7 +163,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
 
   showHide(){
     if(this.isPassword)
-      this.show = !this.show;
+      this.passwordShow = !this.passwordShow;
   }
 
   moveCursorLeft() {

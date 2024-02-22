@@ -1,13 +1,13 @@
 <div class="keyboard-wrapper">
   <div class="keyboard" [@slideInOut]="isOpen ? 'in' : 'out'">
     <div class="keyboard-row" style="display: flex; align-items: center;">
-      <div class="keyboard-input">{{ (isPassword ? (show ? textInput : textInputPassword ) : textInput) }}</div>
-      <button *ngIf="isPassword" class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="showHide()">
-        s/h
-      </button>
       <button class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="clear()">
-        <img [src]="iconDelete" alt="cl" />
-        <!-- Font Awesome keyboard icon -->
+        <img [src]="iconErase" alt="cl" />
+      </button>
+      <div class="keyboard-input">{{ (isPassword ? (passwordShow ? textInput : textInputPassword ) : textInput) }}</div>
+      <button *ngIf="isPassword" class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="showHide()">
+        <img *ngIf="!passwordShow" [src]="iconEye" alt="e" />
+        <img *ngIf="passwordShow" [src]="iconEyeSlash" alt="es" />
       </button>
     </div>
     <ng-container *ngIf="!isNumericOnly && keyboardLayout">
@@ -18,39 +18,37 @@
     </ng-container>
   </div>
 </div>
-
 <button class="toggle-button keyboard-key-icon" (click)="toggleKeyboard()">
   <img [src]="iconKeyboard" alt="keyboard" />
-  <!-- Font Awesome keyboard icon -->
 </button>
-
 <ng-template #content let-data="data">
   <div *ngFor="let row of data" class="keyboard-row">
     <ng-container *ngFor="let key of row">
       <button *ngIf="key === 'delete'; else left" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="emitDeletePressed()">
-        <img [src]="iconDelete" alt="Delete" />
+        <img  style="height: 60%; width: 60%;" [src]="iconDelete" alt="Delete" />
       </button>
       <ng-template #left >
         <button *ngIf="key === 'left'; else right" class="keyboard-key keyboard-key-icon" (click)="moveCursorLeft()">
-          <img [src]="left" alt="left" />
+          <img  style="height: 50%; width: 50%;" [src]="iconLeft" alt="left" />
         </button>
       </ng-template>
       <ng-template #right >
         <button *ngIf="key === 'right'; else shift" class="keyboard-key keyboard-key-icon">
-          <img [src]="right" alt="right" />
+          <img style="height: 50%; width: 50%;" [src]="iconRight" alt="right" />
         </button>
       </ng-template>
       <ng-template #shift >
         <button *ngIf="key === 'shift'; else space"
         [class.keyboard-shift]="isShift"
         class="keyboard-key keyboard-key-icon" (click)="shiftClick()">
-          <img [src]="shift" alt="shift" />
+          <img [src]="iconShift" alt="shift" />
         </button>
       </ng-template>
       <ng-template #space >
         <button *ngIf="key === 'space'; else standardKey"
         class="keyboard-key keyboard-key-icon keyboard-space" appRepeatAction (repeatAction)="pressKey(' ')">
-          <img [src]="space" alt="space" />
+          <!-- <img [src]="iconSpace" alt="space" /> -->
+          ___
         </button>
       </ng-template>
       <ng-template #standardKey>
