@@ -2,14 +2,6 @@
 
 Simple angular virtual keyboard component.
 
-# VSCode IDE setup
-
-!!! edit IDE to execute eslint on save to keep code clean !!!
-
-"editor.codeActionsOnSave": {
-"source.fixAll.eslint": true
-}
-
 # Install
 
 ## Default icon loading
@@ -28,6 +20,22 @@ Do not change the output path must be defined like that
           ],
 ```
 
+## Use custom icons
+All icons can be changed with custom svg. Providing in app.module.ts a new svg reference for each icon
+ICON_DELETE | ICON_ERASE | ICON_EYE_SLASH | ICON_EYE | ICON_KEYBOARD | ICON_LEFT | ICON_RIGHT | ICON_SHIFT | KEYBOARD_LAYOUT
+
+```
+import {ICON_DELETE, ICON_KEYBOARD} from 'ngx-touch-virtual-keyboard';
+
+  ...
+  
+  providers: [
+    {provide: ICON_DELETE, useValue: 'assets/icons/bugs.svg'},
+    {provide: ICON_KEYBOARD, useValue: 'assets/icons/bugs.svg'},
+  ],
+
+```
+
 # Usage
 
 Inside appComponent. Add component
@@ -42,9 +50,7 @@ Inside appComponent. Add component
 Use directive useVirtualKeyboard in input component to connect input element with keyboard
 
 ```
-
-  <input type="text" useVirtualKeyboard [isNumericOnly]="false" placeholder="Type here..." />
-
+<input type="text" useVirtualKeyboard [isNumericOnly]="false" placeholder="Type here..." />
 ```
 
 TODO..
