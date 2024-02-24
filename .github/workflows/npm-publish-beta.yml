@@ -38,9 +38,6 @@ jobs:
       - name: Compare versions
         id: compare-versions
         run: |
-          npmVersion=$(tail -n 1 $npm_version)
-          packageVersion=$(head -n 1 $npm_version)
-
 
           echo "npm : $npm_versio"
           echo "Package: $npm_version"
