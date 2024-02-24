@@ -42,36 +42,48 @@ jobs:
           IFS='-.' read -r -a packageVersionArray <<< "$packageVersion"
 
           # Initialize a flag to track if an update text version is needed in pakcage.json
-          needsUpdateVersion=true
+          canPublishVersion=false
+          canPublish=false
 
           # Comparing major, minor, and patch versions
           for i in {0..2}; do
+            echo "Comparing component $i"
+            echo "Latest Version Component: ${latestVersionArray[$i]}"
+            echo "Package Version Component: ${packageVersionArray[$i]}"
+            #if rleased number greater break
             if ((latestVersionArray[i] > packageVersionArray[i])); then
-              needsUpdateVersion=false
+              canPublishVersion=false
               break
-            elif ((latestVersionArray[i] < packageVersionArray[i])); then
+            
+            #if current number greater 
+            elif ((packageVersionArray[i] > latestVersionArray[i])); then
+              canPublishVersion=true
               break
             fi
           done
-          if [[ "$needsUpdateVersion" == "false" ]]; then
+          if [[ "$canPublishVersion" == "true" ]]; then
               # No need to proceed further version is already bigger
-              echo "Update is already needed."
+              echo "relese not checking beta. version is greater"
+              canPublish=true
           else
             # If major, minor, and patch versions are equal, compare pre-release parts
-            if [[ "${latestVersionArray[3]}" > "${packageVersionArray[3]}" ]]; then
-              needsUpdateVersion=false
+            
+            echo "Package Version Component: ${packageVersionArray[3]}"
+            echo "Latest Version Component: ${latestVersionArray[3]}"
+            if [[ "${packageVersionArray[3]}" > "${latestVersionArray[3]}" ]]; then
+              canPublish=true
             fi
           fi
 
           # Set the output based on the flag value
-          echo ::set-output name=needs-update-version::$needsUpdateVersion
+          echo ::set-output name=can-publish::$canPublish
 
       - name: Notify if update is needed
-        if: steps.compare-versions.outputs.needs-update-version == 'false'
+        if: steps.compare-versions.outputs.can-publish == 'true'
         run: echo "A new version is available, continue with deploy!"
 
       - name: Stop if version not compatible
-        if: steps.compare-versions.outputs.needs-update-version == 'true'
+        if: steps.compare-versions.outputs.can-publish == 'false'
         run: |
           echo "Version comparison failed: Package version ${{ steps.package-version.outputs.version }} is not greater than ${{ steps.npm-latest-version.outputs.version }}. UPDATE package.json"
           exit 1
