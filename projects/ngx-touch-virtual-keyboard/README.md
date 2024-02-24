@@ -2,6 +2,14 @@
 
 Simple angular virtual keyboard component.
 
+# VSCode IDE setup
+
+!!! edit IDE to execute eslint on save to keep code clean !!!
+
+"editor.codeActionsOnSave": {
+"source.fixAll.eslint": true
+}
+
 # Usage
 
 Inside appComponent. Add component

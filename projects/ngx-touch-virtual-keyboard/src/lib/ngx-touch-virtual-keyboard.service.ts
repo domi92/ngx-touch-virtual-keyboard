@@ -1,29 +1,29 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 export type KeyboardType = 'full' | 'number' | 'password';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class NgxTouchVirtualKeyboardService {
   private isOpen = false;
-  private isOpenSubject = new Subject<boolean>();
+  private readonly isOpenSubject = new Subject<boolean>();
   isOpen$ = this.isOpenSubject.asObservable();
 
-  private isPassword: boolean = false;
-  private isPasswordSubject = new Subject<boolean>();
-  get isPassword$(){
+  private readonly isPassword: boolean = false;
+  private readonly isPasswordSubject = new Subject<boolean>();
+  get isPassword$() {
     return this.isPasswordSubject.asObservable();
   }
 
   private isNumericOnly: boolean = false;
-  private isNumericOnlySubject = new Subject<boolean>();
+  private readonly isNumericOnlySubject = new Subject<boolean>();
   get isNumericOnly$() {
     return this.isNumericOnlySubject.asObservable();
   }
 
-  private inputValueSubject$ = new BehaviorSubject<string>('');
+  private readonly inputValueSubject$ = new BehaviorSubject<string>('');
 
   get inputValue$(): Observable<string> {
     return this.inputValueSubject$.asObservable();

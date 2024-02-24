@@ -1,17 +1,17 @@
-import {Directive, ElementRef, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
-import {KeyboardType, NgxTouchVirtualKeyboardService} from './ngx-touch-virtual-keyboard.service';
-import {Subscription} from 'rxjs';
+import { Directive, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { KeyboardType, NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
+import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: '[useVirtualKeyboard]',
+  selector: '[useVirtualKeyboard]'
   // inputs: ['isNumericOnly'],
 })
 export class UseKeyboardDirective implements OnInit, OnDestroy {
-  private inputValueSubscription!: Subscription;
+  private inputValueSubscription: Subscription | undefined;
   keyboardType!: KeyboardType;
   // @Input() isNumericOnly?: boolean = false;
 
-  constructor(private elementRef: ElementRef<HTMLInputElement>, private keyboardService: NgxTouchVirtualKeyboardService) {}
+  constructor(private readonly elementRef: ElementRef<HTMLInputElement>, private readonly keyboardService: NgxTouchVirtualKeyboardService) {}
 
   ngOnInit() {
     const inputType = this.elementRef.nativeElement.type;
