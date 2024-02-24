@@ -42,36 +42,36 @@ jobs:
           IFS='-.' read -r -a packageVersionArray <<< "$packageVersion"
 
           # Initialize a flag to track if an update text version is needed in pakcage.json
-          needsUpdate=false
+          needsUpdateVersion=true
 
           # Comparing major, minor, and patch versions
           for i in {0..2}; do
             if ((latestVersionArray[i] > packageVersionArray[i])); then
-              needsUpdate=true
+              needsUpdateVersion=false
               break
             elif ((latestVersionArray[i] < packageVersionArray[i])); then
               break
             fi
           done
-          if [[ "$needsUpdate" == "false" ]]; then
+          if [[ "$needsUpdateVersion" == "false" ]]; then
               # No need to proceed further version is already bigger
               echo "Update is already needed."
           else
             # If major, minor, and patch versions are equal, compare pre-release parts
             if [[ "${latestVersionArray[3]}" > "${packageVersionArray[3]}" ]]; then
-              needsUpdate=true
+              needsUpdateVersion=false
             fi
           fi
 
           # Set the output based on the flag value
-          echo ::set-output name=needs-update::$needsUpdate
+          echo ::set-output name=needs-update-version::$needsUpdateVersion
 
       - name: Notify if update is needed
-        if: steps.compare-versions.outputs.needs-update == 'true'
+        if: steps.compare-versions.outputs.needs-update-version == 'false'
         run: echo "A new version is available, continue with deploy!"
 
       - name: Stop if version not compatible
-        if: steps.compare-versions.outputs.needs-update == 'false'
+        if: steps.compare-versions.outputs.needs-update-version == 'true'
         run: |
           echo "Version comparison failed: Package version ${{ steps.package-version.outputs.version }} is not greater than ${{ steps.npm-latest-version.outputs.version }}. UPDATE package.json"
           exit 1
