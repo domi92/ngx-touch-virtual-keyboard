@@ -5,11 +5,72 @@ on:
   push:
     branches:
       - beta
-    paths:
-      - 'projects/ngx-tree-flow/package.json'
 jobs:
+  checkVersion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Get package version from package.json
+        id: package-version
+        run: echo ::set-output name=version::$(node -p "require('./projects/ngx-touch-virtual-keyboard/package.json').version")
+
+      - name: Get latest version from npm registry
+        id: npm-latest-version
+        run: echo ::set-output name=version::$(npm show ngx-touch-virtual-keyboard@beta version)
+
+      - name: Compare versions
+        id: compare-versions
+        run: |
+          # Splitting the versions into major, minor, patch, and pre-release parts
+          IFS='-.' read -r -a latestVersionArray <<< "$latestVersion"
+          IFS='-.' read -r -a packageVersionArray <<< "$packageVersion"
+
+          # Initialize a flag to track if an update is needed
+          needsUpdate=false
+
+          # Comparing major, minor, and patch versions
+          for i in {0..2}; do
+            if ((latestVersionArray[i] > packageVersionArray[i])); then
+              needsUpdate=true
+              break
+            elif ((latestVersionArray[i] < packageVersionArray[i])); then
+              break
+            fi
+          done
+
+          # If major, minor, and patch versions are equal, compare pre-release parts
+          if [[ "${latestVersionArray[3]}" > "${packageVersionArray[3]}" ]]; then
+            needsUpdate=true
+          fi
+
+          # Set the output based on the flag value
+          echo ::set-output name=needs-update::$needsUpdate
+
+      - name: Notify if update is needed
+        if: steps.compare-versions.outputs.needs-update == 'true'
+        run: echo "A new version is available, continue with deploy!"
+
+      - name: Build and deploy
+        if: steps.compare-versions.outputs.needs-update == 'false'
+        run: |
+          echo "Version comparison failed: Package version ${{ steps.package-version.outputs.version }} is not less than ${{ steps.npm-latest-version.outputs.version }}."
+          exit 1
+
   build-and-deploy:
     runs-on: ubuntu-latest
+    needs: checkVersion
+    if: ${{ needs.checkVersion.result == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,13 +95,13 @@ jobs:
           retention-days: 2
 
       - name: Publish to NPM
-        working-directory: dist/ngx-tree-flow/
+        working-directory: dist/ngx-touch-virtual-keyboard/
         run: npm version prerelease
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM}}
 
-      - name: Publish to NPM
-        working-directory: dist/ngx-tree-flow/
-        run: npm publish --tag beta
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM}}
+      # - name: Publish to NPM
+      #   working-directory: dist/ngx-touch-virtual-keyboard/
+      #   run: npm publish --tag beta
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{secrets.NPM}}
