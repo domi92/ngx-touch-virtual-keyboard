@@ -41,7 +41,7 @@ jobs:
           IFS='-.' read -r -a latestVersionArray <<< "$latestVersion"
           IFS='-.' read -r -a packageVersionArray <<< "$packageVersion"
 
-          # Initialize a flag to track if an update is needed
+          # Initialize a flag to track if an update text version is needed in pakcage.json
           needsUpdate=false
 
           # Comparing major, minor, and patch versions
@@ -53,10 +53,14 @@ jobs:
               break
             fi
           done
-
-          # If major, minor, and patch versions are equal, compare pre-release parts
-          if [[ "${latestVersionArray[3]}" > "${packageVersionArray[3]}" ]]; then
-            needsUpdate=true
+          if [[ "$needsUpdate" == "false" ]]; then
+              # No need to proceed further version is already bigger
+              echo "Update is already needed."
+          else
+            # If major, minor, and patch versions are equal, compare pre-release parts
+            if [[ "${latestVersionArray[3]}" > "${packageVersionArray[3]}" ]]; then
+              needsUpdate=true
+            fi
           fi
 
           # Set the output based on the flag value
