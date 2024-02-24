@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - beta
+
 jobs:
   checkVersion:
     runs-on: ubuntu-latest
@@ -28,55 +29,63 @@ jobs:
 
       - name: Get package version from package.json
         id: package-version
-        run: echo ::set-output name=version::$(node -p "require('./projects/ngx-touch-virtual-keyboard/package.json').version")
+        run: echo $(node -p "require('./projects/ngx-touch-virtual-keyboard/package.json').version") >> $GITHUB_STATE
 
       - name: Get latest version from npm registry
         id: npm-latest-version
-        run: echo ::set-output name=version::$(npm show ngx-touch-virtual-keyboard@beta version)
+        run: echo $(npm show ngx-touch-virtual-keyboard@beta version) >> $NPM_STATE
 
       - name: Compare versions
         id: compare-versions
         run: |
+          npmVersion=$(tail -n 1 $NPM_STATE)
+          packageVersion=$(head -n 1 $GITHUB_STATE)
+
+
+          echo "npm : ${$NPM_STATE}"
+          echo "Package: ${$GITHUB_STATE}"
+
           # Splitting the versions into major, minor, patch, and pre-release parts
-          IFS='-.' read -r -a latestVersionArray <<< "$latestVersion"
+          IFS='-.' read -r -a npmVersionArray <<< "$npmVersion"
           IFS='-.' read -r -a packageVersionArray <<< "$packageVersion"
 
-          # Initialize a flag to track if an update text version is needed in pakcage.json
+          # Initialize a flag to track if an update text version is needed in package.json
           canPublishVersion=false
           canPublish=false
 
           # Comparing major, minor, and patch versions
           for i in {0..2}; do
             echo "Comparing component $i"
-            echo "Latest Version Component: ${latestVersionArray[$i]}"
-            echo "Package Version Component: ${packageVersionArray[$i]}"
-            #if rleased number greater break
-            if ((latestVersionArray[i] > packageVersionArray[i])); then
+            echo "npm : ${npmVersionArray[$i]}"
+            echo "Package: ${packageVersionArray[$i]}"
+            #if released number greater break
+            if ((npmVersionArray[i] > packageVersionArray[i])); then
               canPublishVersion=false
               break
-            
-            #if current number greater 
-            elif ((packageVersionArray[i] > latestVersionArray[i])); then
+
+            #if current number greater
+            elif ((packageVersionArray[i] > npmVersionArray[i])); then
               canPublishVersion=true
               break
             fi
           done
           if [[ "$canPublishVersion" == "true" ]]; then
               # No need to proceed further version is already bigger
-              echo "relese not checking beta. version is greater"
+              echo "release not checking beta. version is greater"
               canPublish=true
           else
             # If major, minor, and patch versions are equal, compare pre-release parts
-            
+
             echo "Package Version Component: ${packageVersionArray[3]}"
-            echo "Latest Version Component: ${latestVersionArray[3]}"
-            if [[ "${packageVersionArray[3]}" > "${latestVersionArray[3]}" ]]; then
+            echo "Latest Version Component: ${npmVersionArray[3]}"
+            if [[ "${packageVersionArray[3]}" > "${npmVersionArray[3]}" ]]; then
               canPublish=true
             fi
           fi
 
           # Set the output based on the flag value
-          echo ::set-output name=can-publish::$canPublish
+          echo "canPublish=$canPublish" >> $GITHUB_OUTPUT
+          echo "canPublishVersion=$canPublishVersion" >> $GITHUB_STATE
 
       - name: Notify if update is needed
         if: steps.compare-versions.outputs.can-publish == 'true'
