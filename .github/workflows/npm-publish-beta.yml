@@ -61,10 +61,10 @@ jobs:
         if: steps.compare-versions.outputs.needs-update == 'true'
         run: echo "A new version is available, continue with deploy!"
 
-      - name: Build and deploy
+      - name: Stop if version not compatible
         if: steps.compare-versions.outputs.needs-update == 'false'
         run: |
-          echo "Version comparison failed: Package version ${{ steps.package-version.outputs.version }} is not less than ${{ steps.npm-latest-version.outputs.version }}."
+          echo "Version comparison failed: Package version ${{ steps.package-version.outputs.version }} is not greater than ${{ steps.npm-latest-version.outputs.version }}. UPDATE package.json"
           exit 1
 
   build-and-deploy:
@@ -100,8 +100,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM}}
 
-      # - name: Publish to NPM
-      #   working-directory: dist/ngx-touch-virtual-keyboard/
-      #   run: npm publish --tag beta
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{secrets.NPM}}
+      - name: Publish to NPM
+        working-directory: dist/ngx-touch-virtual-keyboard/
+        run: npm publish --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM}}
