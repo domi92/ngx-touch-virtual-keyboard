@@ -29,21 +29,21 @@ jobs:
 
       - name: Get package version from package.json
         id: package-version
-        run: echo $(node -p "require('./projects/ngx-touch-virtual-keyboard/package.json').version") >> $GITHUB_STATE
+        run: echo "local_version=$(node -p "require('./projects/ngx-touch-virtual-keyboard/package.json').version")" >> "$GITHUB_ENV"
 
       - name: Get latest version from npm registry
         id: npm-latest-version
-        run: echo $(npm show ngx-touch-virtual-keyboard@beta version) >> $NPM_STATE
+        run: echo "npm_version= $(npm show ngx-touch-virtual-keyboard@beta version)" >> "$GITHUB_ENV"
 
       - name: Compare versions
         id: compare-versions
         run: |
-          npmVersion=$(tail -n 1 $NPM_STATE)
-          packageVersion=$(head -n 1 $GITHUB_STATE)
+          npmVersion=$(tail -n 1 $npm_version)
+          packageVersion=$(head -n 1 $npm_version)
 
 
-          echo "npm : ${$NPM_STATE}"
-          echo "Package: ${$GITHUB_STATE}"
+          echo "npm : $npm_versio"
+          echo "Package: $npm_version"
 
           # Splitting the versions into major, minor, patch, and pre-release parts
           IFS='-.' read -r -a npmVersionArray <<< "$npmVersion"
@@ -84,15 +84,10 @@ jobs:
           fi
 
           # Set the output based on the flag value
-          echo "canPublish=$canPublish" >> $GITHUB_OUTPUT
-          echo "canPublishVersion=$canPublishVersion" >> $GITHUB_STATE
-
-      - name: Notify if update is needed
-        if: steps.compare-versions.outputs.can-publish == 'true'
-        run: echo "A new version is available, continue with deploy!"
+          echo "canContinue=$canPublish" >> "$GITHUB_ENV"
 
       - name: Stop if version not compatible
-        if: steps.compare-versions.outputs.can-publish == 'false'
+        if: env.canContinue == 'false'
         run: |
           echo "Version comparison failed: Package version ${{ steps.package-version.outputs.version }} is not greater than ${{ steps.npm-latest-version.outputs.version }}. UPDATE package.json"
           exit 1
