@@ -39,12 +39,12 @@ jobs:
         id: compare-versions
         run: |
 
-          echo "npm : $npm_versio"
-          echo "Package: $npm_version"
+          echo "npm : $npm_version"
+          echo "local: $local_version"
 
           # Splitting the versions into major, minor, patch, and pre-release parts
           IFS='-.' read -r -a npmVersionArray <<< "$npmVersion"
-          IFS='-.' read -r -a packageVersionArray <<< "$packageVersion"
+          IFS='-.' read -r -a packageVersionArray <<< "$local_version"
 
           # Initialize a flag to track if an update text version is needed in package.json
           canPublishVersion=false
