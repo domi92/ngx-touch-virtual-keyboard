@@ -81,14 +81,15 @@
   bottom: 20px;
   right: 20px;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
   color: #fff;
-  border: none;
   border-radius: 5px;
   min-width: 3rem;
   cursor: pointer;
 }
 
 .toggle-button:hover {
-  background-color: #0056b3;
+  background-color: #cfd8dc;
+  border-color: #90a4ae;
 }

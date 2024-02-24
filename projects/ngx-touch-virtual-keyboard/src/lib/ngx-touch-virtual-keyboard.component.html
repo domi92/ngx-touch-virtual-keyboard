@@ -19,7 +19,8 @@
   </div>
 </div>
 <button class="toggle-button keyboard-key-icon" (click)="toggleKeyboard()">
-  <img [src]="iconKeyboard" alt="keyboard" />
+  <img *ngIf="!isOpen" [src]="iconKeyboard" alt="keyboard" />
+  <img *ngIf="isOpen" [src]="iconKeyboardClose" alt="keyboard" />
 </button>
 <ng-template #content let-data="data">
   <div *ngFor="let row of data" class="keyboard-row">

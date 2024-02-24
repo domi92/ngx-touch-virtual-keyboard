@@ -11,6 +11,7 @@ export const ICON_ERASE = new InjectionToken<string>('ICON_ERASE');
 export const ICON_EYE_SLASH = new InjectionToken<string>('ICON_EYE_SLASH');
 export const ICON_EYE = new InjectionToken<string>('ICON_EYE');
 export const ICON_KEYBOARD = new InjectionToken<string>('ICON_KEYBOARD');
+export const ICON_KEYBOARD_CLOSE = new InjectionToken<string>('ICON_KEYBOARD_CLOSE');
 export const ICON_LEFT = new InjectionToken<string>('ICON_LEFT');
 export const ICON_RIGHT = new InjectionToken<string>('ICON_RIGHT');
 export const ICON_SHIFT = new InjectionToken<string>('ICON_SHIFT');
@@ -24,6 +25,7 @@ export const KEYBOARD_LAYOUT = new InjectionToken<string[][]>('');
     { provide: ICON_EYE_SLASH, useValue: '../assets/ngx-tvk/icon/eye-slash.svg' },
     { provide: ICON_EYE, useValue: '../assets/ngx-tvk/icon/eye.svg' },
     { provide: ICON_KEYBOARD, useValue: '../assets/ngx-tvk/icon/keyboard.svg' },
+    { provide: ICON_KEYBOARD_CLOSE, useValue: '../assets/ngx-tvk/icon/keyboard.svg' },
     { provide: ICON_LEFT, useValue: '../assets/ngx-tvk/icon/left.svg' },
     { provide: ICON_RIGHT, useValue: '../assets/ngx-tvk/icon/right.svg' },
     { provide: ICON_SHIFT, useValue: '../assets/ngx-tvk/icon/shift.svg' },
