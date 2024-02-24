@@ -4,7 +4,7 @@ import { NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.ser
 import { Subscription } from 'rxjs'
 import {
   ICON_DELETE, ICON_ERASE, ICON_EYE, ICON_EYE_SLASH, ICON_KEYBOARD,
-  ICON_LEFT, ICON_RIGHT, ICON_SHIFT, ICON_SPACE, KEYBOARD_LAYOUT
+  ICON_LEFT, ICON_RIGHT, ICON_SHIFT, KEYBOARD_LAYOUT
 } from '../public-api'
 
 @Component({
@@ -89,7 +89,6 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     @Inject(ICON_LEFT) public iconLeft: string,
     @Inject(ICON_RIGHT) public iconRight: string,
     @Inject(ICON_SHIFT) public iconShift: string,
-    @Inject(ICON_SPACE) public iconSpace: string,
     @Inject(ICON_KEYBOARD) public iconKeyboard: string,
     @Inject(KEYBOARD_LAYOUT) public keyboardLayout: string[][],
     private readonly elementRef: ElementRef,

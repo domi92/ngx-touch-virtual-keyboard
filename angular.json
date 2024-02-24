@@ -59,7 +59,7 @@
               {
                 "glob": "**/*",
                 "input": "dist/ngx-touch-virtual-keyboard/assets/",
-                "output": "/assets/"
+                "output": "/assets/ngx-tvk/"
               }
             ],
             "styles": ["projects/ngx-touch-virtual-keyboard-demo/src/styles.scss"],

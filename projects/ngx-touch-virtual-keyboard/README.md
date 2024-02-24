@@ -10,6 +10,24 @@ Simple angular virtual keyboard component.
 "source.fixAll.eslint": true
 }
 
+# Install
+
+## Default icon loading
+
+To load correclty default icons add in angular.json assets import.
+
+Do not change the output path must be defined like that
+
+```
+"assets": [
+            {
+              "glob": "**/*",
+              "input": "./node_modules/ngx-touch-virtual-keyboard/assets/",
+              "output": "/assets/ngx-tvk/"
+            }
+          ],
+```
+
 # Usage
 
 Inside appComponent. Add component

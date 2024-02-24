@@ -45,10 +45,7 @@
         </button>
       </ng-template>
       <ng-template #space >
-        <button *ngIf="key === 'space'; else standardKey"
-        class="keyboard-key keyboard-key-icon keyboard-space" appRepeatAction (repeatAction)="pressKey(' ')">
-          <!-- <img [src]="iconSpace" alt="space" /> -->
-          ___
+        <button *ngIf="key === 'space'; else standardKey" class="keyboard-key keyboard-key-icon keyboard-space" appRepeatAction (repeatAction)="pressKey(' ')">
         </button>
       </ng-template>
       <ng-template #standardKey>
