@@ -20,7 +20,7 @@ To load correclty default icons add in angular.json assets import.
 
 Do not change the output path must be defined like that
 
-```
+```typescript
 "assets": [
             {
               "glob": "**/*",
@@ -35,7 +35,7 @@ All icons can be changed with custom svg. Providing in app.module.ts a new svg r
 
 ICON_DELETE | ICON_ERASE | ICON_EYE_SLASH | ICON_EYE | ICON_KEYBOARD | ICON_LEFT | ICON_RIGHT | ICON_SHIFT | KEYBOARD_LAYOUT
 
-```
+```typescript
 import {ICON_DELETE, ICON_KEYBOARD} from 'ngx-touch-virtual-keyboard';
 
   ...
@@ -55,7 +55,7 @@ Example from previous provided custom svg BUGs
 
 Inside appComponent. Add component
 
-```
+```typescript
 <router-outlet></router-outlet>
 
 <ngx-touch-virtual-keyboard></ngx-touch-virtual-keyboard>
@@ -64,8 +64,8 @@ Inside appComponent. Add component
 
 Use directive useVirtualKeyboard in input component to connect input element with keyboard
 
-```
-<input type="text" useVirtualKeyboard [isNumericOnly]="false" placeholder="Type here..." />
+```typescript
+<input type="text" useVirtualKeyboard placeholder="Type here..." />
 ```
 
 TODO..
