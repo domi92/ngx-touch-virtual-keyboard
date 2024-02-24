@@ -14,7 +14,7 @@
       <ng-container *ngTemplateOutlet="content; context: {data: keyboardLayout}"></ng-container>
     </ng-container>
     <ng-container *ngIf="isNumericOnly">
-      <ng-container *ngTemplateOutlet="content; context: {data: numericOnlyLayout}"></ng-container>
+      <ng-container *ngTemplateOutlet="content; context: {data: keyboardLayoutNumber}"></ng-container>
     </ng-container>
   </div>
 </div>
@@ -25,9 +25,14 @@
 <ng-template #content let-data="data">
   <div *ngFor="let row of data" class="keyboard-row">
     <ng-container *ngFor="let key of row">
-      <button *ngIf="key === 'delete'; else left" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="emitDeletePressed()">
+      <button *ngIf="key === 'delete'; else tab" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="emitDeletePressed()">
         <img  style="height: 60%; width: 60%;" [src]="iconDelete" alt="Delete" />
       </button>
+      <ng-template #tab >
+        <button *ngIf="key === 'tab'; else left" class="keyboard-key keyboard-key-icon" [class.keyboard-shift]="isShift" (click)="emitTab()">
+          <img style="height: 50%; width: 50%;" [src]="iconTab" alt="left" />
+        </button>
+      </ng-template>
       <ng-template #left >
         <button *ngIf="key === 'left'; else right" class="keyboard-key keyboard-key-icon" (click)="moveCursorLeft()">
           <img  style="height: 50%; width: 50%;" [src]="iconLeft" alt="left" />

@@ -4,7 +4,7 @@ import { NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.ser
 import { Subscription } from 'rxjs'
 import {
   ICON_DELETE, ICON_ERASE, ICON_EYE, ICON_EYE_SLASH, ICON_KEYBOARD, ICON_KEYBOARD_CLOSE,
-  ICON_LEFT, ICON_RIGHT, ICON_SHIFT, KEYBOARD_LAYOUT
+  ICON_LEFT, ICON_RIGHT, ICON_SHIFT, ICON_TAB, KEYBOARD_LAYOUT, KEYBOARD_LAYOUT_NUMBER
 } from '../public-api'
 
 @Component({
@@ -65,13 +65,6 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   private keyboardSubscription!: Subscription
   private passwordSubscription!: Subscription
 
-  numericOnlyLayout: string[][] = [
-    ['1', '2', '3'],
-    ['4', '5', '6'],
-    ['7', '8', '9'],
-    ['0', 'delete']
-  ]
-
   // @HostListener('document:click', ['$event'])
   @HostListener('click', ['$event'])
   handleClick(event: MouseEvent) {
@@ -84,14 +77,16 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(ICON_DELETE) public iconDelete: string,
     @Inject(ICON_ERASE) public iconErase: string,
-    @Inject(ICON_EYE_SLASH) public iconEyeSlash: string,
     @Inject(ICON_EYE) public iconEye: string,
+    @Inject(ICON_EYE_SLASH) public iconEyeSlash: string,
+    @Inject(ICON_KEYBOARD) public iconKeyboard: string,
+    @Inject(ICON_KEYBOARD_CLOSE) public iconKeyboardClose: string,
     @Inject(ICON_LEFT) public iconLeft: string,
     @Inject(ICON_RIGHT) public iconRight: string,
     @Inject(ICON_SHIFT) public iconShift: string,
-    @Inject(ICON_KEYBOARD) public iconKeyboard: string,
-    @Inject(ICON_KEYBOARD_CLOSE) public iconKeyboardClose: string,
+    @Inject(ICON_TAB) public iconTab: string,
     @Inject(KEYBOARD_LAYOUT) public keyboardLayout: string[][],
+    @Inject(KEYBOARD_LAYOUT_NUMBER) public keyboardLayoutNumber: string[][],
     private readonly elementRef: ElementRef,
     private readonly keyboardService: NgxTouchVirtualKeyboardService
   ) {}
@@ -140,6 +135,39 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   emitDeletePressed() {
     // this.deletePressed.emit();
     this.onInputChange(this.textInput.slice(0, -1))
+  }
+
+  emitTab() {
+    const focusableElements = document.querySelectorAll(
+      'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])'
+    );
+
+    const focusedElement = document.activeElement;
+    if (focusedElement) {
+      let currentIndex = Array.from(focusableElements).indexOf(focusedElement);
+
+      if (!this.isShift) {
+
+        if (currentIndex === -1) {
+          currentIndex = 0;
+        }
+
+        const nextIndex = (currentIndex + 1) % focusableElements.length;
+        const nextElement = focusableElements[nextIndex] as HTMLElement;
+        nextElement.focus();
+      } else {
+
+        const prevIndex = currentIndex - 1;
+
+        if (prevIndex < 0) {
+          (focusableElements[currentIndex] as HTMLElement).blur();
+          return;
+        }
+
+        const nextElement = focusableElements[prevIndex] as HTMLElement;
+        nextElement.focus();
+      }
+    }
   }
 
   private onInputChange(value: string) {
