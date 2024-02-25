@@ -16,7 +16,6 @@
           <span>{{ textInputPassword.substring(cursorPosition) }}</span>
         </ng-container>
       </div>
-        {{  this.cursorPosition }}
       <button *ngIf="isPassword" class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="showHide()">
         <img *ngIf="!passwordShow" [src]="iconEye" alt="e" />
         <img *ngIf="passwordShow" [src]="iconEyeSlash" alt="es" />
