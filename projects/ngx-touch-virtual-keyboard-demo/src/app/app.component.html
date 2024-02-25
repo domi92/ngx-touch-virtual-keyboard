@@ -354,10 +354,27 @@
         fill="#f5f5f5" />
     </svg>
   </div>
+  <br>
+  <br>
+  <div class="grid-container">
+    <div class="grid-item">material input</div>
+    <mat-form-field>
+      <input useVirtualKeyboard matInput placeholder="Input">
+    </mat-form-field>
 
-  <input type="text" useVirtualKeyboard placeholder="Type here..." />
-  <input type="number" useVirtualKeyboard placeholder="Type number..." />
-  <input type="password" useVirtualKeyboard placeholder="pwa" />
+    <div class="grid-item">custom input component type="text"</div>
+    <app-my-input class="grid-item" useVirtualKeyboard></app-my-input>
+
+    <div class="grid-item">type="text"</div>
+    <input type="text" class="grid-item" useVirtualKeyboard placeholder="Type here..." />
+
+    <div class="grid-item">type="password"</div>
+    <input type="password" class="grid-item" useVirtualKeyboard placeholder="pwa" />
+
+    <div class="grid-item">type="number"</div>
+    <input type="number" class="grid-item" useVirtualKeyboard placeholder="Type number..." />
+
+  </div>
 
   <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
     <title>Gray Clouds Background</title>
