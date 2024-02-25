@@ -1,6 +1,6 @@
 {
   "name": "ngx-touch-virtual-keyboard",
-  "version": "1.0.2-beta.1",
+  "version": "1.0.2-beta.2",
   "description": "Simple virtual keyboard that inteact with common input elements. Supports multipl input type with different layout automatically applied.",
   "author": "domi92",
   "repository": {

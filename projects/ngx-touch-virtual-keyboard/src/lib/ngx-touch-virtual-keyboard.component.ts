@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject } from '@angular/core'
 import { trigger, state, style, transition, animate } from '@angular/animations'
 import { NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service'
-import { Subscription } from 'rxjs'
+import { INGXKeyElement } from './ngx-key-element'
+import { Subscription, interval } from 'rxjs'
 import {
   ICON_DELETE, ICON_ERASE, ICON_EYE, ICON_EYE_SLASH, ICON_KEYBOARD, ICON_KEYBOARD_CLOSE,
   ICON_LEFT, ICON_RIGHT, ICON_SHIFT, ICON_TAB, KEYBOARD_LAYOUT, KEYBOARD_LAYOUT_NUMBER
@@ -55,6 +56,9 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   isPassword: boolean = false
   passwordShow: boolean = false
 
+  cursorPosition: number = 0;
+  showCursor: boolean = true;
+
   private _textInputPassword = ''
   get textInputPassword() {
     return this._textInputPassword
@@ -64,6 +68,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   private inputValueSubscription!: Subscription
   private keyboardSubscription!: Subscription
   private passwordSubscription!: Subscription
+  private subscription!: Subscription;
 
   // @HostListener('document:click', ['$event'])
   @HostListener('click', ['$event'])
@@ -85,7 +90,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     @Inject(ICON_RIGHT) public iconRight: string,
     @Inject(ICON_SHIFT) public iconShift: string,
     @Inject(ICON_TAB) public iconTab: string,
-    @Inject(KEYBOARD_LAYOUT) public keyboardLayout: string[][],
+    @Inject(KEYBOARD_LAYOUT) public keyboardLayout: INGXKeyElement[][],
     @Inject(KEYBOARD_LAYOUT_NUMBER) public keyboardLayoutNumber: string[][],
     private readonly elementRef: ElementRef,
     private readonly keyboardService: NgxTouchVirtualKeyboardService
@@ -108,8 +113,17 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     })
 
     this.inputValueSubscription = this.keyboardService.inputValue$.subscribe((value) => {
-      this.onInputChange(value)
+
+      if (this.textInput !== value) {
+        this.onInputChange(value);
+        this.cursorPosition = value.length;
+      }
     })
+
+    this.subscription = interval(500).pipe(
+    ).subscribe(() => {
+      this.showCursor = !this.showCursor; // Toggle cursor visibility
+    });
   }
 
   toggleKeyboard() {
@@ -117,14 +131,21 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.keyboardSubscription.unsubscribe()
-    this.numericOnlySubscription.unsubscribe()
-    this.passwordSubscription.unsubscribe()
-    this.inputValueSubscription.unsubscribe()
+    this.keyboardSubscription.unsubscribe();
+    this.numericOnlySubscription.unsubscribe();
+    this.passwordSubscription.unsubscribe();
+    this.inputValueSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   pressKey(key: string) {
-    this.onInputChange(this.textInput + (this.isShift ? key.toUpperCase() : key))
+    const charToAdd = (this.isShift ? key.toUpperCase() : key);
+    const updatedTextInput = `${this.textInput.slice(0, this.cursorPosition)}${charToAdd}${this.textInput.slice(this.cursorPosition)}`;
+
+    if (this.textInput !== updatedTextInput) {
+      this.onInputChange(updatedTextInput)
+      this.cursorPosition++;
+    }
   }
 
   clear() {
@@ -133,8 +154,15 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   }
 
   emitDeletePressed() {
-    // this.deletePressed.emit();
-    this.onInputChange(this.textInput.slice(0, -1))
+
+    const deletePosition = this.cursorPosition - 1;
+
+    if (deletePosition >= 0 && deletePosition < this.textInput.length) {
+      const updatedTextInput = this.textInput.slice(0, deletePosition) + this.textInput.slice(deletePosition + 1);
+
+      this.onInputChange(updatedTextInput);
+      this.cursorPosition = deletePosition;
+    }
   }
 
   emitTab() {
@@ -194,8 +222,14 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   }
 
   moveCursorLeft() {
+    if (this.cursorPosition > 0) {
+      this.cursorPosition--;
+    }
   }
 
   moveCursorRight() {
+    if (this.cursorPosition + 1 <= this.textInput.length) {
+      this.cursorPosition++;
+    }
   }
 }
