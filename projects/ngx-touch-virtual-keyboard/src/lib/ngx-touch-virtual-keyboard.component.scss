@@ -43,6 +43,17 @@
   min-width: 3rem;
   cursor: pointer;
 }
+.keyboard-key-complex {
+  @extend .keyboard-key;
+  position: relative;
+}
+
+.keyboard-key-secondary{
+  position: absolute;
+  top: 0.3rem;
+  right: 0.4rem;
+  color: gray;
+}
 
 .keyboard-space{
   @extend .keyboard-key;

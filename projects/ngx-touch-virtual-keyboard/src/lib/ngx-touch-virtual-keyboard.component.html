@@ -55,7 +55,20 @@
         </button>
       </ng-template>
       <ng-template #standardKey>
+        <ng-container *ngIf="key.s !== undefined">
+        <button class="keyboard-key-complex" appRepeatAction (repeatAction)="pressKey(isShift ? key.s  : key.p)">
+          <div>
+            <div class="keyboard-key-secondary">
+              {{ !isShift ? key.s  : key.p  }}
+            </div>
+            <div>
+              {{ isShift ? key.s  : key.p  }}
+            </div>
+          </div></button>
+        </ng-container>
+        <ng-container *ngIf="key.s === undefined">
         <button class="keyboard-key" appRepeatAction (repeatAction)="pressKey(key)">{{ isShift ? (key | uppercase) : key  }}</button>
+      </ng-container>
       </ng-template>
     </ng-container>
   </div>

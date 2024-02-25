@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject } from '@angular/core'
 import { trigger, state, style, transition, animate } from '@angular/animations'
 import { NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service'
+import { INGXKeyElement } from './ngx-key-element'
 import { Subscription } from 'rxjs'
 import {
   ICON_DELETE, ICON_ERASE, ICON_EYE, ICON_EYE_SLASH, ICON_KEYBOARD, ICON_KEYBOARD_CLOSE,
@@ -85,7 +86,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     @Inject(ICON_RIGHT) public iconRight: string,
     @Inject(ICON_SHIFT) public iconShift: string,
     @Inject(ICON_TAB) public iconTab: string,
-    @Inject(KEYBOARD_LAYOUT) public keyboardLayout: string[][],
+    @Inject(KEYBOARD_LAYOUT) public keyboardLayout: INGXKeyElement[][],
     @Inject(KEYBOARD_LAYOUT_NUMBER) public keyboardLayoutNumber: string[][],
     private readonly elementRef: ElementRef,
     private readonly keyboardService: NgxTouchVirtualKeyboardService

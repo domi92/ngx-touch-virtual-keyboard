@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UseKeyboardDirective } from './ngx-use-keyboard.directive';
 import { RepeatActionDirective } from './repeat-action.directive';
 import { NgxTouchVirtualKeyboardComponent } from './ngx-touch-virtual-keyboard.component';
+import { INGXKeyElement, k } from './ngx-key-element';
 
 export const ICON_DELETE = new InjectionToken<string>('ICON_DELETE');
 export const ICON_ERASE = new InjectionToken<string>('ICON_ERASE');
@@ -16,7 +17,7 @@ export const ICON_LEFT = new InjectionToken<string>('ICON_LEFT');
 export const ICON_RIGHT = new InjectionToken<string>('ICON_RIGHT');
 export const ICON_SHIFT = new InjectionToken<string>('ICON_SHIFT');
 export const ICON_TAB = new InjectionToken<string>('ICON_TAB');
-export const KEYBOARD_LAYOUT = new InjectionToken<string[][]>('KEYBOARD_LAYOUT');
+export const KEYBOARD_LAYOUT = new InjectionToken<INGXKeyElement[][]>('KEYBOARD_LAYOUT');
 export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<string[][]>('KEYBOARD_LAYOUT_NUMBER');
 
 @NgModule({
@@ -35,10 +36,10 @@ export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<string[][]>('KEYBOARD_L
     {
       provide: KEYBOARD_LAYOUT,
       useValue: [
-        ['\\', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '?', 'delete'],
+        [k('\\', '|'), k('1', '!'), k('2', '"'), k('3', '£'), k('4', '$'), k('5', '%'), k('6', '&'), k('7', '/'), k('8', '('), k('9', ')'), k('0', '='), k('\'', '?'), 'delete'],
         ['tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
         ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-        ['shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', 'shift'],
+        ['shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', k(',', ';'), k('.', ':'), k('-', '_'), 'shift'],
         ['space', 'left', 'right']
       ]
     },
@@ -57,3 +58,5 @@ export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<string[][]>('KEYBOARD_L
   exports: [UseKeyboardDirective, NgxTouchVirtualKeyboardComponent]
 })
 export class NgxTouchVirtualKeyboardModule {}
+
+
