@@ -4,7 +4,19 @@
       <button class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="clear()">
         <img [src]="iconErase" alt="cl" />
       </button>
-      <div class="keyboard-input">{{ (isPassword ? (passwordShow ? textInput : textInputPassword ) : textInput) }}</div>
+      <div class="keyboard-input">
+        <ng-container *ngIf="!isPassword">
+          <span>{{ textInput.substring(0, cursorPosition) }}</span>
+          <span class="cursor-placeholder" [style.visibility]="showCursor ? 'visible' : 'hidden'" >|</span>
+          <span>{{ textInput.substring(cursorPosition) }}</span>
+        </ng-container>
+        <ng-container *ngIf="isPassword">
+          <span>{{ textInputPassword.substring(0, cursorPosition) }}</span>
+          <span class="cursor-placeholder" *ngIf="showCursor">|</span>
+          <span>{{ textInputPassword.substring(cursorPosition) }}</span>
+        </ng-container>
+      </div>
+        {{  this.cursorPosition }}
       <button *ngIf="isPassword" class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="showHide()">
         <img *ngIf="!passwordShow" [src]="iconEye" alt="e" />
         <img *ngIf="passwordShow" [src]="iconEyeSlash" alt="es" />
@@ -34,12 +46,12 @@
         </button>
       </ng-template>
       <ng-template #left >
-        <button *ngIf="key === 'left'; else right" class="keyboard-key keyboard-key-icon" (click)="moveCursorLeft()">
+        <button *ngIf="key === 'left'; else right" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="moveCursorLeft()">
           <img  style="height: 50%; width: 50%;" [src]="iconLeft" alt="left" />
         </button>
       </ng-template>
       <ng-template #right >
-        <button *ngIf="key === 'right'; else shift" class="keyboard-key keyboard-key-icon">
+        <button *ngIf="key === 'right'; else shift" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="moveCursorRight()">
           <img style="height: 50%; width: 50%;" [src]="iconRight" alt="right" />
         </button>
       </ng-template>

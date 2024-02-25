@@ -15,7 +15,6 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
 
   ngOnInit() {
     const inputType = this.elementRef.nativeElement.type;
-    console.log('Input type:', inputType);
     switch (inputType) {
       case 'text':
         this.keyboardType = 'full';

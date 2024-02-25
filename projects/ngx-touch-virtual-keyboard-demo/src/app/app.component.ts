@@ -7,4 +7,6 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'ngx-touch-virtual-keyboard-demo';
+
+  inputValue : string = "";
 }

@@ -8,13 +8,5 @@ import { Component } from '@angular/core';
 export class MyInputComponent {
   inputValue: string = '';
 
-  isFocused: boolean = false;
 
-  onInputFocus(): void {
-    this.isFocused = true;
-  }
-
-  onInputBlur(): void {
-    this.isFocused = false;
-  }
 }
