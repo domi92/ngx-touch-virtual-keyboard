@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export type KeyboardType = 'full' | 'number' | 'password';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NgxTouchVirtualKeyboardService {
   private isOpen = false;

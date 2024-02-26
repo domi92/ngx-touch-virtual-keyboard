@@ -1,13 +1,13 @@
 <div class="keyboard-wrapper">
   <div class="keyboard" [@slideInOut]="isOpen ? 'in' : 'out'">
-    <div class="keyboard-row" style="display: flex; align-items: center;">
+    <div class="keyboard-row" style="display: flex; align-items: center">
       <button class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="clear()">
         <img [src]="iconErase" alt="cl" />
       </button>
       <div class="keyboard-input">
         <ng-container *ngIf="!isPassword">
           <span>{{ textInput.substring(0, cursorPosition) }}</span>
-          <span class="cursor-placeholder" [style.visibility]="showCursor ? 'visible' : 'hidden'" >|</span>
+          <span class="cursor-placeholder" [style.visibility]="showCursor ? 'visible' : 'hidden'">|</span>
           <span>{{ textInput.substring(cursorPosition) }}</span>
         </ng-container>
         <ng-container *ngIf="isPassword">
@@ -22,10 +22,10 @@
       </button>
     </div>
     <ng-container *ngIf="!isNumericOnly && keyboardLayout">
-      <ng-container *ngTemplateOutlet="content; context: {data: keyboardLayout}"></ng-container>
+      <ng-container *ngTemplateOutlet="content; context: { data: keyboardLayout }"></ng-container>
     </ng-container>
     <ng-container *ngIf="isNumericOnly">
-      <ng-container *ngTemplateOutlet="content; context: {data: keyboardLayoutNumber}"></ng-container>
+      <ng-container *ngTemplateOutlet="content; context: { data: keyboardLayoutNumber }"></ng-container>
     </ng-container>
   </div>
 </div>
@@ -36,50 +36,80 @@
 <ng-template #content let-data="data">
   <div *ngFor="let row of data" class="keyboard-row">
     <ng-container *ngFor="let key of row">
-      <button *ngIf="key === 'delete'; else tab" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="emitDeletePressed()">
-        <img  style="height: 60%; width: 60%;" [src]="iconDelete" alt="Delete" />
+      <button
+        *ngIf="key === 'delete'; else tab"
+        class="keyboard-key keyboard-key-icon"
+        appRepeatAction
+        (repeatAction)="emitDeletePressed()"
+      >
+        <img style="height: 60%; width: 60%" [src]="iconDelete" alt="Delete" />
       </button>
-      <ng-template #tab >
-        <button *ngIf="key === 'tab'; else left" class="keyboard-key keyboard-key-icon" [class.keyboard-shift]="isShift" (click)="emitTab()">
-          <img style="height: 50%; width: 50%;" [src]="iconTab" alt="left" />
+      <ng-template #tab>
+        <button
+          *ngIf="key === 'tab'; else left"
+          class="keyboard-key keyboard-key-icon"
+          [class.keyboard-shift]="isShift"
+          (click)="emitTab()"
+        >
+          <img style="height: 50%; width: 50%" [src]="iconTab" alt="left" />
         </button>
       </ng-template>
-      <ng-template #left >
-        <button *ngIf="key === 'left'; else right" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="moveCursorLeft()">
-          <img  style="height: 50%; width: 50%;" [src]="iconLeft" alt="left" />
+      <ng-template #left>
+        <button
+          *ngIf="key === 'left'; else right"
+          class="keyboard-key keyboard-key-icon"
+          appRepeatAction
+          (repeatAction)="moveCursorLeft()"
+        >
+          <img style="height: 50%; width: 50%" [src]="iconLeft" alt="left" />
         </button>
       </ng-template>
-      <ng-template #right >
-        <button *ngIf="key === 'right'; else shift" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="moveCursorRight()">
-          <img style="height: 50%; width: 50%;" [src]="iconRight" alt="right" />
+      <ng-template #right>
+        <button
+          *ngIf="key === 'right'; else shift"
+          class="keyboard-key keyboard-key-icon"
+          appRepeatAction
+          (repeatAction)="moveCursorRight()"
+        >
+          <img style="height: 50%; width: 50%" [src]="iconRight" alt="right" />
         </button>
       </ng-template>
-      <ng-template #shift >
-        <button *ngIf="key === 'shift'; else space"
-        [class.keyboard-shift]="isShift"
-        class="keyboard-key keyboard-key-icon" (click)="shiftClick()">
+      <ng-template #shift>
+        <button
+          *ngIf="key === 'shift'; else space"
+          [class.keyboard-shift]="isShift"
+          class="keyboard-key keyboard-key-icon"
+          (click)="shiftClick()"
+        >
           <img [src]="iconShift" alt="shift" />
         </button>
       </ng-template>
-      <ng-template #space >
-        <button *ngIf="key === 'space'; else standardKey" class="keyboard-key keyboard-key-icon keyboard-space" appRepeatAction (repeatAction)="pressKey(' ')">
-        </button>
+      <ng-template #space>
+        <button
+          *ngIf="key === 'space'; else standardKey"
+          class="keyboard-key keyboard-key-icon keyboard-space"
+          appRepeatAction
+          (repeatAction)="pressKey(' ')"
+        ></button>
       </ng-template>
       <ng-template #standardKey>
         <ng-container *ngIf="key.s !== undefined">
-        <button class="keyboard-key-complex" appRepeatAction (repeatAction)="pressKey(isShift ? key.s  : key.p)">
-          <div>
-            <div class="keyboard-key-secondary">
-              {{ !isShift ? key.s  : key.p  }}
-            </div>
+          <button class="keyboard-key-complex" appRepeatAction (repeatAction)="pressKey(isShift ? key.s : key.p)">
             <div>
-              {{ isShift ? key.s  : key.p  }}
+              <div class="keyboard-key-secondary">
+                {{ !isShift ? key.s : key.p }}
+              </div>
+              <div>
+                {{ isShift ? key.s : key.p }}
+              </div>
             </div>
-          </div></button>
+          </button>
         </ng-container>
         <ng-container *ngIf="key.s === undefined">
-        <button class="keyboard-key" appRepeatAction (repeatAction)="pressKey(key)">{{ isShift ? (key | uppercase) : key  }}</button>
-      </ng-container>
+          <button class="keyboard-key" appRepeatAction (repeatAction)="pressKey(key)">
+            {{ isShift ? (key | uppercase) : key }}
+          </button>
+        </ng-container>
       </ng-template>
     </ng-container>
   </div>

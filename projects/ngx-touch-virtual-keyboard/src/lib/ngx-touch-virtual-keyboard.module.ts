@@ -36,12 +36,26 @@ export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<string[][]>('KEYBOARD_L
     {
       provide: KEYBOARD_LAYOUT,
       useValue: [
-        [k('\\', '|'), k('1', '!'), k('2', '"'), k('3', '£'), k('4', '$'), k('5', '%'), k('6', '&'), k('7', '/'), k('8', '('), k('9', ')'), k('0', '='), k('\'', '?'), 'delete'],
+        [
+          k('\\', '|'),
+          k('1', '!'),
+          k('2', '"'),
+          k('3', '£'),
+          k('4', '$'),
+          k('5', '%'),
+          k('6', '&'),
+          k('7', '/'),
+          k('8', '('),
+          k('9', ')'),
+          k('0', '='),
+          k("'", '?'),
+          'delete',
+        ],
         ['tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
         ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
         ['shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', k(',', ';'), k('.', ':'), k('-', '_'), 'shift'],
-        ['space', 'left', 'right']
-      ]
+        ['space', 'left', 'right'],
+      ],
     },
     {
       provide: KEYBOARD_LAYOUT_NUMBER,
@@ -49,14 +63,12 @@ export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<string[][]>('KEYBOARD_L
         ['1', '2', '3'],
         ['4', '5', '6'],
         ['7', '8', '9'],
-        ['.', '0', 'delete']
-      ]
-    }
+        ['.', '0', 'delete'],
+      ],
+    },
   ],
   imports: [FormsModule, BrowserModule, BrowserAnimationsModule],
 
-  exports: [UseKeyboardDirective, NgxTouchVirtualKeyboardComponent]
+  exports: [UseKeyboardDirective, NgxTouchVirtualKeyboardComponent],
 })
 export class NgxTouchVirtualKeyboardModule {}
-
-

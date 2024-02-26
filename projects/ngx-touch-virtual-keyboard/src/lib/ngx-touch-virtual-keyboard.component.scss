@@ -48,14 +48,14 @@
   position: relative;
 }
 
-.keyboard-key-secondary{
+.keyboard-key-secondary {
   position: absolute;
   top: 0.3rem;
   right: 0.4rem;
   color: gray;
 }
 
-.keyboard-space{
+.keyboard-space {
   @extend .keyboard-key;
   min-width: 15rem;
 }
@@ -64,7 +64,7 @@
   background-color: #ddd;
 }
 
-.keyboard-shift{
+.keyboard-shift {
   background-color: lightblue !important;
 }
 
@@ -77,8 +77,7 @@
   max-width: 3rem;
 }
 
-.keyboard-key-icon-clear{
-
+.keyboard-key-icon-clear {
   max-height: 2.2rem !important;
   max-width: 2.2rem !important;
   min-height: 2.2rem !important;
