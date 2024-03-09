@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class DefaultComponent {
   inputValue: string = '';
+
+  selectedLanguage: string = 'us'; // Default to English (US)
 }

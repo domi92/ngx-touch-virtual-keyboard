@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChild, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
 import { INGXKeyElement } from './ngx-key-element';
@@ -46,6 +46,8 @@ import {
 export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   protected isShift = false;
   private capsLockActive: boolean = false;
+
+  @Input('layout') layout: string = 'us';
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
@@ -135,11 +137,17 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     @Inject(ICON_RIGHT) public iconRight: string,
     @Inject(ICON_SHIFT) public iconShift: string,
     @Inject(ICON_TAB) public iconTab: string,
-    @Inject(KEYBOARD_LAYOUT) public keyboardLayout: INGXKeyElement[][],
+    @Inject(KEYBOARD_LAYOUT) private _keyboardLayout: { layout: string; values: (INGXKeyElement | string)[][] }[],
     @Inject(KEYBOARD_LAYOUT_NUMBER) public keyboardLayoutNumber: string[][],
     private readonly elementRef: ElementRef,
     private readonly keyboardService: NgxTouchVirtualKeyboardService
   ) {}
+
+  protected get keyboardLayout(): (INGXKeyElement | string)[][] {
+    const res = this._keyboardLayout.find((e) => e.layout === this.layout);
+
+    return res !== undefined ? res.values : this._keyboardLayout[0].values;
+  }
 
   ngOnInit(): void {
     this.elementRef.nativeElement.addEventListener('mousedown', (e: MouseEvent) => {

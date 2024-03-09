@@ -1,4 +1,12 @@
 <p>default keyboard</p>
+<mat-form-field>
+  <mat-label>select layout</mat-label>
+  <mat-select [(value)]="selectedLanguage">
+    <mat-option value="us">English (US)</mat-option>
+    <mat-option value="it">Italian</mat-option>
+    <mat-option value="gb">English (UK)</mat-option>
+  </mat-select>
+</mat-form-field>
 <div class="grid-container">
   <div class="grid-item">material input</div>
   <mat-form-field>
@@ -18,4 +26,4 @@
   <input type="number" class="grid-item" useVirtualKeyboard placeholder="Type number..." />
 </div>
 
-<ngx-touch-virtual-keyboard></ngx-touch-virtual-keyboard>
+<ngx-touch-virtual-keyboard [layout]="selectedLanguage"></ngx-touch-virtual-keyboard>

@@ -1,5 +1,5 @@
 <div class="keyboard-wrapper">
-  <div class="keyboard" [@slideInOut]="isOpen ? 'in' : 'out'">
+  <div class="keyboard-fixed" [@slideInOut]="isOpen ? 'in' : 'out'">
     <div class="keyboard-row" style="display: flex; align-items: center">
       <button class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="clear()">
         <img [src]="iconErase" alt="cl" />
@@ -40,12 +40,12 @@
   <div *ngFor="let row of data" class="keyboard-row">
     <ng-container *ngFor="let key of row">
       <button
-        *ngIf="key === 'delete'; else tab"
+        *ngIf="key === 'backspace'; else tab"
         class="keyboard-key keyboard-key-icon"
         appRepeatAction
         (repeatAction)="emitDeletePressed()"
       >
-        <img style="height: 60%; width: 60%" [src]="iconDelete" alt="Delete" />
+        <img style="height: 60%; width: 60%" [src]="iconDelete" alt="Backspace" />
       </button>
       <ng-template #tab>
         <button
@@ -90,10 +90,12 @@
       <ng-template #space>
         <button
           *ngIf="key === 'space'; else standardKey"
-          class="keyboard-key keyboard-key-icon keyboard-space"
+          class="keyboard-key-complex keyboard-key-icon keyboard-space"
           appRepeatAction
           (repeatAction)="pressKey(' ')"
-        ></button>
+        >
+          <span class="keyboard-layout">{{ layout }}</span>
+        </button>
       </ng-template>
       <ng-template #standardKey>
         <ng-container *ngIf="key.s !== undefined">

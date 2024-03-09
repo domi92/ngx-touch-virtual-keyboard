@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
 import {
   ICON_DELETE,
   ICON_KEYBOARD,
@@ -24,6 +25,7 @@ import { DefaultComponent } from './components/default/default.component';
     FormsModule,
     MatInputModule,
     MatSlideToggleModule,
+    MatSelectModule,
     AppRoutingModule,
     NgxTouchVirtualKeyboardModule,
     BrowserAnimationsModule,
