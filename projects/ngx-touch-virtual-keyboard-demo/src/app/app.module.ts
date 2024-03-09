@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import {
-  ICON_DELETE,
+  ICON_BACKSPACE,
   ICON_KEYBOARD,
   KEYBOARD_LAYOUT,
   KEYBOARD_LAYOUT_NUMBER,
@@ -31,7 +31,7 @@ import { DefaultComponent } from './components/default/default.component';
     BrowserAnimationsModule,
   ],
   providers: [
-    // { provide: ICON_DELETE, useValue: 'assets/icons/bugs.svg' },
+    // { provide: ICON_BACKSPACE, useValue: 'assets/icons/bugs.svg' },
     // { provide: ICON_KEYBOARD, useValue: 'assets/icons/bugs.svg' },
     // {provide: KEYBOARD_LAYOUT, useValue:  [
     //   ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'delete'],

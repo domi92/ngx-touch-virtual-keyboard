@@ -34,15 +34,15 @@ Do not change the output path must be defined like that in order to use default 
 
 All icons can be changed with custom svg. Providing in app.module.ts a new svg reference for each icon.
 
-ICON_DELETE | ICON_ERASE | ICON_EYE_SLASH | ICON_EYE | ICON_KEYBOARD | ICON_LEFT | ICON_RIGHT | ICON_SHIFT | KEYBOARD_LAYOUT
+ICON_BACKSPACE | ICON_ERASE | ICON_EYE_SLASH | ICON_EYE | ICON_KEYBOARD | ICON_LEFT | ICON_RIGHT | ICON_SHIFT | KEYBOARD_LAYOUT
 
 ```typescript
-import {ICON_DELETE, ICON_KEYBOARD} from 'ngx-touch-virtual-keyboard';
+import {ICON_BACKSPACE, ICON_KEYBOARD} from 'ngx-touch-virtual-keyboard';
 
   ...
 
   providers: [
-    {provide: ICON_DELETE, useValue: 'assets/icons/bugs.svg'},
+    {provide: ICON_BACKSPACE, useValue: 'assets/icons/bugs.svg'},
     {provide: ICON_KEYBOARD, useValue: 'assets/icons/bugs.svg'},
   ],
 

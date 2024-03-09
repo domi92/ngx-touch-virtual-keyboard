@@ -10,7 +10,7 @@ import { INGXKeyElement, k } from './ngx-key-element';
 /**
  * Export all icons InjectionToken to give possibility to override icon image
  */
-export const ICON_DELETE = new InjectionToken<string>('ICON_DELETE');
+export const ICON_BACKSPACE = new InjectionToken<string>('ICON_BACKSPACE');
 export const ICON_ERASE = new InjectionToken<string>('ICON_ERASE');
 export const ICON_EYE_SLASH = new InjectionToken<string>('ICON_EYE_SLASH');
 export const ICON_EYE = new InjectionToken<string>('ICON_EYE');
@@ -91,7 +91,7 @@ const numberKeyboard = [
 @NgModule({
   declarations: [UseKeyboardDirective, RepeatActionDirective, NgxTouchVirtualKeyboardComponent],
   providers: [
-    { provide: ICON_DELETE, useValue: '../assets/ngx-tvk/icon/delete-left.svg' },
+    { provide: ICON_BACKSPACE, useValue: '../assets/ngx-tvk/icon/delete-left.svg' },
     { provide: ICON_ERASE, useValue: '../assets/ngx-tvk/icon/erase.svg' },
     { provide: ICON_EYE_SLASH, useValue: '../assets/ngx-tvk/icon/eye-slash.svg' },
     { provide: ICON_EYE, useValue: '../assets/ngx-tvk/icon/eye.svg' },

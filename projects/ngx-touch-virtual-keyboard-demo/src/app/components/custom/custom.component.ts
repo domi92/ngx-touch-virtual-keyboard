@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ICON_DELETE, ICON_KEYBOARD, KEYBOARD_LAYOUT } from 'ngx-touch-virtual-keyboard';
+import { ICON_BACKSPACE, ICON_KEYBOARD, KEYBOARD_LAYOUT } from 'ngx-touch-virtual-keyboard';
 import { INGXKeyElement, k } from 'ngx-touch-virtual-keyboard';
 
 const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }[] = [
@@ -19,7 +19,7 @@ const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }
         k('9', ')'),
         k('0', '='),
         k("'", '?'),
-        'delete',
+        'backspace',
       ],
       ['tab', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
       ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
@@ -34,7 +34,7 @@ const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }
   templateUrl: './custom.component.html',
   styleUrls: ['./custom.component.scss'],
   providers: [
-    { provide: ICON_DELETE, useValue: 'assets/icons/bugs.svg' },
+    { provide: ICON_BACKSPACE, useValue: 'assets/icons/bugs.svg' },
     { provide: ICON_KEYBOARD, useValue: 'assets/icons/bugs.svg' },
     { provide: KEYBOARD_LAYOUT, useValue: defaultKeyboard },
   ],
