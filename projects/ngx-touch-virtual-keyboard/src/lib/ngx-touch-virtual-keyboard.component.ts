@@ -145,7 +145,10 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
 
   protected get keyboardLayout(): (INGXKeyElement | string)[][] {
     const res = this._keyboardLayout.find((e) => e.layout === this.layout);
-
+    if (!res) {
+      console.error(`layout: <${this.layout}> not found. Default is applied: <${this._keyboardLayout[0].layout}>`);
+      this.layout = this._keyboardLayout[0].layout;
+    }
     return res !== undefined ? res.values : this._keyboardLayout[0].values;
   }
 
