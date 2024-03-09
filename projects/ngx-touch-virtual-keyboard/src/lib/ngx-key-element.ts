@@ -1,6 +1,6 @@
 export interface INGXKeyElement {
-  p: string
-  s?: string
+  p: string;
+  s?: string;
 }
 
 export function k(a: string, b?: string): INGXKeyElement {

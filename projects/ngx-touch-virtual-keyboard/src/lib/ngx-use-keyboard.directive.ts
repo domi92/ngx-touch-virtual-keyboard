@@ -3,7 +3,7 @@ import { KeyboardType, NgxTouchVirtualKeyboardService } from './ngx-touch-virtua
 import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: '[useVirtualKeyboard]'
+  selector: '[useVirtualKeyboard]',
   // inputs: ['isNumericOnly'],
 })
 export class UseKeyboardDirective implements OnInit, OnDestroy {
@@ -11,7 +11,10 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
   keyboardType!: KeyboardType;
   // @Input() isNumericOnly?: boolean = false;
 
-  constructor(private readonly elementRef: ElementRef<HTMLInputElement>, private readonly keyboardService: NgxTouchVirtualKeyboardService) {}
+  constructor(
+    private readonly elementRef: ElementRef<HTMLInputElement>,
+    private readonly keyboardService: NgxTouchVirtualKeyboardService
+  ) {}
 
   ngOnInit() {
     const inputType = this.elementRef.nativeElement.type;
@@ -47,7 +50,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
     if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
     // Open the keyboard using the service
     this.keyboardService.setType(this.keyboardType);
-    this.keyboardService.openKeyboard(this.elementRef.nativeElement.value);
+    this.keyboardService.openKeyboard(this.elementRef, this.elementRef.nativeElement.value);
 
     this.inputValueSubscription = this.keyboardService.inputValue$.subscribe((value) => {
       this.onInputChange(value);

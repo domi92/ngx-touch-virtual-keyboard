@@ -2,23 +2,24 @@ import { Directive, Output, EventEmitter, HostListener, OnDestroy } from '@angul
 import { Subscription, interval } from 'rxjs';
 
 @Directive({
-  selector: '[appRepeatAction]'
+  selector: '[appRepeatAction]',
 })
 export class RepeatActionDirective implements OnDestroy {
   @Output() repeatAction = new EventEmitter<void>();
   private subscription!: Subscription;
 
-  constructor() { }
+  constructor() {}
 
   @HostListener('mousedown') onMouseDown() {
     // Emit the initial action
     this.repeatAction.emit();
 
     // Set interval to repeat the action every 500 milliseconds
-    this.subscription = interval(180).pipe(
-    ).subscribe(() => {
-      this.repeatAction.emit();
-    });
+    this.subscription = interval(180)
+      .pipe()
+      .subscribe(() => {
+        this.repeatAction.emit();
+      });
   }
 
   @HostListener('mouseup', ['$event'])

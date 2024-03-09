@@ -9,7 +9,9 @@ Or manually run in 2 terminal
 ```
 ng build ngx-touch-virtual-keyboard --watch
 ```
+
 AND
+
 ```
 ng serve ngx-touch-virtual-keyboard-demo
 ```
@@ -30,6 +32,8 @@ Beta: current version on npm that has to be incremented (publish is incrementing
 Run in sequence:
 
 +++ CHANGE VERSION +++
+
+- if published with git action change version to match current version released. Will be incremented automatically
 
 ```
 ng build ngx-touch-virtual-keyboard
