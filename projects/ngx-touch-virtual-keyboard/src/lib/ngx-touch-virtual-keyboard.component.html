@@ -4,17 +4,20 @@
       <button class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="clear()">
         <img [src]="iconErase" alt="cl" />
       </button>
-      <div class="keyboard-input">
+      <div class="keyboard-input text-container">
         <ng-container *ngIf="!isPassword">
-          <span>{{ textInput.substring(0, cursorPosition) }}</span>
-          <span class="cursor-placeholder" [style.visibility]="showCursor ? 'visible' : 'hidden'">|</span>
+          <span #beforeCursor>{{ textInput.substring(0, cursorPosition) }}</span>
           <span>{{ textInput.substring(cursorPosition) }}</span>
         </ng-container>
         <ng-container *ngIf="isPassword">
-          <span>{{ textInputPassword.substring(0, cursorPosition) }}</span>
-          <span class="cursor-placeholder" *ngIf="showCursor">|</span>
-          <span>{{ textInputPassword.substring(cursorPosition) }}</span>
+          <span #beforeCursor>{{
+            passwordShow ? textInput.substring(0, cursorPosition) : textInputPassword.substring(0, cursorPosition)
+          }}</span>
+          <span>{{
+            passwordShow ? textInput.substring(cursorPosition) : textInputPassword.substring(cursorPosition)
+          }}</span>
         </ng-container>
+        <span #cursor class="cursor-placeholder" [style.visibility]="showCursor ? 'visible' : 'hidden'"></span>
       </div>
       <button *ngIf="isPassword" class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="showHide()">
         <img *ngIf="!passwordShow" [src]="iconEye" alt="e" />

@@ -104,9 +104,23 @@
   border-color: #90a4ae;
 }
 
+.text-container {
+  position: relative;
+}
+
 .cursor-placeholder {
   display: inline-block;
-  padding-right: 0.1rem;
-  width: 0; /* Adjust the width of the cursor */
-  color: black;
+  width: 1px; /* Adjust the width of the cursor */
+  height: 1em; /* Adjust the height of the cursor */
+  background-color: black; /* Adjust the color of the cursor */
+  position: absolute;
+  top: 50%; /* Align the top of the cursor to the middle */
+  transform: translateY(-50%);
 }
+
+// .cursor-placeholder {
+//   display: inline-block;
+//   padding-right: 0.05rem;
+//   width: 0; /* Adjust the width of the cursor */
+//   color: black;
+// }
