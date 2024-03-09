@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 export type KeyboardType = 'full' | 'number' | 'password';
@@ -8,7 +8,7 @@ export type KeyboardType = 'full' | 'number' | 'password';
 })
 export class NgxTouchVirtualKeyboardService {
   private isOpen = false;
-  private readonly isOpenSubject = new Subject<boolean>();
+  private readonly isOpenSubject = new Subject<{ input: ElementRef | undefined; isOpen: boolean }>();
   isOpen$ = this.isOpenSubject.asObservable();
 
   private readonly isPassword: boolean = false;
@@ -31,9 +31,9 @@ export class NgxTouchVirtualKeyboardService {
 
   constructor() {}
 
-  openKeyboard(value?: string) {
+  openKeyboard(inputElement: ElementRef, value?: string) {
     this.isOpen = true;
-    this.isOpenSubject.next(this.isOpen);
+    this.isOpenSubject.next({ input: inputElement, isOpen: this.isOpen });
     this.isNumericOnlySubject.next(this.isNumericOnly);
     this.inputValueSubject$.next(value ?? '');
   }
@@ -45,7 +45,7 @@ export class NgxTouchVirtualKeyboardService {
 
   closeKeyboard() {
     this.isOpen = false;
-    this.isOpenSubject.next(this.isOpen);
+    this.isOpenSubject.next({ input: undefined, isOpen: this.isOpen });
     this.isNumericOnlySubject.next(this.isNumericOnly);
   }
 

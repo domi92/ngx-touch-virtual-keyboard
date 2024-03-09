@@ -62,7 +62,7 @@
           *ngIf="key === 'left'; else right"
           class="keyboard-key keyboard-key-icon"
           appRepeatAction
-          (repeatAction)="moveCursorLeft()"
+          (repeatAction)="arrowLeft()"
         >
           <img style="height: 50%; width: 50%" [src]="iconLeft" alt="left" />
         </button>
@@ -72,7 +72,7 @@
           *ngIf="key === 'right'; else shift"
           class="keyboard-key keyboard-key-icon"
           appRepeatAction
-          (repeatAction)="moveCursorRight()"
+          (repeatAction)="arrowRight()"
         >
           <img style="height: 50%; width: 50%" [src]="iconRight" alt="right" />
         </button>

@@ -13,7 +13,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
 
   constructor(
     private readonly elementRef: ElementRef<HTMLInputElement>,
-    private readonly keyboardService: NgxTouchVirtualKeyboardService,
+    private readonly keyboardService: NgxTouchVirtualKeyboardService
   ) {}
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
     if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
     // Open the keyboard using the service
     this.keyboardService.setType(this.keyboardType);
-    this.keyboardService.openKeyboard(this.elementRef.nativeElement.value);
+    this.keyboardService.openKeyboard(this.elementRef, this.elementRef.nativeElement.value);
 
     this.inputValueSubscription = this.keyboardService.inputValue$.subscribe((value) => {
       this.onInputChange(value);

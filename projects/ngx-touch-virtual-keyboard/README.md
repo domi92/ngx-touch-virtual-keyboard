@@ -1,6 +1,7 @@
 # NgxTouchVirtualKeyboard
 
 Simple angular virtual keyboard component.
+
 # Overview
 
 Simple virtual keyboard that inteact with common input elements. Supports multipl input type with different layout automatically applied.
@@ -11,14 +12,13 @@ Simple virtual keyboard that inteact with common input elements. Supports multip
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/a5e1efcf-d7b9-4341-b1ca-11a31c2cd076" width=60%/>
 </div>
 
-
 # Install
 
 ## Default icon loading
 
-To load correclty default icons add in angular.json assets import.
+To load correctly default icons add in angular.json assets import.
 
-Do not change the output path must be defined like that
+Do not change the output path must be defined like that in order to use default assets from lib
 
 ```typescript
 "assets": [
@@ -31,6 +31,7 @@ Do not change the output path must be defined like that
 ```
 
 ## Use custom icons
+
 All icons can be changed with custom svg. Providing in app.module.ts a new svg reference for each icon.
 
 ICON_DELETE | ICON_ERASE | ICON_EYE_SLASH | ICON_EYE | ICON_KEYBOARD | ICON_LEFT | ICON_RIGHT | ICON_SHIFT | KEYBOARD_LAYOUT
@@ -39,14 +40,16 @@ ICON_DELETE | ICON_ERASE | ICON_EYE_SLASH | ICON_EYE | ICON_KEYBOARD | ICON_LEFT
 import {ICON_DELETE, ICON_KEYBOARD} from 'ngx-touch-virtual-keyboard';
 
   ...
-  
+
   providers: [
     {provide: ICON_DELETE, useValue: 'assets/icons/bugs.svg'},
     {provide: ICON_KEYBOARD, useValue: 'assets/icons/bugs.svg'},
   ],
 
 ```
+
 Example from previous provided custom svg BUGs
+
 <div align="center">
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/54a31fe5-bf7b-4056-b1d2-7510605180de" width=45%/>
 </div>

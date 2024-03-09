@@ -48,6 +48,13 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   onKeyDown(event: KeyboardEvent) {
     if (event.shiftKey) {
       this.isShift = true;
+    } else if (event.key === 'ArrowLeft') {
+      console.log('Arrow Left Pressed');
+      this.moveCursorLeft();
+      // Handle arrow left key press
+    } else if (event.key === 'ArrowRight') {
+      console.log('Arrow Right Pressed');
+      this.moveCursorRight();
     }
   }
 
@@ -94,6 +101,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   private passwordSubscription!: Subscription;
   private subscription!: Subscription;
 
+  private inputElement: ElementRef<any> | undefined = undefined;
+
   // @HostListener('document:click', ['$event'])
   @HostListener('click', ['$event'])
   handleClick(event: MouseEvent) {
@@ -125,8 +134,9 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
       this.handleMouseDown(e);
     });
 
-    this.keyboardSubscription = this.keyboardService.isOpen$.subscribe((isOpen) => {
-      this.isOpen = isOpen;
+    this.keyboardSubscription = this.keyboardService.isOpen$.subscribe((e) => {
+      this.inputElement = e.input;
+      this.isOpen = e.isOpen;
       this.passwordShow = false;
     });
 
@@ -255,6 +265,18 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
+  private moveCursorLeft() {
+    if (this.cursorPosition > 0) {
+      this.cursorPosition--;
+    }
+  }
+
+  private moveCursorRight() {
+    if (this.cursorPosition + 1 <= this.textInput.length) {
+      this.cursorPosition++;
+    }
+  }
+
   protected isShift = false;
 
   shiftClick() {
@@ -268,15 +290,33 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  moveCursorLeft() {
-    if (this.cursorPosition > 0) {
-      this.cursorPosition--;
+  protected arrowLeft() {
+    this.moveCursorLeft();
+    this.moveSourceCursorLeft();
+  }
+
+  protected arrowRight() {
+    this.moveCursorRight();
+    this.moveSourceCursorRight();
+  }
+
+  private moveSourceCursorLeft(): void {
+    console.log('moveSourceCursorLeft', this.inputElement);
+
+    if (!this.inputElement) return;
+
+    if (this.inputElement.nativeElement.selectionStart > 0) {
+      this.inputElement.nativeElement.selectionStart--;
+      this.inputElement.nativeElement.selectionEnd = this.inputElement.nativeElement.selectionStart;
     }
   }
 
-  moveCursorRight() {
-    if (this.cursorPosition + 1 <= this.textInput.length) {
-      this.cursorPosition++;
+  private moveSourceCursorRight(): void {
+    if (!this.inputElement) return;
+
+    if (this.inputElement.nativeElement.selectionEnd < this.inputElement.nativeElement.value.length) {
+      this.inputElement.nativeElement.selectionStart++;
+      this.inputElement.nativeElement.selectionEnd = this.inputElement.nativeElement.selectionStart;
     }
   }
 }
