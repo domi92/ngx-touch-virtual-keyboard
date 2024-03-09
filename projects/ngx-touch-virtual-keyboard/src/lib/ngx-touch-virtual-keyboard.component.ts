@@ -47,7 +47,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.shiftKey) {
-      this.isShift = true;
+      this.isShift = this.capsLockActive ? false : true;
     } else if (event.key === 'ArrowLeft') {
       console.log('Arrow Left Pressed');
       this.moveCursorLeft();
@@ -61,6 +61,18 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   @HostListener('window:keyup', ['$event'])
   onKeyUp(event: KeyboardEvent) {
     if (!event.shiftKey) {
+      this.isShift = this.capsLockActive ? true : false;
+    }
+  }
+
+  private capsLockActive: boolean = false;
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.getModifierState && event.getModifierState('CapsLock')) {
+      this.capsLockActive = true;
+      this.isShift = true;
+    } else {
+      this.capsLockActive = false;
       this.isShift = false;
     }
   }
@@ -280,7 +292,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   protected isShift = false;
 
   shiftClick() {
-    this.isShift = !this.isShift;
+    if (!this.capsLockActive) this.isShift = !this.isShift;
   }
 
   showHide() {
