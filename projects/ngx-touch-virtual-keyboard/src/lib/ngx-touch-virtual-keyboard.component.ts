@@ -44,8 +44,19 @@ import {
   ],
 })
 export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
+  protected isShift = false;
+  private capsLockActive: boolean = false;
+
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
+    //capslock
+    if (event.getModifierState && event.getModifierState('CapsLock')) {
+      this.capsLockActive = true;
+      this.isShift = true;
+    } else {
+      this.capsLockActive = false;
+      this.isShift = false;
+    }
     if (event.shiftKey) {
       this.isShift = this.capsLockActive ? false : true;
     } else if (event.key === 'ArrowLeft') {
@@ -63,18 +74,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     if (!event.shiftKey) {
       this.isShift = this.capsLockActive ? true : false;
     }
-  }
-
-  private capsLockActive: boolean = false;
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.getModifierState && event.getModifierState('CapsLock')) {
-      this.capsLockActive = true;
-      this.isShift = true;
-    } else {
-      this.capsLockActive = false;
-      this.isShift = false;
-    }
+    this.cursorPosition = this.inputElement ? this.inputElement.nativeElement.selectionEnd : this.textInput.length;
   }
 
   @ViewChild('beforeCursor') beforeCursor!: ElementRef;
@@ -163,7 +163,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     this.inputValueSubscription = this.keyboardService.inputValue$.subscribe((value) => {
       if (this.textInput !== value) {
         this.onInputChange(value);
-        this.cursorPosition = value.length;
+        this.cursorPosition = this.inputElement ? this.inputElement.nativeElement.selectionEnd : this.textInput.length;
       }
     });
 
@@ -196,6 +196,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
 
   clear() {
     this.textInput = '';
+    this.cursorPosition = 0;
     this.keyboardService.changeValue(this.textInput);
   }
 
@@ -269,12 +270,19 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       if (this.beforeCursor && this.cursor) {
         this.restartCursorVisibility();
-        const beforeCursorWidth = this.beforeCursor.nativeElement.offsetWidth;
-        this.cursor.nativeElement.style.left = beforeCursorWidth + 3 + 'px';
-
-        console.log('EVAL: ', beforeCursorWidth);
+        const beforeCursorWidth = 3 + this.beforeCursor.nativeElement.offsetWidth;
+        this.cursor.nativeElement.style.left = beforeCursorWidth + 'px';
       }
+
+      // this.setSourceCursor();
     }, 0);
+  }
+
+  private setSourceCursor(): void {
+    if (!this.inputElement) return;
+
+    this.inputElement.nativeElement.selectionStart = this._cursorPosition;
+    this.inputElement.nativeElement.selectionEnd = this._cursorPosition;
   }
 
   private moveCursorLeft() {
@@ -289,7 +297,14 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected isShift = false;
+  protected arrowLeft() {
+    this.moveCursorLeft();
+    this.setSourceCursor();
+  }
+  protected arrowRight() {
+    this.moveCursorRight();
+    this.setSourceCursor();
+  }
 
   shiftClick() {
     if (!this.capsLockActive) this.isShift = !this.isShift;
@@ -299,36 +314,6 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     if (this.isPassword) {
       this.passwordShow = !this.passwordShow;
       this.adjustCursorPosition();
-    }
-  }
-
-  protected arrowLeft() {
-    this.moveCursorLeft();
-    this.moveSourceCursorLeft();
-  }
-
-  protected arrowRight() {
-    this.moveCursorRight();
-    this.moveSourceCursorRight();
-  }
-
-  private moveSourceCursorLeft(): void {
-    console.log('moveSourceCursorLeft', this.inputElement);
-
-    if (!this.inputElement) return;
-
-    if (this.inputElement.nativeElement.selectionStart > 0) {
-      this.inputElement.nativeElement.selectionStart--;
-      this.inputElement.nativeElement.selectionEnd = this.inputElement.nativeElement.selectionStart;
-    }
-  }
-
-  private moveSourceCursorRight(): void {
-    if (!this.inputElement) return;
-
-    if (this.inputElement.nativeElement.selectionEnd < this.inputElement.nativeElement.value.length) {
-      this.inputElement.nativeElement.selectionStart++;
-      this.inputElement.nativeElement.selectionEnd = this.inputElement.nativeElement.selectionStart;
     }
   }
 }
