@@ -386,9 +386,10 @@
   <br />
   <br />
 
+  <mat-slide-toggle [(ngModel)]="isToggled"> {{ isToggled ? 'custom' : 'default' }} </mat-slide-toggle>
   <div style="display: flex; justify-content: space-evenly; width: 100%">
-    <app-default></app-default>
-    <!-- <app-custom></app-custom> -->
+    <app-default *ngIf="!isToggled"></app-default>
+    <app-custom *ngIf="isToggled"></app-custom>
   </div>
 
   <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">

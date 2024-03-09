@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {
   ICON_DELETE,
   ICON_KEYBOARD,
@@ -22,6 +23,7 @@ import { DefaultComponent } from './components/default/default.component';
     BrowserModule,
     FormsModule,
     MatInputModule,
+    MatSlideToggleModule,
     AppRoutingModule,
     NgxTouchVirtualKeyboardModule,
     BrowserAnimationsModule,
