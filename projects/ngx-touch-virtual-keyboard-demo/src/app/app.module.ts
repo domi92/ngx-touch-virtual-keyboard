@@ -13,9 +13,11 @@ import {
 import { MyInputComponent } from './components/my-input/my-input.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomComponent } from './components/custom/custom.component';
+import { DefaultComponent } from './components/default/default.component';
 
 @NgModule({
-  declarations: [AppComponent, MyInputComponent],
+  declarations: [AppComponent, MyInputComponent, CustomComponent, DefaultComponent],
   imports: [
     BrowserModule,
     FormsModule,

@@ -1,0 +1,21 @@
+<p>default keyboard</p>
+<div class="grid-container">
+  <div class="grid-item">material input</div>
+  <mat-form-field>
+    <input useVirtualKeyboard matInput placeholder="Input" />
+  </mat-form-field>
+
+  <div class="grid-item">custom input component type="text"</div>
+  <app-my-input class="grid-item"></app-my-input>
+
+  <div class="grid-item">type="text"</div>
+  <input type="text" class="grid-item" useVirtualKeyboard placeholder="Type here..." [value]="inputValue" />
+
+  <div class="grid-item">type="password"</div>
+  <input type="password" class="grid-item" useVirtualKeyboard placeholder="pwa" />
+
+  <div class="grid-item">type="number"</div>
+  <input type="number" class="grid-item" useVirtualKeyboard placeholder="Type number..." />
+</div>
+
+<ngx-touch-virtual-keyboard></ngx-touch-virtual-keyboard>
