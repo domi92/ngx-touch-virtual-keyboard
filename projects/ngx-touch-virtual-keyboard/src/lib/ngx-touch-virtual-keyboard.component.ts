@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChi
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MapKeyboardType, NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
 import { INGXKeyElement } from './ngx-key-element';
-import { Subscription, interval } from 'rxjs';
+import { Subscription, interval, BehaviorSubject } from 'rxjs';
 import {
   ICON_BACKSPACE,
   ICON_ERASE,
@@ -145,8 +145,13 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     this._selectedKeyboardLayout = _keyboardLayoutDefault;
   }
 
-  protected get keyboardLayout(): (INGXKeyElement | string)[][] {
-    console.log('this._selectedKeyboardLayout', this._selectedKeyboardLayout);
+  private readonly keyboardLayoutSubject = new BehaviorSubject<undefined | (INGXKeyElement | string)[][]>(undefined);
+
+  protected get keyboardLayout$() {
+    return this.keyboardLayoutSubject.asObservable();
+  }
+
+  private evalauteKeyboardLayout(): void {
     const res = this._selectedKeyboardLayout.find((e) => e.layout === this.layout);
     if (!res) {
       console.error(
@@ -154,7 +159,9 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
       );
       this.layout = this._keyboardLayoutDefault[0].layout;
     }
-    return res !== undefined ? res.values : this._keyboardLayoutDefault[0].values;
+
+    if (res === undefined) this.keyboardLayoutSubject.next(undefined);
+    else this.keyboardLayoutSubject.next(res.values);
   }
 
   ngOnInit(): void {
@@ -163,6 +170,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     });
 
     this.keyboardTypeSubscription = this.keyboardService.keyboardType$.subscribe((type) => {
+      if (this.keyboardType === type) return;
+
       this.keyboardType = type;
 
       switch (this.keyboardType) {
@@ -187,6 +196,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
         default:
           this._selectedKeyboardLayout = this._keyboardLayoutDefault;
       }
+
+      this.evalauteKeyboardLayout();
     });
 
     this.keyboardSubscription = this.keyboardService.isOpen$.subscribe((e) => {

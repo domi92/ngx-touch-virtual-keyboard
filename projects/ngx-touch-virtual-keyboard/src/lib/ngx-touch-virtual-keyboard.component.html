@@ -20,13 +20,14 @@
         <span #cursor class="cursor-placeholder" [style.visibility]="showCursor ? 'visible' : 'hidden'"></span>
       </div>
       <button *ngIf="isPassword" class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="showHide()">
-        <img *ngIf="!passwordShow" [src]="iconEye" alt="e" />
-        <img *ngIf="passwordShow" [src]="iconEyeSlash" alt="es" />
+        <img *ngIf="!passwordShow" [src]="iconEye" alt="eye" />
+        <img *ngIf="passwordShow" [src]="iconEyeSlash" alt="eyeSlash" />
       </button>
     </div>
-    <ng-container *ngIf="keyboardLayout">
-      {{ keyboardType }}
-      <ng-container *ngTemplateOutlet="content; context: { data: keyboardLayout }"></ng-container>
+    <ng-container *ngIf="keyboardLayout$ | async as layoutSel">
+      <ng-container *ngIf="layoutSel">
+        <ng-container *ngTemplateOutlet="content; context: { data: layoutSel }"></ng-container>
+      </ng-container>
     </ng-container>
   </div>
 </div>
