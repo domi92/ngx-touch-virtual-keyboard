@@ -14,6 +14,7 @@ Possibile to customize:
 
 Main features:
 
+- easy to configure: Add keyboard component to you application and use one directive on input element that need to use virtual keyboard
 - automatic open/close on intem selection
 - automatic different layout for different input type (text, number, password, email, ...)
 - integration with phisical keyboard to use simultaneously (shift and capsLock works simultaneously as for cursor position)
@@ -31,7 +32,13 @@ Main features:
 
 # Install
 
-## Default icon loading
+Add package.
+
+```bash
+npm i ngx-touch-virtual-keyboard
+```
+
+## Default icon loading (add assets)
 
 To load correctly default icons add in angular.json assets import.
 
@@ -58,7 +65,7 @@ Inside appComponent. Add component
 
 ```
 
-Use directive useVirtualKeyboard in input component to connect input element with keyboard
+Use directive "useVirtualKeyboard" in input component to connect input element with keyboard
 
 ```typescript
 <input type="text" useVirtualKeyboard placeholder="Type here..." />

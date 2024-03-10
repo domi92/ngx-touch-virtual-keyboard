@@ -62,11 +62,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     if (event.shiftKey) {
       this.isShift = this.capsLockActive ? false : true;
     } else if (event.key === 'ArrowLeft') {
-      console.log('Arrow Left Pressed');
       this.moveCursorLeft();
-      // Handle arrow left key press
     } else if (event.key === 'ArrowRight') {
-      console.log('Arrow Right Pressed');
       this.moveCursorRight();
     }
   }
