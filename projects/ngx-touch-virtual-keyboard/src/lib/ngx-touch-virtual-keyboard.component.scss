@@ -17,12 +17,12 @@
   bottom: 0;
 }
 
-.keyboard {
-  position: absolute;
+.keyboard-fixed {
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%; /* Make the keyboard take up 100% width */
-  background-color: rgba(245, 245, 245, 0.4);
+  background-color: rgba(245, 245, 245, 0.98);
   padding: 10px;
   border-top: 1px solid #ccc;
   transition: transform 0.3s ease-in-out;
@@ -43,8 +43,26 @@
   min-width: 3rem;
   cursor: pointer;
 }
+.keyboard-key-complex {
+  @extend .keyboard-key;
+  position: relative;
+}
 
-.keyboard-space{
+.keyboard-key-secondary {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.4rem;
+  color: gray;
+}
+
+.keyboard-layout {
+  position: absolute;
+  bottom: 0.3rem;
+  left: 0.4rem;
+  color: gray;
+}
+
+.keyboard-space {
   @extend .keyboard-key;
   min-width: 15rem;
 }
@@ -53,7 +71,7 @@
   background-color: #ddd;
 }
 
-.keyboard-shift{
+.keyboard-shift {
   background-color: lightblue !important;
 }
 
@@ -66,8 +84,7 @@
   max-width: 3rem;
 }
 
-.keyboard-key-icon-clear{
-
+.keyboard-key-icon-clear {
   max-height: 2.2rem !important;
   max-width: 2.2rem !important;
   min-height: 2.2rem !important;
@@ -81,14 +98,29 @@
   bottom: 20px;
   right: 20px;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
   color: #fff;
-  border: none;
   border-radius: 5px;
   min-width: 3rem;
   cursor: pointer;
 }
 
 .toggle-button:hover {
-  background-color: #0056b3;
+  background-color: #cfd8dc;
+  border-color: #90a4ae;
+}
+
+.text-container {
+  position: relative;
+}
+
+.cursor-placeholder {
+  display: inline-block;
+  width: 1px; /* Adjust the width of the cursor */
+  height: 1em; /* Adjust the height of the cursor */
+  background-color: black; /* Adjust the color of the cursor */
+  position: absolute;
+  top: 50%; /* Align the top of the cursor to the middle */
+  transform: translateY(-50%);
 }

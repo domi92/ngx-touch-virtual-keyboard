@@ -1,0 +1,29 @@
+<p>default keyboard</p>
+<mat-form-field>
+  <mat-label>select layout</mat-label>
+  <mat-select [(value)]="selectedLanguage">
+    <mat-option value="us">English (US)</mat-option>
+    <mat-option value="it">Italian</mat-option>
+    <mat-option value="gb">English (UK)</mat-option>
+  </mat-select>
+</mat-form-field>
+<div class="grid-container">
+  <div class="grid-item">material input</div>
+  <mat-form-field>
+    <input useVirtualKeyboard matInput placeholder="Input" />
+  </mat-form-field>
+
+  <div class="grid-item">custom input component type="text"</div>
+  <app-my-input class="grid-item"></app-my-input>
+
+  <div class="grid-item">type="text"</div>
+  <input type="text" class="grid-item" useVirtualKeyboard placeholder="Type here..." [value]="inputValue" />
+
+  <div class="grid-item">type="password"</div>
+  <input type="password" class="grid-item" useVirtualKeyboard placeholder="pwa" />
+
+  <div class="grid-item">type="number"</div>
+  <input type="number" class="grid-item" useVirtualKeyboard placeholder="Type number..." />
+</div>
+
+<ngx-touch-virtual-keyboard [layout]="selectedLanguage"></ngx-touch-virtual-keyboard>

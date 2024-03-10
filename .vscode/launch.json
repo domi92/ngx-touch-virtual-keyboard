@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "ng serve",
+      "name": "Demo and library watch",
       "type": "pwa-chrome",
       "request": "launch",
       "preLaunchTask": "preLaunchTasks",
