@@ -1,7 +1,15 @@
 /* Default theme */
 :root {
+  --cursor-color: black;
   --ngx-tvk-background-color: rgba(245, 245, 245, 0.98);
   --ngx-tvk-background-input-color: #eaeaea;
+  --ngx-tvk-key-background-color-hover: #cfd8dc;
+  --ngx-tvk-key-border-color-hover: #90a4ae;
+  --ngx-tvk-key-background-color-pressed: #90a4ae;
+  --ngx-tvk-key-border-color-pressed: #607d8b;
+  --ngx-tvk-key-shift-background-color: lightblue !important;
+  --ngx-tvk-key-height: 2.75rem;
+  --ngx-tvk-key-width: 2.75rem;
 }
 
 /* TODO add light and dark theme?*/

@@ -36,13 +36,14 @@
 
 .keyboard-key {
   padding: 0.5rem;
-  margin: 0.2rem;
+  margin: 0.1rem;
   background-color: #eaeaea;
   border: 1px solid #ccc;
   border-radius: 5px;
-  min-height: 3rem;
-  min-width: 3rem;
+  height: var(--ngx-tvk-key-height);
+  width: var(--ngx-tvk-key-width);
   cursor: pointer;
+  font-size: 0.8vw;
 }
 .keyboard-key-complex {
   @extend .keyboard-key;
@@ -50,9 +51,10 @@
 }
 
 .keyboard-key-secondary {
+  font-size: 0.5vw;
   position: absolute;
-  top: 0.3rem;
-  right: 0.4rem;
+  top: 0.2rem;
+  right: 0.3rem;
   color: gray;
 }
 
@@ -69,11 +71,17 @@
 }
 
 .keyboard-key:hover {
-  background-color: #ddd;
+  background-color: var(--ngx-tvk-key-background-color-hover);
+  border-color: var(--ngx-tvk-key-border-color-hover);
+}
+
+.keyboard-key:active {
+  background-color: var(--ngx-tvk-key-background-color-pressed);
+  border-color: var(--ngx-tvk-key-border-color-pressed);
 }
 
 .keyboard-shift {
-  background-color: lightblue !important;
+  background-color: var(--ngx-tvk-key-shift-background-color);
 }
 
 .keyboard-key-icon {
@@ -81,8 +89,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 3rem;
-  max-width: 3rem;
+  max-height: var(--ngx-tvk-key-height);
+  max-width: var(--ngx-tvk-key-width);
 }
 
 .keyboard-key-icon-clear {
@@ -108,8 +116,13 @@
 }
 
 .toggle-button:hover {
-  background-color: #cfd8dc;
-  border-color: #90a4ae;
+  background-color: var(ngx-tvk--background-color-hover);
+  border-color: var(--ngx-tvk-key-border-color-hover);
+}
+
+.toggle-button:active {
+  background-color: var(--ngx-tvk-key-background-color-pressed);
+  border-color: var(--ngx-tvk-key-border-color-pressed);
 }
 
 .text-container {
@@ -121,7 +134,7 @@
   display: inline-block;
   width: 1px; /* Adjust the width of the cursor */
   height: 1em; /* Adjust the height of the cursor */
-  background-color: black; /* Adjust the color of the cursor */
+  background-color: var(--cursor-color); /* Adjust the color of the cursor */
   position: absolute;
   top: 50%; /* Align the top of the cursor to the middle */
   transform: translateY(-50%);
