@@ -1,7 +1,8 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-export type KeyboardType = 'full' | 'number' | 'password';
+export type MapInputType = 'text' | 'password' | 'number' | 'date' | 'email' | 'url' | 'range';
+export type MapKeyboardType = 'default' | 'number' | 'password' | 'tel' | 'date' | 'email';
 
 @Injectable({
   providedIn: 'root',
@@ -11,16 +12,16 @@ export class NgxTouchVirtualKeyboardService {
   private readonly isOpenSubject = new Subject<{ input: ElementRef | undefined; isOpen: boolean }>();
   isOpen$ = this.isOpenSubject.asObservable();
 
+  private keyboardType: MapKeyboardType = 'default';
   private readonly isPassword: boolean = false;
   private readonly isPasswordSubject = new Subject<boolean>();
   get isPassword$() {
     return this.isPasswordSubject.asObservable();
   }
 
-  private isNumericOnly: boolean = false;
-  private readonly isNumericOnlySubject = new Subject<boolean>();
-  get isNumericOnly$() {
-    return this.isNumericOnlySubject.asObservable();
+  private readonly keyboardTypeSubject = new Subject<MapKeyboardType>();
+  get keyboardType$() {
+    return this.keyboardTypeSubject.asObservable();
   }
 
   private readonly inputValueSubject$ = new BehaviorSubject<string>('');
@@ -34,42 +35,55 @@ export class NgxTouchVirtualKeyboardService {
   openKeyboard(inputElement: ElementRef, value?: string) {
     this.isOpen = true;
     this.isOpenSubject.next({ input: inputElement, isOpen: this.isOpen });
-    this.isNumericOnlySubject.next(this.isNumericOnly);
+    this.keyboardTypeSubject.next(this.keyboardType);
     this.inputValueSubject$.next(value ?? '');
   }
 
   updateKeyboard(value?: string) {
-    this.isNumericOnlySubject.next(this.isNumericOnly);
+    this.keyboardTypeSubject.next(this.keyboardType);
     this.inputValueSubject$.next(value ?? '');
   }
 
   closeKeyboard() {
     this.isOpen = false;
     this.isOpenSubject.next({ input: undefined, isOpen: this.isOpen });
-    this.isNumericOnlySubject.next(this.isNumericOnly);
+    this.keyboardTypeSubject.next(this.keyboardType);
   }
 
-  setType(type: KeyboardType) {
+  setType(type: string) {
+    //todo evaluate if there is an overridden configuration provided
+    //foreach in array search if exists key and set this.keyboardType = value
+
+    let isPassword = false;
     switch (type) {
-      case 'full':
-        this.isNumericOnly = false;
-        this.isNumericOnlySubject.next(false);
-        this.isPasswordSubject.next(false);
+      case 'text':
+        this.keyboardType = 'default';
         break;
-      case 'password':
-        this.isNumericOnly = false;
-        this.isNumericOnlySubject.next(false);
-        this.isPasswordSubject.next(true);
+      case 'email':
+        this.keyboardType = 'email';
+        break;
+      case 'tel':
+        this.keyboardType = 'tel';
+        break;
+      case 'date':
+        this.keyboardType = 'date';
         break;
       case 'number':
-        this.isNumericOnly = true;
-        this.isNumericOnlySubject.next(true);
-        this.isPasswordSubject.next(false);
+      case 'range':
+        this.keyboardType = 'number';
+        break;
+      case 'password':
+        this.keyboardType = 'password';
+        isPassword = true;
         break;
 
       default:
+        this.keyboardType = 'default';
         break;
     }
+
+    this.keyboardTypeSubject.next(this.keyboardType);
+    this.isPasswordSubject.next(isPassword);
   }
 
   changeValue(value: string) {

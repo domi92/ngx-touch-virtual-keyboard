@@ -24,11 +24,9 @@
         <img *ngIf="passwordShow" [src]="iconEyeSlash" alt="es" />
       </button>
     </div>
-    <ng-container *ngIf="!isNumericOnly && keyboardLayout">
+    <ng-container *ngIf="keyboardLayout">
+      {{ keyboardType }}
       <ng-container *ngTemplateOutlet="content; context: { data: keyboardLayout }"></ng-container>
-    </ng-container>
-    <ng-container *ngIf="isNumericOnly">
-      <ng-container *ngTemplateOutlet="content; context: { data: keyboardLayoutNumber }"></ng-container>
     </ng-container>
   </div>
 </div>

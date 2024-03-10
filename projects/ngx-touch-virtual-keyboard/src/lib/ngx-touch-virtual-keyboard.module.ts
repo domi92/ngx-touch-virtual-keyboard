@@ -6,6 +6,7 @@ import { UseKeyboardDirective } from './ngx-use-keyboard.directive';
 import { RepeatActionDirective } from './repeat-action.directive';
 import { NgxTouchVirtualKeyboardComponent } from './ngx-touch-virtual-keyboard.component';
 import { INGXKeyElement, k } from './ngx-key-element';
+import { MapInputType, MapKeyboardType } from './ngx-touch-virtual-keyboard.service';
 
 /**
  * Export all icons InjectionToken to give possibility to override icon image
@@ -27,6 +28,15 @@ export const KEYBOARD_LAYOUT = new InjectionToken<{ layout: string; values: (ING
 export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<{ layout: string; values: INGXKeyElement[][] }[]>(
   'KEYBOARD_LAYOUT_NUMBER'
 );
+
+/**
+ *
+ * Mapping from <input type="X"> to a specific keyobard layout. This is pre mapped, but can be customized.
+ * available KeyboardType = 'full' | 'number' | 'password' | 'tel' | 'date' | 'email';
+ */
+export const KEYBOARD_MAP_INPUTTYPE_TO_LAYOUT = new InjectionToken<
+  { inputType: MapInputType; keyboardType: MapKeyboardType }[]
+>('NGX_TVK_CONFIGURATION');
 
 const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }[] = [
   {
@@ -82,10 +92,24 @@ const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }
 ];
 
 const numberKeyboard = [
-  ['1', '2', '3'],
-  ['4', '5', '6'],
-  ['7', '8', '9'],
-  ['.', '0', 'backspace'],
+  {
+    layout: 'us',
+    values: [
+      ['1', '2', '3'],
+      ['4', '5', '6'],
+      ['7', '8', '9'],
+      ['.', '0', 'backspace'],
+    ],
+  },
+  {
+    layout: 'it',
+    values: [
+      ['1', '2', '3'],
+      ['4', '5', '6'],
+      ['7', '8', '9'],
+      [',', '0', 'backspace'],
+    ],
+  },
 ];
 
 @NgModule({
