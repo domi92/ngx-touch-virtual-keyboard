@@ -164,9 +164,11 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     const res = this._selectedKeyboardLayout.find((e) => e.layout === this.layout);
     if (!res) {
       console.error(
-        `layout: <${this.layout}> not found. Default is applied: <${this._keyboardLayoutDefault[0].layout}>`
+        `layout: <${this.layout}> not found. Default is applied: <${this._selectedKeyboardLayout[0].layout}>`
       );
-      this.layout = this._keyboardLayoutDefault[0].layout;
+      this.layout = this._selectedKeyboardLayout[0].layout;
+      this.keyboardLayoutSubject.next(this._selectedKeyboardLayout[0].values);
+      return;
     }
 
     if (res === undefined) this.keyboardLayoutSubject.next(undefined);
@@ -340,13 +342,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     if (!this.inputElement) return;
 
     try {
-      if (this.keyboardType === 'date') this.inputElement.nativeElement.setSelectionRange(0, 2);
-
       this.inputElement.nativeElement.setSelectionRange(this._cursorPosition, this._cursorPosition);
-    } catch (error) {
-      //not all input type can be manipulated in the same way
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   private moveCursorLeft() {
