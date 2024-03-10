@@ -24,6 +24,15 @@
 
   <div class="grid-item">type="number"</div>
   <input type="number" class="grid-item" useVirtualKeyboard placeholder="Type number..." />
+
+  <div class="grid-item">type="tel"</div>
+  <input type="tel" class="grid-item" useVirtualKeyboard placeholder="Type number..." />
+
+  <div class="grid-item">type="text" with setKeyboardType="date"</div>
+  <input type="text" class="grid-item" useVirtualKeyboard setKeyboardType="date" placeholder="Type number..." />
+
+  <div class="grid-item">type="text" with setKeyboardType="email"</div>
+  <input type="text" class="grid-item" useVirtualKeyboard setKeyboardType="email" placeholder="Type number..." />
 </div>
 
 <ngx-touch-virtual-keyboard [layout]="selectedLanguage"></ngx-touch-virtual-keyboard>

@@ -8,7 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {
   ICON_BACKSPACE,
   ICON_KEYBOARD,
-  KEYBOARD_LAYOUT,
+  KEYBOARD_LAYOUT_DEFAULT,
   KEYBOARD_LAYOUT_NUMBER,
   NgxTouchVirtualKeyboardModule,
 } from 'ngx-touch-virtual-keyboard';

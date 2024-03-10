@@ -14,8 +14,11 @@ import {
   ICON_RIGHT,
   ICON_SHIFT,
   ICON_TAB,
-  KEYBOARD_LAYOUT,
+  KEYBOARD_LAYOUT_DEFAULT,
   KEYBOARD_LAYOUT_NUMBER,
+  KEYBOARD_LAYOUT_DATE,
+  KEYBOARD_LAYOUT_EMAIL,
+  KEYBOARD_LAYOUT_TEL,
 } from '../public-api';
 
 @Component({
@@ -135,10 +138,16 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     @Inject(ICON_RIGHT) public iconRight: string,
     @Inject(ICON_SHIFT) public iconShift: string,
     @Inject(ICON_TAB) public iconTab: string,
-    @Inject(KEYBOARD_LAYOUT)
+    @Inject(KEYBOARD_LAYOUT_DEFAULT)
     private readonly _keyboardLayoutDefault: { layout: string; values: (INGXKeyElement | string)[][] }[],
     @Inject(KEYBOARD_LAYOUT_NUMBER)
     private readonly _keyboardLayoutNumber: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    @Inject(KEYBOARD_LAYOUT_TEL)
+    private readonly _keyboardLayoutTel: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    @Inject(KEYBOARD_LAYOUT_EMAIL)
+    private readonly _keyboardLayoutEmail: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    @Inject(KEYBOARD_LAYOUT_DATE)
+    private readonly _keyboardLayoutDate: { layout: string; values: (INGXKeyElement | string)[][] }[],
     private readonly elementRef: ElementRef,
     private readonly keyboardService: NgxTouchVirtualKeyboardService
   ) {
@@ -185,13 +194,13 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
           this._selectedKeyboardLayout = this._keyboardLayoutDefault;
           break;
         case 'tel':
-          this._selectedKeyboardLayout = this._keyboardLayoutDefault;
+          this._selectedKeyboardLayout = this._keyboardLayoutTel;
           break;
         case 'date':
-          this._selectedKeyboardLayout = this._keyboardLayoutDefault;
+          this._selectedKeyboardLayout = this._keyboardLayoutDate;
           break;
         case 'email':
-          this._selectedKeyboardLayout = this._keyboardLayoutDefault;
+          this._selectedKeyboardLayout = this._keyboardLayoutEmail;
           break;
         default:
           this._selectedKeyboardLayout = this._keyboardLayoutDefault;
@@ -330,8 +339,14 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   private setSourceCursor(): void {
     if (!this.inputElement) return;
 
-    this.inputElement.nativeElement.selectionStart = this._cursorPosition;
-    this.inputElement.nativeElement.selectionEnd = this._cursorPosition;
+    try {
+      if (this.keyboardType === 'date') this.inputElement.nativeElement.setSelectionRange(0, 2);
+
+      this.inputElement.nativeElement.setSelectionRange(this._cursorPosition, this._cursorPosition);
+    } catch (error) {
+      //not all input type can be manipulated in the same way
+      console.log(error);
+    }
   }
 
   private moveCursorLeft() {

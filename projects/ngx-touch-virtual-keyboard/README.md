@@ -16,7 +16,7 @@ Main features:
 
 - easy to configure: Add keyboard component to you application and use one directive on input element that need to use virtual keyboard
 - automatic open/close on intem selection
-- automatic different layout for different input type (text, number, password, email, ...)
+- automatic different layout for different input type (text, number, password, tel,)
 - integration with phisical keyboard to use simultaneously (shift and capsLock works simultaneously as for cursor position)
 - integrated tab (shift + tab) navigation
 - button pressed repeat action automatically

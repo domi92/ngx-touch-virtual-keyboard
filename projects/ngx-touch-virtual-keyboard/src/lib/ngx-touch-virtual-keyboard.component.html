@@ -98,7 +98,12 @@
       </ng-template>
       <ng-template #standardKey>
         <ng-container *ngIf="key.s !== undefined">
-          <button class="keyboard-key-complex" appRepeatAction (repeatAction)="pressKey(isShift ? key.s : key.p)">
+          <button
+            [style.visibility]="key.p == '' ? 'hidden' : 'visible'"
+            class="keyboard-key-complex"
+            appRepeatAction
+            (repeatAction)="pressKey(isShift ? key.s : key.p)"
+          >
             <div>
               <div class="keyboard-key-secondary">
                 {{ !isShift ? key.s : key.p }}
@@ -110,7 +115,12 @@
           </button>
         </ng-container>
         <ng-container *ngIf="key.s === undefined">
-          <button class="keyboard-key" appRepeatAction (repeatAction)="pressKey(key)">
+          <button
+            [style.visibility]="key === '' ? 'hidden' : 'visible'"
+            class="keyboard-key"
+            appRepeatAction
+            (repeatAction)="pressKey(key)"
+          >
             {{ isShift ? (key | uppercase) : key }}
           </button>
         </ng-container>

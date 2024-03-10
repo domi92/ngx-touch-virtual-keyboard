@@ -22,11 +22,24 @@ export const ICON_RIGHT = new InjectionToken<string>('ICON_RIGHT');
 export const ICON_SHIFT = new InjectionToken<string>('ICON_SHIFT');
 export const ICON_TAB = new InjectionToken<string>('ICON_TAB');
 
-export const KEYBOARD_LAYOUT = new InjectionToken<{ layout: string; values: (INGXKeyElement | string)[][] }>(
-  'KEYBOARD_LAYOUT'
+export const KEYBOARD_LAYOUT_DEFAULT = new InjectionToken<{ layout: string; values: (INGXKeyElement | string)[][] }>(
+  'KEYBOARD_LAYOUT_DEFAULT'
 );
+
 export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<{ layout: string; values: INGXKeyElement[][] }[]>(
   'KEYBOARD_LAYOUT_NUMBER'
+);
+
+export const KEYBOARD_LAYOUT_TEL = new InjectionToken<{ layout: string; alues: INGXKeyElement[][] }[]>(
+  'KEYBOARD_LAYOUT_TEL'
+);
+
+export const KEYBOARD_LAYOUT_EMAIL = new InjectionToken<{ layout: string; alues: INGXKeyElement[][] }[]>(
+  'KEYBOARD_LAYOUT_EMAIL'
+);
+
+export const KEYBOARD_LAYOUT_DATE = new InjectionToken<{ layout: string; alues: INGXKeyElement[][] }[]>(
+  'KEYBOARD_LAYOUT_DATE'
 );
 
 /**
@@ -34,9 +47,19 @@ export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<{ layout: string; value
  * Mapping from <input type="X"> to a specific keyobard layout. This is pre mapped, but can be customized.
  * available KeyboardType = 'full' | 'number' | 'password' | 'tel' | 'date' | 'email';
  */
-export const KEYBOARD_MAP_INPUTTYPE_TO_LAYOUT = new InjectionToken<
+export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<
   { inputType: MapInputType; keyboardType: MapKeyboardType }[]
 >('NGX_TVK_CONFIGURATION');
+
+const mapInputLayout: { inputType: MapInputType; keyboardType: MapKeyboardType }[] = [
+  { inputType: 'text', keyboardType: 'default' },
+  { inputType: 'password', keyboardType: 'password' },
+  { inputType: 'number', keyboardType: 'number' },
+  { inputType: 'date', keyboardType: 'date' },
+  { inputType: 'email', keyboardType: 'default' },
+  { inputType: 'url', keyboardType: 'default' },
+  { inputType: 'range', keyboardType: 'number' },
+];
 
 const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }[] = [
   {
@@ -91,6 +114,59 @@ const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }
   },
 ];
 
+const emailKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }[] = [
+  {
+    layout: 'us',
+    values: [
+      [
+        k('`', '~'),
+        k('1', '!'),
+        k('2', '@'),
+        k('3', '#'),
+        k('4', '$'),
+        k('5', '%'),
+        k('6', '^'),
+        k('7', '&'),
+        k('8', '*'),
+        k('9', '('),
+        k('0', ')'),
+        k('-', '_'),
+        k('=', '+'),
+        'backspace',
+      ],
+      ['tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+      ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+      ['shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', k(',', ';'), k('.', ':'), k('-', '_'), 'shift'],
+      ['space', '@', '.com', 'left', 'right'],
+    ],
+  },
+  {
+    layout: 'it',
+    values: [
+      [
+        k('\\', '|'),
+        k('1', '!'),
+        k('2', '"'),
+        k('3', '£'),
+        k('4', '$'),
+        k('5', '%'),
+        k('6', '&'),
+        k('7', '/'),
+        k('8', '('),
+        k('9', ')'),
+        k('0', '='),
+        k("'", '?'),
+        k('ì', '^'),
+        'backspace',
+      ],
+      ['tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', k('è', 'é'), k('+', '*')],
+      ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', k('ò', 'ç'), k('à', '°'), k('ù', '§')],
+      ['shift', k('<', '>'), 'z', 'x', 'c', 'v', 'b', 'n', 'm', k(',', ';'), k('.', ':'), k('-', '_'), 'shift'],
+      ['space', '@', '.com', 'left', 'right'],
+    ],
+  },
+];
+
 const numberKeyboard = [
   {
     layout: 'us',
@@ -112,6 +188,29 @@ const numberKeyboard = [
   },
 ];
 
+const telKeyboard = [
+  {
+    layout: 'us',
+    values: [
+      ['1', '2', '3', ''],
+      ['4', '5', '6', ''],
+      ['7', '8', '9', ''],
+      ['', '0', '+', 'backspace'],
+    ],
+  },
+];
+const dateKeyboard = [
+  {
+    layout: 'us',
+    values: [
+      ['', '1', '2', '3', ''],
+      ['', '4', '5', '6', ''],
+      ['', '7', '8', '9', ''],
+      ['-', '0', 'left', 'right', 'backspace'],
+    ],
+  },
+];
+
 @NgModule({
   declarations: [UseKeyboardDirective, RepeatActionDirective, NgxTouchVirtualKeyboardComponent],
   providers: [
@@ -125,8 +224,11 @@ const numberKeyboard = [
     { provide: ICON_RIGHT, useValue: '../assets/ngx-tvk/icon/right.svg' },
     { provide: ICON_SHIFT, useValue: '../assets/ngx-tvk/icon/shift.svg' },
     { provide: ICON_TAB, useValue: '../assets/ngx-tvk/icon/tab.svg' },
-    { provide: KEYBOARD_LAYOUT, useValue: defaultKeyboard },
+    { provide: KEYBOARD_LAYOUT_DEFAULT, useValue: defaultKeyboard },
     { provide: KEYBOARD_LAYOUT_NUMBER, useValue: numberKeyboard },
+    { provide: KEYBOARD_LAYOUT_TEL, useValue: telKeyboard },
+    { provide: KEYBOARD_LAYOUT_EMAIL, useValue: emailKeyboard },
+    { provide: KEYBOARD_LAYOUT_DATE, useValue: dateKeyboard },
   ],
   imports: [FormsModule, BrowserModule, BrowserAnimationsModule],
 
