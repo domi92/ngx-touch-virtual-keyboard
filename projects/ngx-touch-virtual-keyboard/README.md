@@ -7,18 +7,20 @@ Simple angular virtual keyboard component.
 Simple virtual keyboard that inteact with common input elements. Supports multiple input type with different layout automatically applied.
 
 Possibile to customize:
-* language layout fully customizable. Create multiple language-layout and dynamically change it
-* customize button icons and key positions providing a custom layout
-* todo others...
+
+- language layout fully customizable. Create multiple language-layout and dynamically change it
+- customize button icons and key positions providing a custom layout
+- todo others...
 
 Main features:
-* automatic open/close on intem selection
-* automatic different layout for different input type (text, number, password, email, ...)
-* integration with phisical keyboard to use simultaneously (shift and capsLock works simultaneously as for cursor position)
-* integrated tab (shift + tab) navigation
-* button pressed repeat action automatically
-* integrated text area in component to always keep visible input text (small screen eseful if keyboard covers input element)
-* todo others...
+
+- automatic open/close on intem selection
+- automatic different layout for different input type (text, number, password, email, ...)
+- integration with phisical keyboard to use simultaneously (shift and capsLock works simultaneously as for cursor position)
+- integrated tab (shift + tab) navigation
+- button pressed repeat action automatically
+- integrated text area in component to always keep visible input text (small screen eseful if keyboard covers input element)
+- todo others...
 
 <div align="center">
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/e90627d4-91c0-448d-92c8-554ce26dd051" width=45%/>
@@ -61,7 +63,9 @@ Use directive useVirtualKeyboard in input component to connect input element wit
 ```typescript
 <input type="text" useVirtualKeyboard placeholder="Type here..." />
 ```
+
 ## Change language layout
+
 Build in component there are just 2 simple layout ['us' and 'it']. 'US' is the deafult. A layout can be dynamically selected with @Input layout parameter.
 
 Current language is displayed inside the space button. If input parameter is not exisitng a console error is raised and the default layout is used.
@@ -72,16 +76,17 @@ Current language is displayed inside the space button. If input parameter is not
 <ngx-touch-virtual-keyboard [layout]="currentLayout"></ngx-touch-virtual-keyboard>
 ```
 
-## Provide custom language layout
+## Customize layout (define how many layout you need)
 
 Define in app.module or at compoent level a new array for layouts and provide this as new layout for keyboard compoent.
 This will override all default layout, but you can redefine them.
 
 Array type is : { layout: string; values: (INGXKeyElement | string)[][] }[].
-* layout usually is the language (us, gb, it, ..) or as in example can be used any string.
-* values can be a simple character, or a string (.com) or an object k(v1, v2).
-  * String usage is restricted since some string are used to display icon buttons (tab, shift, ...)
-  * k(v1, v2) can be usde for buttons that on shift should write not capitalized letter but another char
+
+- layout usually is the language (us, gb, it, ..) or as in example can be used any string.
+- values can be a simple character, or a string (.com) or an object k(v1, v2).
+  - String usage is restricted since some string are used to display icon buttons (tab, shift, ...)
+  - k(v1, v2) can be usde for buttons that on shift should write not capitalized letter but another char
 
 ```typescript
 
@@ -112,7 +117,6 @@ const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }
     { provide: KEYBOARD_LAYOUT, useValue: defaultKeyboard },
   ],
 ```
-
 
 Example from previous code (myDefault alyout is applied as default):
 
