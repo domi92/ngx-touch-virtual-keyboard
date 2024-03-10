@@ -6,6 +6,78 @@ on:
     types: [published]
 
 jobs:
+  checkVersion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Get package version from package.json
+        id: package-version
+        run: echo "local_version=$(node -p "require('./projects/ngx-touch-virtual-keyboard/package.json').version")" >> "$GITHUB_ENV"
+
+      - name: Get latest version from npm registry
+        id: npm-latest-version
+        run: echo "npm_version= $(npm show ngx-touch-virtual-keyboard@latest version)" >> "$GITHUB_ENV"
+
+      - name: Compare versions
+        id: compare-versions
+        run: |
+
+          echo "npm : $npm_version"
+          echo "local: $local_version"
+
+          # Splitting the versions into major, minor, patch, and pre-release parts
+          IFS='-.' read -r -a npmVersionArray <<< "$npmVersion"
+          IFS='-.' read -r -a packageVersionArray <<< "$local_version"
+
+          # Initialize a flag to track if an update text version is needed in package.json
+          canPublishVersion=false
+          canPublish=false
+
+          # Comparing major, minor, and patch versions
+          for i in {0..2}; do
+            echo "Comparing component $i"
+            echo "npm : ${npmVersionArray[$i]}"
+            echo "Package: ${packageVersionArray[$i]}"
+            #if released number greater break
+            if ((npmVersionArray[i] > packageVersionArray[i])); then
+              canPublishVersion=false
+              break
+
+            #if current number greater
+            elif ((packageVersionArray[i] > npmVersionArray[i])); then
+              canPublishVersion=true
+              break
+            fi
+          done
+          if [[ "$canPublishVersion" == "true" ]]; then
+              # No need to proceed further version is already bigger
+              echo "version is greater continue publishing"
+              canPublish=true
+          else
+          fi
+
+          # Set the output based on the flag value
+          echo "canContinue=$canPublish" >> "$GITHUB_ENV"
+
+      - name: Stop if version not compatible
+        if: env.canContinue == 'false'
+        run: |
+          echo "Version comparison failed: Package version ${{ steps.package-version.outputs.version }} is not greater than ${{ steps.npm-latest-version.outputs.version }}. UPDATE package.json"
+          exit 1
+
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
