@@ -1,8 +1,9 @@
-/* keyboard.component.css */
+@use '../../theme/ngx-touch-virtual-keyboard-theme';
 
 .keyboard-input {
   padding-left: 0.2rem;
-  background-color: #eaeaea;
+  // background-color: #eaeaea;
+  background-color: var(--ngx-tvk-background-input-color);
   border: 1px solid #ccc;
   border-radius: 5px;
   height: 2.2rem;
@@ -22,7 +23,7 @@
   bottom: 0;
   left: 0;
   width: 100%; /* Make the keyboard take up 100% width */
-  background-color: rgba(245, 245, 245, 0.98);
+  background-color: var(--ngx-tvk-background-color);
   padding: 10px;
   border-top: 1px solid #ccc;
   transition: transform 0.3s ease-in-out;

@@ -1,0 +1,17 @@
+/* Default theme */
+:root {
+  --ngx-tvk-background-color: rgba(245, 245, 245, 0.98);
+  --ngx-tvk-background-input-color: #eaeaea;
+}
+
+/* TODO add light and dark theme?*/
+
+// a[data-theme="light"]  {
+// --ngx-tvk-background-color: rgba(245, 245, 245, 0.98);
+// --ngx-tvk-background-input-color: #eaeaea;
+// }
+
+// b[data-theme="dark"] {
+// --ngx-tvk-background-color: rgba(245, 245, 245, 0.98);
+// --ngx-tvk-background-input-color: #eaeaea;
+// }
