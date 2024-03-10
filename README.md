@@ -32,14 +32,26 @@ Beta: current version on npm that has to be incremented (publish is incrementing
 Run in sequence:
 
 +++ CHANGE VERSION +++
+++ Beta
 
-- if published with git action change version to match current version released. Will be incremented automatically
+- if published with git action change version to match current version released. Beta will be incremented automatically
+
+++Latest
+
+- set version normally
+
+GitHub has implemente acutomatic actions for publishing beta and latest version on beta branch on push and on main branch (on release). No manual actions should be needed
+
+THEN ==>
+for manual publishing:
 
 ```
 ng build ngx-touch-virtual-keyboard
 
 cd dist\ngx-touch-virtual-keyboard
 
+npm publish --tag latest
+OR
 npm publish --tag beta
 
 ```
