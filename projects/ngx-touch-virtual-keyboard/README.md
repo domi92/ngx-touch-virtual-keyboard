@@ -9,19 +9,17 @@ Simple virtual keyboard that inteact with common input elements. Supports multip
 Possibile to customize:
 
 - language layout fully customizable. Create multiple language-layout and dynamically change it
-- customize button icons and key positions providing a custom layout
-- todo others...
+- customize button icons and key positions providing a custom layout/theme
 
 Main features:
 
 - easy to configure: Add keyboard component to you application and use one directive on input element that need to use virtual keyboard
 - automatic open/close on intem selection
-- automatic different layout for different input type (text, number, password, tel,)
+- automatic different layout for different input type (text, number, password, tel)
 - integration with phisical keyboard to use simultaneously (shift and capsLock works simultaneously as for cursor position)
 - integrated tab (shift + tab) navigation
 - button pressed repeat action automatically
 - integrated text area in component to always keep visible input text (small screen eseful if keyboard covers input element)
-- todo others...
 
 <div align="center">
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/e90627d4-91c0-448d-92c8-554ce26dd051" width=45%/>
@@ -32,17 +30,28 @@ Main features:
 
 # Install
 
-Add package.
+Install package (console) and import module (in app.module.ts)
 
 ```bash
 npm i ngx-touch-virtual-keyboard
+```
+
+```typescript
+
+@NgModule({
+  imports: [
+    ...
+    NgxTouchVirtualKeyboardModule
+  ],
+  ..
+})
 ```
 
 ## Default icon loading (add assets)
 
 To load correctly default icons add in angular.json assets import.
 
-Do not change the output path must be defined like that in order to use default assets from lib
+Do not change the output path must be defined like that in order to use default assets from lib.
 
 ```typescript
 "assets": [
@@ -83,7 +92,7 @@ Current language is displayed inside the space button. If input parameter is not
 <ngx-touch-virtual-keyboard [layout]="currentLayout"></ngx-touch-virtual-keyboard>
 ```
 
-## Customize layout (define how many layout you need)
+## Customize layout (define how many layout-language you need)
 
 Define in app.module or at compoent level a new array for layouts and provide this as new layout for keyboard compoent.
 This will override all default layout, but you can redefine them.
@@ -125,6 +134,10 @@ const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }
   ],
 ```
 
+Restricted string representing scpecial buttons are:
+
+- backspace | tab | left | right | shift | space
+
 Example from previous code (myDefault alyout is applied as default):
 
 <div align="center">
@@ -149,26 +162,77 @@ import {ICON_BACKSPACE, ICON_KEYBOARD} from 'ngx-touch-virtual-keyboard';
 
 ```
 
+List of all icons tahtn can be replaced
+
+- ICON_BACKSPACE
+- ICON_ERASE
+- ICON_EYE_SLASH
+- ICON_EYE
+- ICON_KEYBOARD
+- ICON_KEYBOARD_CLOSE
+- ICON_LEFT
+- ICON_RIGHT
+- ICON_SHIFT
+- ICON_TAB
+
 Example from previous provided custom bugs.svg
 
 <div align="center">
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/54a31fe5-bf7b-4056-b1d2-7510605180de" width=45%/>
 </div>
 
+## Customize keyobard type opened.
+
+Each input type have a specific keyboard layout opened, for example:
+
+- <input type="text"/> this will use default keyboard
+- <input type="number"/> this will use default number
+
+This is the current supported type. If not changed each time an input with this type is selected specific layout keyboard is opend
+
+```typescript
+const mapInputLayout: { inputType: MapInputType; keyboardType: MapKeyboardType }[] = [
+  { inputType: 'text', keyboardType: 'default' },
+  { inputType: 'url', keyboardType: 'default' },
+  { inputType: 'email', keyboardType: 'email' },
+  { inputType: 'password', keyboardType: 'password' },
+  { inputType: 'number', keyboardType: 'number' },
+  { inputType: 'range', keyboardType: 'number' },
+  { inputType: 'tel', keyboardType: 'tel' },
+];
+```
+
+### Override type on single element
+
+On input element after marked it with directive "useVirtualKeyboard", jsut force the layoutType with setKeyboardType="..."
+
+This example will "email" keyboard also if type is text.
+
+```typescript
+<input type="text" useVirtualKeyboard setKeyboardType="email" placeholder="Type email here..." />
+```
+
+### Override at application level
+
+todo
+
 # Versioning
 
-| Version                 | Angular | 
-| :---------------------- | ----------------------| 
-| up to @latest           | >= 14.0.0      | 
-
+| Version       | Angular   |
+| :------------ | --------- |
+| up to @latest | >= 14.0.0 |
 
 ## Changelog 1.2.0
 
 ### New Features:
+
 - Theme customization. All style can be customized overriding default .scss variables
 
 ### Enhancements:
+
 - keyboard layout changed get property with Observable usage
+- arrow left/right are working better than before when used with a keyboard
 
 ### Bug Fixes:
+
 - white space are displayed correctly

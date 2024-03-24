@@ -1,7 +1,7 @@
 <style>
   :host {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol';
     font-size: 14px;
     color: #333;
     box-sizing: border-box;
@@ -313,15 +313,7 @@
     </svg>
   </a>
   <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular" title="YouTube">
-    <svg
-      id="youtube-logo"
-      height="24"
-      width="24"
-      data-name="Logo"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="#fff"
-    >
+    <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
       <path d="M0 0h24v24H0V0z" fill="none" />
       <path
         d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"
@@ -336,15 +328,7 @@
     <svg id="rocket" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
       <title>Rocket Ship</title>
       <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
-        <circle
-          id="Ellipse_8"
-          data-name="Ellipse 8"
-          cx="50.839"
-          cy="50.839"
-          r="50.839"
-          transform="translate(141 696)"
-          fill="#dd0031"
-        />
+        <circle id="Ellipse_8" data-name="Ellipse 8" cx="50.839" cy="50.839" r="50.839" transform="translate(141 696)" fill="#dd0031" />
         <g id="Group_47" data-name="Group 47" transform="translate(165.185 720.185)">
           <path
             id="Path_33"
@@ -366,13 +350,7 @@
 
     <span>{{ title }} app is running!</span>
 
-    <svg
-      id="rocket-smoke"
-      xmlns="http://www.w3.org/2000/svg"
-      width="516.119"
-      height="1083.632"
-      viewBox="0 0 516.119 1083.632"
-    >
+    <svg id="rocket-smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632" viewBox="0 0 516.119 1083.632">
       <title>Rocket Ship Smoke</title>
       <path
         id="Path_40"
@@ -386,7 +364,7 @@
   <br />
   <br />
 
-  <mat-slide-toggle [(ngModel)]="isToggled"> {{ isToggled ? 'custom' : 'default' }} </mat-slide-toggle>
+  <mat-slide-toggle [(ngModel)]="isToggled"> {{ isToggled ? 'custom layouts' : 'default' }} </mat-slide-toggle>
   <div style="display: flex; justify-content: space-evenly; width: 100%">
     <app-default *ngIf="!isToggled"></app-default>
     <app-custom *ngIf="isToggled"></app-custom>

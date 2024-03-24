@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChild, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { MapKeyboardType, NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
 import { INGXKeyElement } from './ngx-key-element';
@@ -14,8 +14,11 @@ import {
   ICON_RIGHT,
   ICON_SHIFT,
   ICON_TAB,
+  // KEYBOARD_LAYOUT_DATE,
   KEYBOARD_LAYOUT_DEFAULT,
+  KEYBOARD_LAYOUT_EMAIL,
   KEYBOARD_LAYOUT_NUMBER,
+  KEYBOARD_LAYOUT_TEL,
 } from '../public-api';
 
 @Component({
@@ -43,10 +46,69 @@ import {
     ]),
   ],
 })
-export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
-  protected isShift = false;
+export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy, OnChanges {
+  constructor(
+    @Inject(ICON_BACKSPACE) public iconDelete: string,
+    @Inject(ICON_ERASE) public iconErase: string,
+    @Inject(ICON_EYE) public iconEye: string,
+    @Inject(ICON_EYE_SLASH) public iconEyeSlash: string,
+    @Inject(ICON_KEYBOARD) public iconKeyboard: string,
+    @Inject(ICON_KEYBOARD_CLOSE) public iconKeyboardClose: string,
+    @Inject(ICON_LEFT) public iconLeft: string,
+    @Inject(ICON_RIGHT) public iconRight: string,
+    @Inject(ICON_SHIFT) public iconShift: string,
+    @Inject(ICON_TAB) public iconTab: string,
+    @Inject(KEYBOARD_LAYOUT_DEFAULT)
+    private readonly _keyboardLayoutDefault: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    @Inject(KEYBOARD_LAYOUT_NUMBER)
+    private readonly _keyboardLayoutNumber: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    @Inject(KEYBOARD_LAYOUT_TEL)
+    private readonly _keyboardLayoutTel: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    @Inject(KEYBOARD_LAYOUT_EMAIL)
+    private readonly _keyboardLayoutEmail: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    private readonly elementRef: ElementRef,
+    private readonly keyboardService: NgxTouchVirtualKeyboardService
+  ) {
+    this._selectedKeyboardLayout = _keyboardLayoutDefault;
+  }
+
+  private keyboardTypeSubscription!: Subscription;
+  private inputValueSubscription!: Subscription;
+  private keyboardSubscription!: Subscription;
+  private passwordSubscription!: Subscription;
+  private subscription!: Subscription;
+  private inputElement: ElementRef<any> | undefined = undefined;
+  private _cursorPosition: number = 0;
   private capsLockActive: boolean = false;
+  private _textInputPassword = '';
   private _selectedKeyboardLayout: { layout: string; values: (INGXKeyElement | string)[][] }[];
+  private readonly keyboardLayoutSubject = new BehaviorSubject<undefined | (INGXKeyElement | string)[][]>(undefined);
+
+  protected isShift = false;
+  protected isOpen: boolean = false;
+  protected textInput: string = '';
+  protected keyboardType!: MapKeyboardType;
+  protected isPassword: boolean = false;
+  protected passwordShow: boolean = false;
+  protected showCursor: boolean = true;
+
+  protected set cursorPosition(value: number) {
+    if (this._cursorPosition !== value) {
+      this._cursorPosition = value;
+      this.adjustCursorPosition();
+    }
+  }
+
+  protected get cursorPosition() {
+    return this._cursorPosition;
+  }
+
+  protected get textInputPassword() {
+    return this._textInputPassword;
+  }
+
+  @ViewChild('beforeCursor') beforeCursor!: ElementRef;
+  @ViewChild('cursor') cursor!: ElementRef;
 
   @Input('layout') layout: string = 'us';
 
@@ -77,44 +139,6 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     this.cursorPosition = this.inputElement ? this.inputElement.nativeElement.selectionEnd : this.textInput.length;
   }
 
-  @ViewChild('beforeCursor') beforeCursor!: ElementRef;
-  @ViewChild('cursor') cursor!: ElementRef;
-
-  // @Output() keyPressed = new EventEmitter<string>();
-  // @Output() deletePressed = new EventEmitter<void>();
-  isOpen: boolean = false;
-  textInput: string = '';
-  keyboardType!: MapKeyboardType;
-  isPassword: boolean = false;
-  passwordShow: boolean = false;
-
-  showCursor: boolean = true;
-  private _cursorPosition: number = 0;
-
-  set cursorPosition(value: number) {
-    if (this._cursorPosition !== value) {
-      this._cursorPosition = value;
-      this.adjustCursorPosition();
-    }
-  }
-
-  get cursorPosition() {
-    return this._cursorPosition;
-  }
-
-  private _textInputPassword = '';
-  get textInputPassword() {
-    return this._textInputPassword;
-  }
-
-  private keyboardTypeSubscription!: Subscription;
-  private inputValueSubscription!: Subscription;
-  private keyboardSubscription!: Subscription;
-  private passwordSubscription!: Subscription;
-  private subscription!: Subscription;
-
-  private inputElement: ElementRef<any> | undefined = undefined;
-
   // @HostListener('document:click', ['$event'])
   @HostListener('click', ['$event'])
   handleClick(event: MouseEvent) {
@@ -124,50 +148,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     // console.log('HERE IT IS A CLICK' + event);
   }
 
-  constructor(
-    @Inject(ICON_BACKSPACE) public iconDelete: string,
-    @Inject(ICON_ERASE) public iconErase: string,
-    @Inject(ICON_EYE) public iconEye: string,
-    @Inject(ICON_EYE_SLASH) public iconEyeSlash: string,
-    @Inject(ICON_KEYBOARD) public iconKeyboard: string,
-    @Inject(ICON_KEYBOARD_CLOSE) public iconKeyboardClose: string,
-    @Inject(ICON_LEFT) public iconLeft: string,
-    @Inject(ICON_RIGHT) public iconRight: string,
-    @Inject(ICON_SHIFT) public iconShift: string,
-    @Inject(ICON_TAB) public iconTab: string,
-    @Inject(KEYBOARD_LAYOUT_DEFAULT)
-    private readonly _keyboardLayoutDefault: { layout: string; values: (INGXKeyElement | string)[][] }[],
-    @Inject(KEYBOARD_LAYOUT_NUMBER)
-    private readonly _keyboardLayoutNumber: { layout: string; values: (INGXKeyElement | string)[][] }[],
-    // @Inject(KEYBOARD_LAYOUT_TEL)
-    // private readonly _keyboardLayoutTel: { layout: string; values: (INGXKeyElement | string)[][] }[],
-    // @Inject(KEYBOARD_LAYOUT_EMAIL)
-    // private readonly _keyboardLayoutEmail: { layout: string; values: (INGXKeyElement | string)[][] }[],
-    // @Inject(KEYBOARD_LAYOUT_DATE)
-    // private readonly _keyboardLayoutDate: { layout: string; values: (INGXKeyElement | string)[][] }[],
-    private readonly elementRef: ElementRef,
-    private readonly keyboardService: NgxTouchVirtualKeyboardService
-  ) {
-    this._selectedKeyboardLayout = _keyboardLayoutDefault;
-  }
-
-  private readonly keyboardLayoutSubject = new BehaviorSubject<undefined | (INGXKeyElement | string)[][]>(undefined);
-
   protected get keyboardLayout$() {
     return this.keyboardLayoutSubject.asObservable();
-  }
-
-  private evalauteKeyboardLayout(): void {
-    const res = this._selectedKeyboardLayout.find((e) => e.layout === this.layout);
-    if (!res) {
-      console.error(`layout: <${this.layout}> not found. Default is applied: <${this._selectedKeyboardLayout[0].layout}>`);
-      this.layout = this._selectedKeyboardLayout[0].layout;
-      this.keyboardLayoutSubject.next(this._selectedKeyboardLayout[0].values);
-      return;
-    }
-
-    if (res === undefined) this.keyboardLayoutSubject.next(undefined);
-    else this.keyboardLayoutSubject.next(res.values);
   }
 
   ngOnInit(): void {
@@ -190,15 +172,12 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
         case 'password':
           this._selectedKeyboardLayout = this._keyboardLayoutDefault;
           break;
-        // case 'tel':
-        //   this._selectedKeyboardLayout = this._keyboardLayoutTel;
-        //   break;
-        // case 'date':
-        //   this._selectedKeyboardLayout = this._keyboardLayoutDate;
-        //   break;
-        // case 'email':
-        //   this._selectedKeyboardLayout = this._keyboardLayoutEmail;
-        //   break;
+        case 'tel':
+          this._selectedKeyboardLayout = this._keyboardLayoutTel;
+          break;
+        case 'email':
+          this._selectedKeyboardLayout = this._keyboardLayoutEmail;
+          break;
         default:
           this._selectedKeyboardLayout = this._keyboardLayoutDefault;
       }
@@ -225,8 +204,10 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     this.restartCursorVisibility();
   }
 
-  toggleKeyboard() {
-    this.isOpen = !this.isOpen;
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['layout']) {
+      this.evalauteKeyboardLayout();
+    }
   }
 
   ngOnDestroy() {
@@ -237,7 +218,11 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  pressKey(key: string) {
+  protected toggleKeyboard() {
+    this.isOpen = !this.isOpen;
+  }
+
+  protected pressKey(key: string) {
     const charToAdd = this.isShift ? key.toUpperCase() : key;
     const updatedTextInput = `${this.textInput.slice(0, this.cursorPosition)}${charToAdd}${this.textInput.slice(this.cursorPosition)}`;
 
@@ -247,13 +232,13 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  clear() {
+  protected clear() {
     this.textInput = '';
     this.cursorPosition = 0;
     this.keyboardService.changeValue(this.textInput);
   }
 
-  emitDeletePressed() {
+  protected emitDeletePressed() {
     const deletePosition = this.cursorPosition - 1;
 
     if (deletePosition >= 0 && deletePosition < this.textInput.length) {
@@ -264,7 +249,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  emitTab() {
+  protected emitTab() {
     const focusableElements = document.querySelectorAll(
       'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])'
     );
@@ -293,6 +278,39 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
         nextElement.focus();
       }
     }
+  }
+
+  protected arrowLeft() {
+    this.moveCursorLeft();
+    this.setSourceCursor();
+  }
+  protected arrowRight() {
+    this.moveCursorRight();
+    this.setSourceCursor();
+  }
+
+  protected shiftClick() {
+    if (!this.capsLockActive) this.isShift = !this.isShift;
+  }
+
+  protected showHide() {
+    if (this.isPassword) {
+      this.passwordShow = !this.passwordShow;
+      this.adjustCursorPosition();
+    }
+  }
+
+  private evalauteKeyboardLayout(): void {
+    const res = this._selectedKeyboardLayout.find((e) => e.layout === this.layout);
+    if (!res) {
+      console.error(`layout: <${this.layout}> not found. Default is applied: <${this._selectedKeyboardLayout[0].layout}>`);
+      this.layout = this._selectedKeyboardLayout[0].layout;
+      this.keyboardLayoutSubject.next(this._selectedKeyboardLayout[0].values);
+      return;
+    }
+
+    if (res === undefined) this.keyboardLayoutSubject.next(undefined);
+    else this.keyboardLayoutSubject.next(res.values);
   }
 
   private onInputChange(value: string) {
@@ -348,26 +366,6 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   private moveCursorRight() {
     if (this.cursorPosition + 1 <= this.textInput.length) {
       this.cursorPosition++;
-    }
-  }
-
-  protected arrowLeft() {
-    this.moveCursorLeft();
-    this.setSourceCursor();
-  }
-  protected arrowRight() {
-    this.moveCursorRight();
-    this.setSourceCursor();
-  }
-
-  shiftClick() {
-    if (!this.capsLockActive) this.isShift = !this.isShift;
-  }
-
-  showHide() {
-    if (this.isPassword) {
-      this.passwordShow = !this.passwordShow;
-      this.adjustCursorPosition();
     }
   }
 }

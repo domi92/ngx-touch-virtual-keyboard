@@ -1,8 +1,8 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-export type MapInputType = 'text' | 'password' | 'number' | 'date' | 'email' | 'url' | 'range';
-export type MapKeyboardType = 'default' | 'number' | 'password' | 'tel' | 'date' | 'email';
+export type MapInputType = 'text' | 'password' | 'number' | 'email' | 'url' | 'range' | 'tel';
+export type MapKeyboardType = 'default' | 'number' | 'password' | 'tel' | 'email';
 
 @Injectable({
   providedIn: 'root',
@@ -64,9 +64,6 @@ export class NgxTouchVirtualKeyboardService {
         break;
       case 'tel':
         this.keyboardType = 'tel';
-        break;
-      case 'date':
-        this.keyboardType = 'date';
         break;
       case 'number':
       case 'range':

@@ -7,7 +7,7 @@ import { RepeatActionDirective } from './repeat-action.directive';
 import { NgxTouchVirtualKeyboardComponent } from './ngx-touch-virtual-keyboard.component';
 import { INGXKeyElement, k } from './ngx-key-element';
 import { MapInputType, MapKeyboardType } from './ngx-touch-virtual-keyboard.service';
-import { defaultKeyboard, numberKeyboard, telKeyboard, emailKeyboard, dateKeyboard } from './ngx-touch-virtual-keyboard.resources';
+import { defaultKeyboard, numberKeyboard, telKeyboard, emailKeyboard } from './ngx-touch-virtual-keyboard.resources';
 
 /**
  * Export all icons InjectionToken to give possibility to override icon image
@@ -27,13 +27,15 @@ export const KEYBOARD_LAYOUT_DEFAULT = new InjectionToken<{ layout: string; valu
   'KEYBOARD_LAYOUT_DEFAULT'
 );
 
-export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<{ layout: string; values: INGXKeyElement[][] }[]>('KEYBOARD_LAYOUT_NUMBER');
+export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<{ layout: string; values: (INGXKeyElement | string)[][] }[]>(
+  'KEYBOARD_LAYOUT_NUMBER'
+);
 
-export const KEYBOARD_LAYOUT_TEL = new InjectionToken<{ layout: string; alues: INGXKeyElement[][] }[]>('KEYBOARD_LAYOUT_TEL');
+export const KEYBOARD_LAYOUT_TEL = new InjectionToken<{ layout: string; alues: (INGXKeyElement | string)[][] }[]>('KEYBOARD_LAYOUT_TEL');
 
-export const KEYBOARD_LAYOUT_EMAIL = new InjectionToken<{ layout: string; alues: INGXKeyElement[][] }[]>('KEYBOARD_LAYOUT_EMAIL');
-
-export const KEYBOARD_LAYOUT_DATE = new InjectionToken<{ layout: string; alues: INGXKeyElement[][] }[]>('KEYBOARD_LAYOUT_DATE');
+export const KEYBOARD_LAYOUT_EMAIL = new InjectionToken<{ layout: string; alues: (INGXKeyElement | string)[][] }[]>(
+  'KEYBOARD_LAYOUT_EMAIL'
+);
 
 /**
  *
@@ -46,12 +48,12 @@ export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<{ inputType: MapI
 
 const mapInputLayout: { inputType: MapInputType; keyboardType: MapKeyboardType }[] = [
   { inputType: 'text', keyboardType: 'default' },
+  { inputType: 'url', keyboardType: 'default' },
+  { inputType: 'email', keyboardType: 'email' },
   { inputType: 'password', keyboardType: 'password' },
   { inputType: 'number', keyboardType: 'number' },
-  { inputType: 'date', keyboardType: 'date' },
-  { inputType: 'email', keyboardType: 'default' },
-  { inputType: 'url', keyboardType: 'default' },
   { inputType: 'range', keyboardType: 'number' },
+  { inputType: 'tel', keyboardType: 'tel' },
 ];
 
 @NgModule({
@@ -71,7 +73,6 @@ const mapInputLayout: { inputType: MapInputType; keyboardType: MapKeyboardType }
     { provide: KEYBOARD_LAYOUT_NUMBER, useValue: numberKeyboard },
     { provide: KEYBOARD_LAYOUT_TEL, useValue: telKeyboard },
     { provide: KEYBOARD_LAYOUT_EMAIL, useValue: emailKeyboard },
-    { provide: KEYBOARD_LAYOUT_DATE, useValue: dateKeyboard },
   ],
   imports: [FormsModule, BrowserModule, BrowserAnimationsModule],
 

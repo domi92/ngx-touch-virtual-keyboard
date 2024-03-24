@@ -7,18 +7,12 @@ import { Subscription } from 'rxjs';
   inputs: ['keyboardType'],
 })
 export class UseKeyboardDirective implements OnInit, OnDestroy {
-  private inputValueSubscription: Subscription | undefined;
-
   constructor(
     private readonly elementRef: ElementRef<HTMLInputElement>,
     private readonly keyboardService: NgxTouchVirtualKeyboardService
   ) {}
 
-  ngOnInit() {}
-
-  ngOnDestroy(): void {
-    if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
-  }
+  private inputValueSubscription: Subscription | undefined;
 
   @Input('setKeyboardType') forcedKeyboardType?: MapKeyboardType = undefined;
 
@@ -51,12 +45,18 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
     this.keyboardService.closeKeyboard();
   }
 
+  ngOnInit() {}
+
+  ngOnDestroy(): void {
+    if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
+  }
+
   /**
    * When keyboard trigger an element change. Reflect into input element
    * @param value
    * @returns
    */
-  onInputChange(value: string) {
+  protected onInputChange(value: string) {
     if (value === this.elementRef.nativeElement.value) return;
 
     this.elementRef.nativeElement.value = value;
@@ -67,7 +67,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
    * @param value
    * @returns
    */
-  onInputUpdate(value: string) {
+  protected onInputUpdate(value: string) {
     this.keyboardService.updateKeyboard(value);
   }
 }
