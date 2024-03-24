@@ -1,9 +1,7 @@
 import { ElementRef, Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { KEYBOARD_MAP_INPUT_TO_LAYOUT } from '../public-api';
-
-export type MapInputType = 'text' | 'password' | 'number' | 'email' | 'url' | 'range' | 'tel';
-export type MapKeyboardType = 'default' | 'number' | 'password' | 'tel' | 'email';
+import { MapInputType, MapKeyboardType } from './ngx-touch-virtual-keyboard.resources';
 
 @Injectable({
   providedIn: 'root',

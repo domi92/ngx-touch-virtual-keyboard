@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { MapKeyboardType, NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
+import { NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
 import { INGXKeyElement } from './ngx-key-element';
 import { Subscription, interval, BehaviorSubject } from 'rxjs';
+import { MapKeyboardType } from './ngx-touch-virtual-keyboard.resources';
 import {
   ICON_BACKSPACE,
   ICON_ERASE,

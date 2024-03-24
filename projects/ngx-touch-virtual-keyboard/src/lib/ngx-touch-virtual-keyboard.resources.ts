@@ -1,6 +1,7 @@
-import { InjectionToken } from '@angular/core';
 import { INGXKeyElement, k } from './ngx-key-element';
-import { MapInputType, MapKeyboardType } from './ngx-touch-virtual-keyboard.service';
+
+export type MapInputType = 'text' | 'password' | 'number' | 'email' | 'url' | 'range' | 'tel';
+export type MapKeyboardType = 'default' | 'number' | 'password' | 'tel' | 'email';
 
 export enum InputTypes {
   Text,
@@ -180,7 +181,3 @@ export const mapInputLayout: { inputType: MapInputType; keyboardType: MapKeyboar
   { inputType: 'range', keyboardType: 'number' },
   { inputType: 'tel', keyboardType: 'tel' },
 ];
-
-// export class NGXConfigurationKeyboard {
-//   mapping!: Map<InputTypes, InjectionToken<INGXKeyElement[][]>>;
-// }

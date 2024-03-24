@@ -6,8 +6,15 @@ import { UseKeyboardDirective } from './ngx-use-keyboard.directive';
 import { RepeatActionDirective } from './repeat-action.directive';
 import { NgxTouchVirtualKeyboardComponent } from './ngx-touch-virtual-keyboard.component';
 import { INGXKeyElement } from './ngx-key-element';
-import { MapInputType, MapKeyboardType } from './ngx-touch-virtual-keyboard.service';
-import { defaultKeyboard, numberKeyboard, telKeyboard, emailKeyboard, mapInputLayout } from './ngx-touch-virtual-keyboard.resources';
+import {
+  defaultKeyboard,
+  numberKeyboard,
+  telKeyboard,
+  emailKeyboard,
+  mapInputLayout,
+  MapInputType,
+  MapKeyboardType,
+} from './ngx-touch-virtual-keyboard.resources';
 
 /**
  * Export all icons InjectionToken to give possibility to override icon image
