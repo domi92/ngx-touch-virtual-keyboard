@@ -1,5 +1,6 @@
 import { Directive, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { MapKeyboardType, NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
+import { NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
+import { MapKeyboardType } from './ngx-touch-virtual-keyboard.resources';
 import { Subscription } from 'rxjs';
 
 @Directive({
