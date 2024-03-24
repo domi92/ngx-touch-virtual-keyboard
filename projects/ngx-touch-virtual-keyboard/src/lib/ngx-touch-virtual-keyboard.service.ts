@@ -1,5 +1,6 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { ElementRef, Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { KEYBOARD_MAP_INPUT_TO_LAYOUT } from '../public-api';
 
 export type MapInputType = 'text' | 'password' | 'number' | 'email' | 'url' | 'range' | 'tel';
 export type MapKeyboardType = 'default' | 'number' | 'password' | 'tel' | 'email';
@@ -8,29 +9,31 @@ export type MapKeyboardType = 'default' | 'number' | 'password' | 'tel' | 'email
   providedIn: 'root',
 })
 export class NgxTouchVirtualKeyboardService {
+  constructor(
+    @Inject(KEYBOARD_MAP_INPUT_TO_LAYOUT)
+    private readonly _keyboardMapLayoutType: { inputType: MapInputType; keyboardType: MapKeyboardType }[]
+  ) {}
+
   private isOpen = false;
   private readonly isOpenSubject = new Subject<{ input: ElementRef | undefined; isOpen: boolean }>();
-  isOpen$ = this.isOpenSubject.asObservable();
-
   private keyboardType: MapKeyboardType = 'default';
-  private readonly isPassword: boolean = false;
   private readonly isPasswordSubject = new Subject<boolean>();
+  private readonly keyboardTypeSubject = new Subject<MapKeyboardType>();
+  private readonly inputValueSubject$ = new BehaviorSubject<string>('');
+
   get isPassword$() {
     return this.isPasswordSubject.asObservable();
   }
 
-  private readonly keyboardTypeSubject = new Subject<MapKeyboardType>();
   get keyboardType$() {
     return this.keyboardTypeSubject.asObservable();
   }
-
-  private readonly inputValueSubject$ = new BehaviorSubject<string>('');
 
   get inputValue$(): Observable<string> {
     return this.inputValueSubject$.asObservable();
   }
 
-  constructor() {}
+  isOpen$ = this.isOpenSubject.asObservable();
 
   openKeyboard(inputElement: ElementRef, value?: string) {
     this.isOpen = true;
@@ -55,30 +58,14 @@ export class NgxTouchVirtualKeyboardService {
     //foreach in array search if exists key and set this.keyboardType = value
 
     let isPassword = false;
-    switch (type) {
-      case 'text':
-        this.keyboardType = 'default';
-        break;
-      case 'email':
-        this.keyboardType = 'email';
-        break;
-      case 'tel':
-        this.keyboardType = 'tel';
-        break;
-      case 'number':
-      case 'range':
-        this.keyboardType = 'number';
-        break;
-      case 'password':
-        this.keyboardType = 'password';
-        isPassword = true;
-        break;
 
-      default:
-        this.keyboardType = 'default';
-        break;
+    var mappedType = this._keyboardMapLayoutType.find((e) => e.inputType === type);
+    if (mappedType) {
+      this.keyboardType = mappedType.keyboardType;
+      if (mappedType.inputType === 'password') isPassword = true;
+    } else {
+      this.keyboardType = 'default';
     }
-
     if (forceType) this.keyboardType = forceType;
 
     this.keyboardTypeSubject.next(this.keyboardType);

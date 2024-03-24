@@ -185,8 +185,8 @@ Example from previous provided custom bugs.svg
 
 Each input type have a specific keyboard layout opened, for example:
 
-- <input type="text"/> this will use default keyboard
-- <input type="number"/> this will use default number
+- `<input type="text"/>` this will use default keyboard
+- `<input type="number"/>` this will use default number
 
 This is the current supported type. If not changed each time an input with this type is selected specific layout keyboard is opend
 
@@ -213,6 +213,25 @@ This example will "email" keyboard also if type is text.
 ```
 
 ### Override at application level
+
+It is possible to override the KEYBOARD_MAP_INPUT_TO_LAYOUT with a custom mapping. This will open automatically for all input type the numeric layout keyboard
+
+```typescript
+ providers: [
+    {
+      provide: KEYBOARD_MAP_INPUT_TO_LAYOUT,
+      useValue: [
+        { inputType: 'text', keyboardType: 'number' },
+        { inputType: 'url', keyboardType: 'number' },
+        { inputType: 'email', keyboardType: 'number' },
+        { inputType: 'password', keyboardType: 'number' },
+        { inputType: 'number', keyboardType: 'number' },
+        { inputType: 'range', keyboardType: 'number' },
+        { inputType: 'tel', keyboardType: 'number' },
+      ],
+    },
+  ],
+```
 
 todo
 

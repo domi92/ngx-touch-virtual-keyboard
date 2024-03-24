@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { INGXKeyElement, k } from './ngx-key-element';
+import { MapInputType, MapKeyboardType } from './ngx-touch-virtual-keyboard.service';
 
 export enum InputTypes {
   Text,
@@ -170,31 +171,16 @@ export const dateKeyboard = [
   },
 ];
 
-// export class InputTypes {
-//   static readonly TEXT = 'text';
-//   static readonly PASSWORD = 'password';
-//   static readonly CHECKBOX = 'checkbox';
-//   static readonly RADIO = 'radio';
-//   static readonly SUBMIT = 'submit';
-//   static readonly RESET = 'reset';
-//   static readonly FILE = 'file';
-//   static readonly HIDDEN = 'hidden';
-//   static readonly IMAGE = 'image';
-//   static readonly BUTTON = 'button';
-//   static readonly DATE = 'date';
-//   static readonly DATETIME_LOCAL = 'datetime-local';
-//   static readonly TIME = 'time';
-//   static readonly EMAIL = 'email';
-//   static readonly NUMBER = 'number';
-//   static readonly RANGE = 'range';
-//   static readonly SEARCH = 'search';
-//   static readonly TEL = 'tel';
-//   static readonly URL = 'url';
-//   static readonly COLOR = 'color';
-//   static readonly MONTH = 'month';
-//   static readonly WEEK = 'week';
-// }
+export const mapInputLayout: { inputType: MapInputType; keyboardType: MapKeyboardType }[] = [
+  { inputType: 'text', keyboardType: 'default' }, //KEYBOARD_LAYOUT_DEFAULT
+  { inputType: 'url', keyboardType: 'default' }, //KEYBOARD_LAYOUT_DEFAULT
+  { inputType: 'email', keyboardType: 'email' },
+  { inputType: 'password', keyboardType: 'password' },
+  { inputType: 'number', keyboardType: 'number' },
+  { inputType: 'range', keyboardType: 'number' },
+  { inputType: 'tel', keyboardType: 'tel' },
+];
 
-export class NGXConfigurationKeyboard {
-  mapping!: Map<InputTypes, InjectionToken<INGXKeyElement[][]>>;
-}
+// export class NGXConfigurationKeyboard {
+//   mapping!: Map<InputTypes, InjectionToken<INGXKeyElement[][]>>;
+// }

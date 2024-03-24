@@ -5,9 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UseKeyboardDirective } from './ngx-use-keyboard.directive';
 import { RepeatActionDirective } from './repeat-action.directive';
 import { NgxTouchVirtualKeyboardComponent } from './ngx-touch-virtual-keyboard.component';
-import { INGXKeyElement, k } from './ngx-key-element';
+import { INGXKeyElement } from './ngx-key-element';
 import { MapInputType, MapKeyboardType } from './ngx-touch-virtual-keyboard.service';
-import { defaultKeyboard, numberKeyboard, telKeyboard, emailKeyboard } from './ngx-touch-virtual-keyboard.resources';
+import { defaultKeyboard, numberKeyboard, telKeyboard, emailKeyboard, mapInputLayout } from './ngx-touch-virtual-keyboard.resources';
 
 /**
  * Export all icons InjectionToken to give possibility to override icon image
@@ -46,16 +46,6 @@ export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<{ inputType: MapI
   'NGX_TVK_CONFIGURATION'
 );
 
-const mapInputLayout: { inputType: MapInputType; keyboardType: MapKeyboardType }[] = [
-  { inputType: 'text', keyboardType: 'default' },
-  { inputType: 'url', keyboardType: 'default' },
-  { inputType: 'email', keyboardType: 'email' },
-  { inputType: 'password', keyboardType: 'password' },
-  { inputType: 'number', keyboardType: 'number' },
-  { inputType: 'range', keyboardType: 'number' },
-  { inputType: 'tel', keyboardType: 'tel' },
-];
-
 @NgModule({
   declarations: [UseKeyboardDirective, RepeatActionDirective, NgxTouchVirtualKeyboardComponent],
   providers: [
@@ -73,6 +63,7 @@ const mapInputLayout: { inputType: MapInputType; keyboardType: MapKeyboardType }
     { provide: KEYBOARD_LAYOUT_NUMBER, useValue: numberKeyboard },
     { provide: KEYBOARD_LAYOUT_TEL, useValue: telKeyboard },
     { provide: KEYBOARD_LAYOUT_EMAIL, useValue: emailKeyboard },
+    { provide: KEYBOARD_MAP_INPUT_TO_LAYOUT, useValue: mapInputLayout },
   ],
   imports: [FormsModule, BrowserModule, BrowserAnimationsModule],
 
