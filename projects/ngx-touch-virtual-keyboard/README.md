@@ -1,4 +1,4 @@
-# NgxTouchVirtualKeyboard
+![image](https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/d29c0624-a178-4e7a-84ae-4e70214544e1)# NgxTouchVirtualKeyboard
 
 Simple angular virtual keyboard component.
 
@@ -106,7 +106,7 @@ Array type is : { layout: string; values: (INGXKeyElement | string)[][] }[].
 
 ```typescript
 
-import { KEYBOARD_LAYOUT } from 'ngx-touch-virtual-keyboard';
+import { KEYBOARD_LAYOUT_DEFAULT } from 'ngx-touch-virtual-keyboard';
 import { INGXKeyElement, k } from 'ngx-touch-virtual-keyboard';
 
 const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }[] = [
@@ -130,7 +130,7 @@ const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }
 ];
 
  providers: [
-    { provide: KEYBOARD_LAYOUT, useValue: defaultKeyboard },
+    { provide: KEYBOARD_LAYOUT_DEFAULT, useValue: defaultKeyboard },
   ],
 ```
 
@@ -148,7 +148,7 @@ Example from previous code (myDefault alyout is applied as default):
 
 All icons can be changed with custom svg. Providing in app.module.ts a new svg reference for each icon to change.
 
-ICON_BACKSPACE | ICON_ERASE | ICON_EYE_SLASH | ICON_EYE | ICON_KEYBOARD | ICON_LEFT | ICON_RIGHT | ICON_SHIFT | KEYBOARD_LAYOUT
+ICON_BACKSPACE | ICON_ERASE | ICON_EYE_SLASH | ICON_EYE | ICON_KEYBOARD | ICON_LEFT | ICON_RIGHT | ICON_SHIFT
 
 ```typescript
 import {ICON_BACKSPACE, ICON_KEYBOARD} from 'ngx-touch-virtual-keyboard';
@@ -233,8 +233,24 @@ It is possible to override the KEYBOARD_MAP_INPUT_TO_LAYOUT with a custom mappin
   ],
 ```
 
-todo
+## Customize theme
+Theme can be customized. All useful parameter are defined in projects/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme.scss
 
+Below just an example how to locally override variables.
+Always reference to this file for complete list. If some variable is missing just opene a change request
+```scss
+  ...
+
+  //keys
+  --ngx-tvk-key-background-color: darkgray;
+  --ngx-tvk-key-background-color-hover: orange;
+
+ ...
+```
+
+<div align="center">
+<img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/2ec641fe-0af2-4169-af80-0dbc345cf786" width=45%/>
+</div>
 # Versioning
 
 | Version       | Angular   |
@@ -245,7 +261,7 @@ todo
 
 ### New Features:
 
-- Theme customization. All style can be customized overriding default .scss variables
+- theme customization. All style can be customized overriding default .scss variables
 
 ### Enhancements:
 
@@ -255,3 +271,7 @@ todo
 ### Bug Fixes:
 
 - white space are displayed correctly
+
+### Breaking change
+
+-KEYBOARD_LAYOUT renamed in KEYBOARD_LAYOUT_DEFAULT
