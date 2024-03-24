@@ -15,7 +15,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
 
   private inputValueSubscription: Subscription | undefined;
 
-  @Input('setKeyboardType') forcedKeyboardType?: MapKeyboardType = undefined;
+  @Input('setKeyboardType') setKeyboardType: MapKeyboardType | undefined = undefined;
 
   @HostListener('input') // Listen for input events
   onInput() {
@@ -27,7 +27,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
     // Open the keyboard using the service
 
     const inputType = this.elementRef.nativeElement.type;
-    this.keyboardService.setType(inputType, this.forcedKeyboardType);
+    this.keyboardService.setType(inputType, this.setKeyboardType);
     this.keyboardService.openKeyboard(this.elementRef, this.elementRef.nativeElement.value);
 
     this.inputValueSubscription = this.keyboardService.inputValue$.subscribe((value) => {
