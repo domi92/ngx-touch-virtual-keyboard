@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener, ElementRef, Inject, ViewChild, Input, OnChanges } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
 import { INGXKeyElement } from './ngx-key-element';
@@ -47,7 +47,7 @@ import {
     ]),
   ],
 })
-export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy, OnChanges {
+export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(ICON_BACKSPACE) public iconDelete: string,
     @Inject(ICON_ERASE) public iconErase: string,
@@ -72,7 +72,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy, OnCh
   ) {
     this._selectedKeyboardLayout = _keyboardLayoutDefault;
   }
-
+  private _layout: string = 'us';
   private keyboardTypeSubscription!: Subscription;
   private inputValueSubscription!: Subscription;
   private keyboardSubscription!: Subscription;
@@ -111,7 +111,16 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy, OnCh
   @ViewChild('beforeCursor') beforeCursor!: ElementRef;
   @ViewChild('cursor') cursor!: ElementRef;
 
-  @Input('layout') layout: string = 'us';
+  @Input('layout')
+  set layout(value: any) {
+    if (value !== this._layout) {
+      this._layout = value;
+      this.evalauteKeyboardLayout();
+    }
+  }
+  get layout(): any {
+    return this._layout;
+  }
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
@@ -203,12 +212,6 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy, OnCh
     });
 
     this.restartCursorVisibility();
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['layout']) {
-      this.evalauteKeyboardLayout();
-    }
   }
 
   ngOnDestroy() {
