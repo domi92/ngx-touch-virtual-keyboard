@@ -29,14 +29,14 @@ import {
         style({
           transform: 'translateY(0)',
           opacity: 1,
-        }),
+        })
       ),
       state(
         'out',
         style({
           transform: 'translateY(100%)',
           opacity: 0,
-        }),
+        })
       ),
       transition('in => out', animate('300ms ease-out')),
       transition('out => in', animate('300ms ease-in')),
@@ -146,7 +146,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     // @Inject(KEYBOARD_LAYOUT_DATE)
     // private readonly _keyboardLayoutDate: { layout: string; values: (INGXKeyElement | string)[][] }[],
     private readonly elementRef: ElementRef,
-    private readonly keyboardService: NgxTouchVirtualKeyboardService,
+    private readonly keyboardService: NgxTouchVirtualKeyboardService
   ) {
     this._selectedKeyboardLayout = _keyboardLayoutDefault;
   }
@@ -266,7 +266,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
 
   emitTab() {
     const focusableElements = document.querySelectorAll(
-      'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])',
+      'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])'
     );
 
     const focusedElement = document.activeElement;

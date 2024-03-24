@@ -11,7 +11,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
 
   constructor(
     private readonly elementRef: ElementRef<HTMLInputElement>,
-    private readonly keyboardService: NgxTouchVirtualKeyboardService,
+    private readonly keyboardService: NgxTouchVirtualKeyboardService
   ) {}
 
   ngOnInit() {}

@@ -24,7 +24,7 @@ export const ICON_SHIFT = new InjectionToken<string>('ICON_SHIFT');
 export const ICON_TAB = new InjectionToken<string>('ICON_TAB');
 
 export const KEYBOARD_LAYOUT_DEFAULT = new InjectionToken<{ layout: string; values: (INGXKeyElement | string)[][] }>(
-  'KEYBOARD_LAYOUT_DEFAULT',
+  'KEYBOARD_LAYOUT_DEFAULT'
 );
 
 export const KEYBOARD_LAYOUT_NUMBER = new InjectionToken<{ layout: string; values: INGXKeyElement[][] }[]>('KEYBOARD_LAYOUT_NUMBER');
@@ -41,7 +41,7 @@ export const KEYBOARD_LAYOUT_DATE = new InjectionToken<{ layout: string; alues: 
  * available KeyboardType = 'full' | 'number' | 'password' | 'tel' | 'date' | 'email';
  */
 export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<{ inputType: MapInputType; keyboardType: MapKeyboardType }[]>(
-  'NGX_TVK_CONFIGURATION',
+  'NGX_TVK_CONFIGURATION'
 );
 
 const mapInputLayout: { inputType: MapInputType; keyboardType: MapKeyboardType }[] = [

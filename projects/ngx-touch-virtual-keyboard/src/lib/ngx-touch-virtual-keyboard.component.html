@@ -13,9 +13,7 @@
           <span #beforeCursor>{{
             passwordShow ? textInput.substring(0, cursorPosition) : textInputPassword.substring(0, cursorPosition)
           }}</span>
-          <span>{{
-            passwordShow ? textInput.substring(cursorPosition) : textInputPassword.substring(cursorPosition)
-          }}</span>
+          <span>{{ passwordShow ? textInput.substring(cursorPosition) : textInputPassword.substring(cursorPosition) }}</span>
         </ng-container>
         <span #cursor class="keyboard-input-cursor" [style.visibility]="showCursor ? 'visible' : 'hidden'"></span>
       </div>
@@ -57,22 +55,12 @@
         </button>
       </ng-template>
       <ng-template #left>
-        <button
-          *ngIf="key === 'left'; else right"
-          class="keyboard-key keyboard-key-icon"
-          appRepeatAction
-          (repeatAction)="arrowLeft()"
-        >
+        <button *ngIf="key === 'left'; else right" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="arrowLeft()">
           <img style="height: 50%; width: 50%" [src]="iconLeft" alt="left" />
         </button>
       </ng-template>
       <ng-template #right>
-        <button
-          *ngIf="key === 'right'; else shift"
-          class="keyboard-key keyboard-key-icon"
-          appRepeatAction
-          (repeatAction)="arrowRight()"
-        >
+        <button *ngIf="key === 'right'; else shift" class="keyboard-key keyboard-key-icon" appRepeatAction (repeatAction)="arrowRight()">
           <img style="height: 50%; width: 50%" [src]="iconRight" alt="right" />
         </button>
       </ng-template>
