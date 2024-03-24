@@ -5,9 +5,6 @@ on:
   pull_request:
     branches:
       - beta
-  push:
-    branches:
-      - beta
 
 jobs:
   checkVersion:
