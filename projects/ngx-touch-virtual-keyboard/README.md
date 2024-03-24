@@ -154,3 +154,21 @@ Example from previous provided custom bugs.svg
 <div align="center">
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/54a31fe5-bf7b-4056-b1d2-7510605180de" width=45%/>
 </div>
+
+# Versioning
+
+| Version                 | Angular | 
+| :---------------------- | ----------------------| 
+| up to @latest           | >= 14.0.0      | 
+
+
+## Changelog 1.2.0
+
+### New Features:
+- Theme customization. All style can be customized overriding default .scss variables
+
+### Enhancements:
+- keyboard layout changed get property with Observable usage
+
+### Bug Fixes:
+- white space are displayed correctly
