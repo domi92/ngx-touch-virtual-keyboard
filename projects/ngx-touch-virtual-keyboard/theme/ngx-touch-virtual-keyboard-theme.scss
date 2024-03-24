@@ -16,15 +16,19 @@
   --ngx-tvk-cursor-placeholder-width: 1.2px;
   --ngx-tvk-cursor-placeholder-height: 1.4em;
   //keys
+  --ngx-tvk-key-secondary-color: gray;
+  --ngx-tvk-key-color: black;
+  --ngx-tvk-key-color-hover: black;
+  --ngx-tvk-key-color-pressed: black;
   --ngx-tvk-key-background-color: #eaeaea;
   --ngx-tvk-key-background-color-hover: #cfd8dc;
-  --ngx-tvk-key-border-color-hover: #90a4ae;
   --ngx-tvk-key-background-color-pressed: #90a4ae;
-  --ngx-tvk-key-border-color-pressed: #607d8b;
-  --ngx-tvk-key-shift-background-color: lightblue !important;
+  --ngx-tvk-key-border: 1px solid #ccc;
+  --ngx-tvk-key-border-hover: 1px solid #90a4ae;
+  --ngx-tvk-key-border-pressed: 2px solid #607d8b;
+  --ngx-tvk-key-border-radius: 4px;
   --ngx-tvk-key-height: 2.75rem;
   --ngx-tvk-key-width: 3rem;
-  --ngx-tvk-key-border-radius: 4px;
   --ngx-tvk-key-font-size: 1em;
   --ngx-tvk-key-font-size-secondary: 0.8em;
   //space between keeys
@@ -34,6 +38,7 @@
   //spacebar dimension
   --ngx-tvk-key-spacebar-width: 15rem;
 
+  --ngx-tvk-key-shift-background-color: lightblue !important;
   --ngx-tvk-toggle-button-background-color: #eaeaea;
   --ngx-tvk-toggle-button-border-color: #ccc;
   --ngx-tvk-toggle-button-color: #fff;

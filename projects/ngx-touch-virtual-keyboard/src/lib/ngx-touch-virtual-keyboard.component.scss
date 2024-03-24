@@ -47,11 +47,13 @@
 .keyboard-key {
   padding: 0.5rem;
   background-color: var(--ngx-tvk-key-background-color);
-  border: 1px solid #ccc;
+  border: var(--ngx-tvk-key-border);
   border-radius: var(--ngx-tvk-key-border-radius);
   height: var(--ngx-tvk-key-height);
   width: var(--ngx-tvk-key-width);
   font-size: var(--ngx-tvk-key-font-size);
+
+  color: var(--ngx-tvk-key-color);
   cursor: pointer;
 }
 
@@ -61,18 +63,17 @@
 }
 
 .keyboard-key-secondary {
-  font-size: var(--ngx-tvk-key-font-size-secondary);
   position: absolute;
   top: 0.2rem;
   right: 0.3rem;
-  color: gray;
+  font-size: var(--ngx-tvk-key-font-size-secondary);
+  color: var(--ngx-tvk-key-secondary-color);
 }
 
 .keyboard-layout {
   position: absolute;
   bottom: 0.3rem;
   left: 0.4rem;
-  color: gray;
 }
 
 .keyboard-space {
@@ -83,12 +84,14 @@
 
 .keyboard-key:hover {
   background-color: var(--ngx-tvk-key-background-color-hover);
-  border-color: var(--ngx-tvk-key-border-color-hover);
+  border: var(--ngx-tvk-key-border-hover);
+  color: var(--ngx-tvk-key-color-hover);
 }
 
 .keyboard-key:active {
   background-color: var(--ngx-tvk-key-background-color-pressed);
-  border-color: var(--ngx-tvk-key-border-color-pressed);
+  border: var(--ngx-tvk-key-border-pressed);
+  color: var(--ngx-tvk-key-color-pressed);
 }
 
 .keyboard-shift {
