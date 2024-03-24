@@ -5,13 +5,7 @@ import { AppComponent } from './app.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
-import {
-  ICON_BACKSPACE,
-  ICON_KEYBOARD,
-  KEYBOARD_LAYOUT_DEFAULT,
-  KEYBOARD_LAYOUT_NUMBER,
-  NgxTouchVirtualKeyboardModule,
-} from 'ngx-touch-virtual-keyboard';
+import { NgxTouchVirtualKeyboardModule } from 'ngx-touch-virtual-keyboard';
 import { MyInputComponent } from './components/my-input/my-input.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

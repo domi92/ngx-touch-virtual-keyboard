@@ -16,9 +16,6 @@ import {
   ICON_TAB,
   KEYBOARD_LAYOUT_DEFAULT,
   KEYBOARD_LAYOUT_NUMBER,
-  KEYBOARD_LAYOUT_DATE,
-  KEYBOARD_LAYOUT_EMAIL,
-  KEYBOARD_LAYOUT_TEL,
 } from '../public-api';
 
 @Component({
@@ -32,14 +29,14 @@ import {
         style({
           transform: 'translateY(0)',
           opacity: 1,
-        })
+        }),
       ),
       state(
         'out',
         style({
           transform: 'translateY(100%)',
           opacity: 0,
-        })
+        }),
       ),
       transition('in => out', animate('300ms ease-out')),
       transition('out => in', animate('300ms ease-in')),
@@ -142,14 +139,14 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     private readonly _keyboardLayoutDefault: { layout: string; values: (INGXKeyElement | string)[][] }[],
     @Inject(KEYBOARD_LAYOUT_NUMBER)
     private readonly _keyboardLayoutNumber: { layout: string; values: (INGXKeyElement | string)[][] }[],
-    @Inject(KEYBOARD_LAYOUT_TEL)
-    private readonly _keyboardLayoutTel: { layout: string; values: (INGXKeyElement | string)[][] }[],
-    @Inject(KEYBOARD_LAYOUT_EMAIL)
-    private readonly _keyboardLayoutEmail: { layout: string; values: (INGXKeyElement | string)[][] }[],
-    @Inject(KEYBOARD_LAYOUT_DATE)
-    private readonly _keyboardLayoutDate: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    // @Inject(KEYBOARD_LAYOUT_TEL)
+    // private readonly _keyboardLayoutTel: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    // @Inject(KEYBOARD_LAYOUT_EMAIL)
+    // private readonly _keyboardLayoutEmail: { layout: string; values: (INGXKeyElement | string)[][] }[],
+    // @Inject(KEYBOARD_LAYOUT_DATE)
+    // private readonly _keyboardLayoutDate: { layout: string; values: (INGXKeyElement | string)[][] }[],
     private readonly elementRef: ElementRef,
-    private readonly keyboardService: NgxTouchVirtualKeyboardService
+    private readonly keyboardService: NgxTouchVirtualKeyboardService,
   ) {
     this._selectedKeyboardLayout = _keyboardLayoutDefault;
   }
@@ -163,9 +160,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   private evalauteKeyboardLayout(): void {
     const res = this._selectedKeyboardLayout.find((e) => e.layout === this.layout);
     if (!res) {
-      console.error(
-        `layout: <${this.layout}> not found. Default is applied: <${this._selectedKeyboardLayout[0].layout}>`
-      );
+      console.error(`layout: <${this.layout}> not found. Default is applied: <${this._selectedKeyboardLayout[0].layout}>`);
       this.layout = this._selectedKeyboardLayout[0].layout;
       this.keyboardLayoutSubject.next(this._selectedKeyboardLayout[0].values);
       return;
@@ -195,15 +190,15 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
         case 'password':
           this._selectedKeyboardLayout = this._keyboardLayoutDefault;
           break;
-        case 'tel':
-          this._selectedKeyboardLayout = this._keyboardLayoutTel;
-          break;
-        case 'date':
-          this._selectedKeyboardLayout = this._keyboardLayoutDate;
-          break;
-        case 'email':
-          this._selectedKeyboardLayout = this._keyboardLayoutEmail;
-          break;
+        // case 'tel':
+        //   this._selectedKeyboardLayout = this._keyboardLayoutTel;
+        //   break;
+        // case 'date':
+        //   this._selectedKeyboardLayout = this._keyboardLayoutDate;
+        //   break;
+        // case 'email':
+        //   this._selectedKeyboardLayout = this._keyboardLayoutEmail;
+        //   break;
         default:
           this._selectedKeyboardLayout = this._keyboardLayoutDefault;
       }
@@ -244,9 +239,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
 
   pressKey(key: string) {
     const charToAdd = this.isShift ? key.toUpperCase() : key;
-    const updatedTextInput = `${this.textInput.slice(0, this.cursorPosition)}${charToAdd}${this.textInput.slice(
-      this.cursorPosition
-    )}`;
+    const updatedTextInput = `${this.textInput.slice(0, this.cursorPosition)}${charToAdd}${this.textInput.slice(this.cursorPosition)}`;
 
     if (this.textInput !== updatedTextInput) {
       this.onInputChange(updatedTextInput);
@@ -273,7 +266,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
 
   emitTab() {
     const focusableElements = document.querySelectorAll(
-      'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])'
+      'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])',
     );
 
     const focusedElement = document.activeElement;
