@@ -1,45 +1,20 @@
-import { Directive, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { KeyboardType, NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
+import { Directive, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { MapKeyboardType, NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
 import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[useVirtualKeyboard]',
-  // inputs: ['isNumericOnly'],
+  inputs: ['keyboardType'],
 })
 export class UseKeyboardDirective implements OnInit, OnDestroy {
-  private inputValueSubscription: Subscription | undefined;
-  keyboardType!: KeyboardType;
-  // @Input() isNumericOnly?: boolean = false;
-
   constructor(
     private readonly elementRef: ElementRef<HTMLInputElement>,
     private readonly keyboardService: NgxTouchVirtualKeyboardService
   ) {}
 
-  ngOnInit() {
-    const inputType = this.elementRef.nativeElement.type;
-    switch (inputType) {
-      case 'text':
-        this.keyboardType = 'full';
-        break;
-      case 'tel':
-      case 'number':
-      case 'range':
-        this.keyboardType = 'number';
-        break;
-      case 'password':
-        this.keyboardType = 'password';
-        break;
+  private inputValueSubscription: Subscription | undefined;
 
-      default:
-        this.keyboardType = 'full';
-        break;
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
-  }
+  @Input('setKeyboardType') forcedKeyboardType?: MapKeyboardType = undefined;
 
   @HostListener('input') // Listen for input events
   onInput() {
@@ -49,7 +24,9 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
   @HostListener('focus') onFocus() {
     if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
     // Open the keyboard using the service
-    this.keyboardService.setType(this.keyboardType);
+
+    const inputType = this.elementRef.nativeElement.type;
+    this.keyboardService.setType(inputType, this.forcedKeyboardType);
     this.keyboardService.openKeyboard(this.elementRef, this.elementRef.nativeElement.value);
 
     this.inputValueSubscription = this.keyboardService.inputValue$.subscribe((value) => {
@@ -68,12 +45,18 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
     this.keyboardService.closeKeyboard();
   }
 
+  ngOnInit() {}
+
+  ngOnDestroy(): void {
+    if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
+  }
+
   /**
    * When keyboard trigger an element change. Reflect into input element
    * @param value
    * @returns
    */
-  onInputChange(value: string) {
+  protected onInputChange(value: string) {
     if (value === this.elementRef.nativeElement.value) return;
 
     this.elementRef.nativeElement.value = value;
@@ -84,7 +67,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
    * @param value
    * @returns
    */
-  onInputUpdate(value: string) {
+  protected onInputUpdate(value: string) {
     this.keyboardService.updateKeyboard(value);
   }
 }

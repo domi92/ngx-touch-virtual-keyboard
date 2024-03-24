@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ICON_BACKSPACE, ICON_KEYBOARD, KEYBOARD_LAYOUT } from 'ngx-touch-virtual-keyboard';
+import { ICON_BACKSPACE, ICON_KEYBOARD, KEYBOARD_LAYOUT_DEFAULT } from 'ngx-touch-virtual-keyboard';
 import { INGXKeyElement, k } from 'ngx-touch-virtual-keyboard';
 
 const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }[] = [
@@ -36,7 +36,7 @@ const defaultKeyboard: { layout: string; values: (INGXKeyElement | string)[][] }
   providers: [
     { provide: ICON_BACKSPACE, useValue: 'assets/icons/bugs.svg' },
     { provide: ICON_KEYBOARD, useValue: 'assets/icons/bugs.svg' },
-    { provide: KEYBOARD_LAYOUT, useValue: defaultKeyboard },
+    { provide: KEYBOARD_LAYOUT_DEFAULT, useValue: defaultKeyboard },
   ],
 })
 export class CustomComponent {

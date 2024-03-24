@@ -1,75 +1,75 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { ElementRef, Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { KEYBOARD_MAP_INPUT_TO_LAYOUT } from '../public-api';
 
-export type KeyboardType = 'full' | 'number' | 'password';
+export type MapInputType = 'text' | 'password' | 'number' | 'email' | 'url' | 'range' | 'tel';
+export type MapKeyboardType = 'default' | 'number' | 'password' | 'tel' | 'email';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NgxTouchVirtualKeyboardService {
+  constructor(
+    @Inject(KEYBOARD_MAP_INPUT_TO_LAYOUT)
+    private readonly _keyboardMapLayoutType: { inputType: MapInputType; keyboardType: MapKeyboardType }[]
+  ) {}
+
   private isOpen = false;
   private readonly isOpenSubject = new Subject<{ input: ElementRef | undefined; isOpen: boolean }>();
-  isOpen$ = this.isOpenSubject.asObservable();
-
-  private readonly isPassword: boolean = false;
+  private keyboardType: MapKeyboardType = 'default';
   private readonly isPasswordSubject = new Subject<boolean>();
+  private readonly keyboardTypeSubject = new Subject<MapKeyboardType>();
+  private readonly inputValueSubject$ = new BehaviorSubject<string>('');
+
   get isPassword$() {
     return this.isPasswordSubject.asObservable();
   }
 
-  private isNumericOnly: boolean = false;
-  private readonly isNumericOnlySubject = new Subject<boolean>();
-  get isNumericOnly$() {
-    return this.isNumericOnlySubject.asObservable();
+  get keyboardType$() {
+    return this.keyboardTypeSubject.asObservable();
   }
-
-  private readonly inputValueSubject$ = new BehaviorSubject<string>('');
 
   get inputValue$(): Observable<string> {
     return this.inputValueSubject$.asObservable();
   }
 
-  constructor() {}
+  isOpen$ = this.isOpenSubject.asObservable();
 
   openKeyboard(inputElement: ElementRef, value?: string) {
     this.isOpen = true;
     this.isOpenSubject.next({ input: inputElement, isOpen: this.isOpen });
-    this.isNumericOnlySubject.next(this.isNumericOnly);
+    this.keyboardTypeSubject.next(this.keyboardType);
     this.inputValueSubject$.next(value ?? '');
   }
 
   updateKeyboard(value?: string) {
-    this.isNumericOnlySubject.next(this.isNumericOnly);
+    this.keyboardTypeSubject.next(this.keyboardType);
     this.inputValueSubject$.next(value ?? '');
   }
 
   closeKeyboard() {
     this.isOpen = false;
     this.isOpenSubject.next({ input: undefined, isOpen: this.isOpen });
-    this.isNumericOnlySubject.next(this.isNumericOnly);
+    this.keyboardTypeSubject.next(this.keyboardType);
   }
 
-  setType(type: KeyboardType) {
-    switch (type) {
-      case 'full':
-        this.isNumericOnly = false;
-        this.isNumericOnlySubject.next(false);
-        this.isPasswordSubject.next(false);
-        break;
-      case 'password':
-        this.isNumericOnly = false;
-        this.isNumericOnlySubject.next(false);
-        this.isPasswordSubject.next(true);
-        break;
-      case 'number':
-        this.isNumericOnly = true;
-        this.isNumericOnlySubject.next(true);
-        this.isPasswordSubject.next(false);
-        break;
+  setType(type: string, forceType?: MapKeyboardType) {
+    //todo evaluate if there is an overridden configuration provided
+    //foreach in array search if exists key and set this.keyboardType = value
 
-      default:
-        break;
+    let isPassword = false;
+
+    var mappedType = this._keyboardMapLayoutType.find((e) => e.inputType === type);
+    if (mappedType) {
+      this.keyboardType = mappedType.keyboardType;
+      if (mappedType.inputType === 'password') isPassword = true;
+    } else {
+      this.keyboardType = 'default';
     }
+    if (forceType) this.keyboardType = forceType;
+
+    this.keyboardTypeSubject.next(this.keyboardType);
+    this.isPasswordSubject.next(isPassword);
   }
 
   changeValue(value: string) {

@@ -5,13 +5,7 @@ import { AppComponent } from './app.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
-import {
-  ICON_BACKSPACE,
-  ICON_KEYBOARD,
-  KEYBOARD_LAYOUT,
-  KEYBOARD_LAYOUT_NUMBER,
-  NgxTouchVirtualKeyboardModule,
-} from 'ngx-touch-virtual-keyboard';
+import { KEYBOARD_MAP_INPUT_TO_LAYOUT, NgxTouchVirtualKeyboardModule } from 'ngx-touch-virtual-keyboard';
 import { MyInputComponent } from './components/my-input/my-input.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,22 +27,18 @@ import { DefaultComponent } from './components/default/default.component';
   providers: [
     // { provide: ICON_BACKSPACE, useValue: 'assets/icons/bugs.svg' },
     // { provide: ICON_KEYBOARD, useValue: 'assets/icons/bugs.svg' },
-    // {provide: KEYBOARD_LAYOUT, useValue:  [
-    //   ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'delete'],
-    //   ['q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p' , 'è', '+'],
-    //   ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ò', 'à', 'ù'],
-    //   ['shift','y', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.','shift'],
-    //   ['space', 'left', 'right']
-    // ]},
     // {
-    //   provide: KEYBOARD_LAYOUT_NUMBER,
+    //   provide: KEYBOARD_MAP_INPUT_TO_LAYOUT,
     //   useValue: [
-    //     ['1', '2', '3'],
-    //     ['4', '5', '6'],
-    //     ['7', '8', '9'],
-    //     ['0', 'delete']
-    //   ]
-    // }
+    //     { inputType: 'text', keyboardType: 'number' },
+    //     { inputType: 'url', keyboardType: 'number' },
+    //     { inputType: 'email', keyboardType: 'number' },
+    //     { inputType: 'password', keyboardType: 'number' },
+    //     { inputType: 'number', keyboardType: 'number' },
+    //     { inputType: 'range', keyboardType: 'number' },
+    //     { inputType: 'tel', keyboardType: 'number' },
+    //   ],
+    // },
   ],
   bootstrap: [AppComponent],
 })
