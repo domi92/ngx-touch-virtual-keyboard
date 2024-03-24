@@ -1,8 +1,22 @@
 /* Default theme */
 :root {
-  --cursor-color: black;
-  --ngx-tvk-background-color: rgba(245, 245, 245, 0.98);
-  --ngx-tvk-background-input-color: #eaeaea;
+  --ngx-tvk-background-color: rgba(245, 245, 245, 0.86);
+  --ngx-tvk-border-top: 1px solid #ccc;
+
+  //input element
+  --ngx-tvk-input-cursor-color: black;
+  --ngx-tvk-input-background-color: #eaeaea;
+  --ngx-tvk-input-border: 1px solid #ccc;
+  --ngx-tvk-input-border-radius: 4px;
+  --ngx-tvk-input-min-width: 12rem;
+  --ngx-tvk-input-padding-left: 0.2rem;
+  --ngx-tvk-input-height: 2.2rem;
+  //input element cursor
+  --ngx-tvk-cursor-background-color: black;
+  --ngx-tvk-cursor-placeholder-width: 1.2px;
+  --ngx-tvk-cursor-placeholder-height: 1.4em;
+  //keys
+  --ngx-tvk-key-background-color: #eaeaea;
   --ngx-tvk-key-background-color-hover: #cfd8dc;
   --ngx-tvk-key-border-color-hover: #90a4ae;
   --ngx-tvk-key-background-color-pressed: #90a4ae;
@@ -11,9 +25,25 @@
   --ngx-tvk-key-height: 2.75rem;
   --ngx-tvk-key-width: 3rem;
   --ngx-tvk-key-border-radius: 4px;
-  --ngx-tvk-key-background-color: #eaeaea;
   --ngx-tvk-key-font-size: 0.8vw;
   --ngx-tvk-key-font-size-secondary: 0.5vw;
+  //space between keeys
+  --ngx-tvk-key-gap: 0.4rem;
+  //space between rows
+  --ngx-tvk-row-gap: 0.3rem;
+  //spacebar dimension
+  --ngx-tvk-key-spacebar-width: 15rem;
+
+  --ngx-tvk-toggle-button-background-color: #eaeaea;
+  --ngx-tvk-toggle-button-border-color: #ccc;
+  --ngx-tvk-toggle-button-color: #fff;
+  --ngx-tvk-toggle-button-border-radius: 5px;
+  --ngx-tvk-toggle-button-min-width: 3rem;
+  --ngx-tvk-toggle-button-cursor: pointer;
+  --ngx-tvk-toggle-button-hover-background-color: var(--ngx-tvk-background-color-hover);
+  --ngx-tvk-toggle-button-hover-border-color: var(--ngx-tvk-key-border-color-hover);
+  --ngx-tvk-toggle-button-active-background-color: var(--ngx-tvk-background-color-pressed);
+  --ngx-tvk-toggle-button-active-border-color: var(--ngx-tvk-key-border-color-pressed);
 }
 
 /* TODO add light and dark theme?*/

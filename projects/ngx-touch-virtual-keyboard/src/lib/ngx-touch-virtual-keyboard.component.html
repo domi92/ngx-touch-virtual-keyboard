@@ -4,7 +4,7 @@
       <button class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="clear()">
         <img [src]="iconErase" alt="cl" />
       </button>
-      <div class="keyboard-input text-container">
+      <div class="keyboard-input">
         <ng-container *ngIf="!isPassword">
           <span #beforeCursor>{{ textInput.substring(0, cursorPosition) }}</span>
           <span>{{ textInput.substring(cursorPosition) }}</span>
@@ -17,7 +17,7 @@
             passwordShow ? textInput.substring(cursorPosition) : textInputPassword.substring(cursorPosition)
           }}</span>
         </ng-container>
-        <span #cursor class="cursor-placeholder" [style.visibility]="showCursor ? 'visible' : 'hidden'"></span>
+        <span #cursor class="keyboard-input-cursor" [style.visibility]="showCursor ? 'visible' : 'hidden'"></span>
       </div>
       <button *ngIf="isPassword" class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="showHide()">
         <img *ngIf="!passwordShow" [src]="iconEye" alt="eye" />
