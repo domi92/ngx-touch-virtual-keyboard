@@ -47,7 +47,9 @@ npm i ngx-touch-virtual-keyboard
 })
 ```
 
-## Default icon loading (add assets)
+🔴 __Continue adding default icons and theme__
+
+## __Default icon loading (add assets)__
 
 To load correctly default icons add in angular.json assets import.
 
@@ -61,6 +63,25 @@ Do not change the output path must be defined like that in order to use default 
               "output": "/assets/ngx-tvk/"
             }
           ],
+```
+
+## __Default theme__
+
+To include theme you can
+* add to angular.json as resource in "styles"
+
+```typescript
+"styles": [
+            ...,
+            "./node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme.scss"]
+          ],
+```
+
+* or in main styles.scss
+
+```typescript
+@use './node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme';
+...
 ```
 
 # Usage
