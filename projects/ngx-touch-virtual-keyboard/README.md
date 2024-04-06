@@ -68,7 +68,7 @@ Do not change the output path must be defined like that in order to use default 
 ## __Default theme__
 
 To include theme you can
-* add to angular.json as resource in "styles"
+* __If customization in theme is not needed =>__ add to angular.json as resource in "styles"
 
 ```typescript
 "styles": [
@@ -77,9 +77,9 @@ To include theme you can
           ],
 ```
 
-* or in main styles.scss
+* __If customization required =>__ add in main styles.scss
 
-```typescript
+```scss
 @use './node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme';
 ...
 ```
@@ -260,13 +260,14 @@ Theme can be customized. All useful parameter are defined in projects/ngx-touch-
 Below just an example how to locally override variables.
 Always reference to this file for complete list. If some variable is missing just opene a change request
 ```scss
-  ...
-
+@use './node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme';
   //keys
+:root {
   --ngx-tvk-key-background-color: darkgray;
   --ngx-tvk-key-background-color-hover: orange;
-
- ...
+  --ngx-tvk-key-border-color-pressed: white;
+}
+...
 ```
 
 <div align="center">
