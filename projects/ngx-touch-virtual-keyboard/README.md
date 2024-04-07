@@ -2,6 +2,13 @@
 
 Simple angular virtual keyboard component.
 
+# VERSION
+
+| Library | Angular compatibility | Type   |
+| :------ | --------------------- | ------ |
+| ^16.x.x | ^16.0.0, ^17.0.0      | 🟢 LTS |
+| \_      | ^15.0.0               | 🔴 EOL |
+
 # Overview
 
 Simple virtual keyboard that inteact with common input elements. Supports multiple input type with different layout automatically applied.
@@ -47,9 +54,9 @@ npm i ngx-touch-virtual-keyboard
 })
 ```
 
-🔴 __Continue adding default icons and theme__
+⚠️ **Continue adding default icons and theme**
 
-## __Default icon loading (add assets)__
+## **Default icon loading (add assets)**
 
 To load correctly default icons add in angular.json assets import.
 
@@ -65,10 +72,11 @@ Do not change the output path must be defined like that in order to use default 
           ],
 ```
 
-## __Default theme__
+## **Default theme**
 
 To include theme you can
-* __If customization in theme is not needed =>__ add to angular.json as resource in "styles"
+
+- **If customization in theme is not needed =>** add to angular.json as resource in "styles"
 
 ```typescript
 "styles": [
@@ -77,11 +85,11 @@ To include theme you can
           ],
 ```
 
-* __If customization required =>__ add in main styles.scss
+- **If customization required =>** add in main styles.scss
 
 ```scss
-@use './node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme';
-...
+@import './node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme';
+... override style here ...
 ```
 
 # Usage
@@ -255,14 +263,16 @@ It is possible to override the KEYBOARD_MAP_INPUT_TO_LAYOUT with a custom mappin
 ```
 
 ## Customize theme
+
 Theme can be customized. All useful parameter are defined in projects/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme.scss
 
 Below just an example how to locally override variables.
 Always reference to this file for complete list. If some variable is missing just opene a change request
+
 ```scss
-@use './node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme';
+@import './node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme';
   //keys
-:root {
+:host {
   --ngx-tvk-key-background-color: darkgray;
   --ngx-tvk-key-background-color-hover: orange;
   --ngx-tvk-key-border-color-pressed: white;
@@ -274,10 +284,6 @@ Always reference to this file for complete list. If some variable is missing jus
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/2ec641fe-0af2-4169-af80-0dbc345cf786" width=45%/>
 </div>
 # Versioning
-
-| Version       | Angular   |
-| :------------ | --------- |
-| up to @latest | >= 14.0.0 |
 
 ## Changelog 1.2.0
 

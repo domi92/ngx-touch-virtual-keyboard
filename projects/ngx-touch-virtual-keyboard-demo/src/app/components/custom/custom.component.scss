@@ -1,1 +1,5 @@
-$ngx-tvk-background-color: red; //rgba(245, 245, 245, 0.98);
+:host {
+  --ngx-tvk-key-background-color: darkgray;
+  --ngx-tvk-key-background-color-hover: orange;
+  --ngx-tvk-key-border-color-pressed: white;
+}

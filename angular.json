@@ -62,10 +62,7 @@
                 "output": "/assets/ngx-tvk/"
               }
             ],
-            "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
-              "projects/ngx-touch-virtual-keyboard-demo/src/styles.scss"
-            ],
+            "styles": ["@angular/material/prebuilt-themes/indigo-pink.css"],
             "scripts": []
           },
           "configurations": {
@@ -120,10 +117,7 @@
             "tsConfig": "projects/ngx-touch-virtual-keyboard-demo/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": ["projects/ngx-touch-virtual-keyboard-demo/src/favicon.ico", "projects/ngx-touch-virtual-keyboard-demo/src/assets"],
-            "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
-              "projects/ngx-touch-virtual-keyboard-demo/src/styles.scss"
-            ],
+            "styles": ["@angular/material/prebuilt-themes/indigo-pink.css", "projects/ngx-touch-virtual-keyboard-demo/src/styles.scss"],
             "scripts": []
           }
         }
