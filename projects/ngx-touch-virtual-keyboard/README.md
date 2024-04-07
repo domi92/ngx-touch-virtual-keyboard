@@ -2,12 +2,14 @@
 
 Simple angular virtual keyboard component.
 
-# VERSION
+# Versions
 
 | Library | Angular compatibility | Type   |
 | :------ | --------------------- | ------ |
 | ^16.x.x | ^16.0.0, ^17.0.0      | 🟢 LTS |
-| \_      | ^15.0.0               | 🔴 EOL |
+| ^15.x.x | ^15.0.0               | 🔴 EOL |
+
+Version 15 is not planned to get
 
 # Overview
 
@@ -283,23 +285,32 @@ Always reference to this file for complete list. If some variable is missing jus
 <div align="center">
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/2ec641fe-0af2-4169-af80-0dbc345cf786" width=45%/>
 </div>
-# Versioning
 
-## Changelog 1.2.0
+# Versionning
 
-### New Features:
+##### Changelog 16.0.0
+
+New release version for angular16 and further compatibility
+
+##### Changelog 15.0.0
+
+Released all functionality for angular15 compatibility
+
+##### Changelog 1.2.0
+
+###### New Features:
 
 - theme customization. All style can be customized overriding default .scss variables
 
-### Enhancements:
+###### Enhancements:
 
 - keyboard layout changed get property with Observable usage
 - arrow left/right are working better than before when used with a keyboard
 
-### Bug Fixes:
+###### Bug Fixes:
 
 - white space are displayed correctly
 
-### Breaking change
+###### Breaking change
 
 -KEYBOARD_LAYOUT renamed in KEYBOARD_LAYOUT_DEFAULT
