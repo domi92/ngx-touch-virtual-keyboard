@@ -7,7 +7,7 @@ Simple angular virtual keyboard component.
 | Library | Angular compatibility | Type   |
 | :------ | --------------------- | ------ |
 | ^16.x.x | ^16.0.0, ^17.0.0      | 🟢 LTS |
-| \_      | ^15.0.0               | 🔴 EOL |
+| ^15.x.x | ^15.0.0               | 🔴 EOL |
 
 # Overview
 

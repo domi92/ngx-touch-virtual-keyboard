@@ -62,7 +62,7 @@
                 "output": "/assets/ngx-tvk/"
               }
             ],
-            "styles": ["@angular/material/prebuilt-themes/indigo-pink.css"],
+            "styles": ["./projects/ngx-touch-virtual-keyboard-demo/src/styles.scss", "@angular/material/prebuilt-themes/indigo-pink.css"],
             "scripts": []
           },
           "configurations": {

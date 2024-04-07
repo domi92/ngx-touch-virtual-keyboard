@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxTouchVirtualKeyboardModule } from 'ngx-touch-virtual-keyboard';
+import { ICON_BACKSPACE, ICON_KEYBOARD, NgxTouchVirtualKeyboardModule } from 'ngx-touch-virtual-keyboard';
 import { MyInputComponent } from './components/my-input/my-input.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,12 +21,12 @@ import { DefaultComponent } from './components/default/default.component';
     MatSlideToggleModule,
     MatSelectModule,
     AppRoutingModule,
-    NgxTouchVirtualKeyboardModule,
     BrowserAnimationsModule,
+    NgxTouchVirtualKeyboardModule,
   ],
   providers: [
-    // { provide: ICON_BACKSPACE, useValue: 'assets/icons/bugs.svg' },
-    // { provide: ICON_KEYBOARD, useValue: 'assets/icons/bugs.svg' },
+    { provide: ICON_BACKSPACE, useValue: 'assets/icons/bugs.svg' },
+    { provide: ICON_KEYBOARD, useValue: 'assets/icons/bugs.svg' },
     // {
     //   provide: KEYBOARD_MAP_INPUT_TO_LAYOUT,
     //   useValue: [
