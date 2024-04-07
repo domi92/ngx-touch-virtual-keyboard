@@ -2,9 +2,6 @@ name: 'NPM publish beta'
 
 on:
   workflow_dispatch:
-  pull_request:
-    branches:
-      - beta
   push:
     branches:
       - beta

@@ -1,16 +1,3 @@
-/* keyboard.component.css */
-
-.keyboard-input {
-  padding-left: 0.2rem;
-  background-color: #eaeaea;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  height: 2.2rem;
-  display: flex;
-  align-items: center;
-  min-width: 12rem;
-}
-
 .keyboard-wrapper {
   width: 100%;
   position: fixed;
@@ -21,28 +8,55 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%; /* Make the keyboard take up 100% width */
-  background-color: rgba(245, 245, 245, 0.98);
+  width: 100%;
   padding: 10px;
-  border-top: 1px solid #ccc;
-  transition: transform 0.3s ease-in-out;
+  background-color: var(--ngx-tvk-background-color);
+  border-top: var(--ngx-tvk-border-top);
+}
+
+.keyboard-input-cursor {
+  display: inline-block;
+  width: var(--ngx-tvk-cursor-placeholder-width);
+  height: var(--ngx-tvk-cursor-placeholder-height);
+  background-color: var(--ngx-tvk-cursor-background-color);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.keyboard-input {
+  padding-left: var(--ngx-tvk-input-padding-left);
+  background-color: var(--ngx-tvk-input-background-color);
+  border: var(--ngx-tvk-input-border);
+  border-radius: var(--ngx-tvk-input-border-radius);
+  min-width: var(--ngx-tvk-input-min-width);
+  height: var(--ngx-tvk-input-height);
+  display: flex;
+  align-items: center;
+  position: relative;
+  white-space: pre;
 }
 
 .keyboard-row {
   display: flex;
   justify-content: center;
+  gap: var(--ngx-tvk-key-gap);
+  padding-block: calc(var(--ngx-tvk-row-gap) / 2);
 }
 
 .keyboard-key {
   padding: 0.5rem;
-  margin: 0.2rem;
-  background-color: #eaeaea;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  min-height: 3rem;
-  min-width: 3rem;
+  background-color: var(--ngx-tvk-key-background-color);
+  border: var(--ngx-tvk-key-border);
+  border-radius: var(--ngx-tvk-key-border-radius);
+  height: var(--ngx-tvk-key-height);
+  width: var(--ngx-tvk-key-width);
+  font-size: var(--ngx-tvk-key-font-size);
+
+  color: var(--ngx-tvk-key-color);
   cursor: pointer;
 }
+
 .keyboard-key-complex {
   @extend .keyboard-key;
   position: relative;
@@ -50,29 +64,38 @@
 
 .keyboard-key-secondary {
   position: absolute;
-  top: 0.3rem;
-  right: 0.4rem;
-  color: gray;
+  top: 0.2rem;
+  right: 0.3rem;
+  font-size: var(--ngx-tvk-key-font-size-secondary);
+  color: var(--ngx-tvk-key-secondary-color);
 }
 
 .keyboard-layout {
   position: absolute;
   bottom: 0.3rem;
   left: 0.4rem;
-  color: gray;
 }
 
 .keyboard-space {
   @extend .keyboard-key;
-  min-width: 15rem;
+
+  min-width: var(--ngx-tvk-key-spacebar-width);
 }
 
 .keyboard-key:hover {
-  background-color: #ddd;
+  background-color: var(--ngx-tvk-key-background-color-hover);
+  border: var(--ngx-tvk-key-border-hover);
+  color: var(--ngx-tvk-key-color-hover);
+}
+
+.keyboard-key:active {
+  background-color: var(--ngx-tvk-key-background-color-pressed);
+  border: var(--ngx-tvk-key-border-pressed);
+  color: var(--ngx-tvk-key-color-pressed);
 }
 
 .keyboard-shift {
-  background-color: lightblue !important;
+  background-color: var(--ngx-tvk-key-shift-background-color);
 }
 
 .keyboard-key-icon {
@@ -80,8 +103,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 3rem;
-  max-width: 3rem;
+  max-height: var(--ngx-tvk-key-height);
+  max-width: var(--ngx-tvk-key-width);
 }
 
 .keyboard-key-icon-clear {
@@ -98,29 +121,20 @@
   bottom: 20px;
   right: 20px;
   padding: 10px;
-  background-color: #eaeaea;
-  border: 1px solid #ccc;
-  color: #fff;
-  border-radius: 5px;
-  min-width: 3rem;
-  cursor: pointer;
+  background-color: var(--ngx-tvk-toggle-button-background-color);
+  border: 1px solid var(--ngx-tvk-toggle-button-border-color);
+  color: var(--ngx-tvk-toggle-button-color);
+  border-radius: var(--ngx-tvk-toggle-button-border-radius);
+  min-width: var(--ngx-tvk-toggle-button-min-width);
+  cursor: var(--ngx-tvk-toggle-button-cursor);
 }
 
 .toggle-button:hover {
-  background-color: #cfd8dc;
-  border-color: #90a4ae;
+  background-color: var(--ngx-tvk-toggle-button-hover-background-color);
+  border-color: var(--ngx-tvk-toggle-button-hover-border-color);
 }
 
-.text-container {
-  position: relative;
-}
-
-.cursor-placeholder {
-  display: inline-block;
-  width: 1px; /* Adjust the width of the cursor */
-  height: 1em; /* Adjust the height of the cursor */
-  background-color: black; /* Adjust the color of the cursor */
-  position: absolute;
-  top: 50%; /* Align the top of the cursor to the middle */
-  transform: translateY(-50%);
+.toggle-button:active {
+  background-color: var(--ngx-tvk-toggle-button-active-background-color);
+  border-color: var(--ngx-tvk-toggle-button-active-border-color);
 }
