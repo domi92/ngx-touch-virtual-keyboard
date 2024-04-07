@@ -2,6 +2,15 @@
 
 Simple angular virtual keyboard component.
 
+# Versions
+
+| Library | Angular compatibility | Type   |
+| :------ | --------------------- | ------ |
+| ^16.x.x | ^16.0.0, ^17.0.0      | 🟢 LTS |
+| ^15.x.x | ^15.0.0               | 🔴 EOL |
+
+Version 15 is not planned to get
+
 # Overview
 
 Simple virtual keyboard that inteact with common input elements. Supports multiple input type with different layout automatically applied.
@@ -47,7 +56,9 @@ npm i ngx-touch-virtual-keyboard
 })
 ```
 
-## Default icon loading (add assets)
+⚠️ **Continue adding default icons and theme**
+
+## **Default icon loading (add assets)**
 
 To load correctly default icons add in angular.json assets import.
 
@@ -61,6 +72,26 @@ Do not change the output path must be defined like that in order to use default 
               "output": "/assets/ngx-tvk/"
             }
           ],
+```
+
+## **Default theme**
+
+To include theme you can
+
+- **If customization in theme is not needed =>** add to angular.json as resource in "styles"
+
+```typescript
+"styles": [
+            ...,
+            "./node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme.scss"]
+          ],
+```
+
+- **If customization required =>** add in main styles.scss
+
+```scss
+@import './node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme';
+... override style here ...
 ```
 
 # Usage
@@ -234,44 +265,52 @@ It is possible to override the KEYBOARD_MAP_INPUT_TO_LAYOUT with a custom mappin
 ```
 
 ## Customize theme
+
 Theme can be customized. All useful parameter are defined in projects/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme.scss
 
 Below just an example how to locally override variables.
 Always reference to this file for complete list. If some variable is missing just opene a change request
-```scss
-  ...
 
+```scss
+@import './node_modules/ngx-touch-virtual-keyboard/theme/ngx-touch-virtual-keyboard-theme';
   //keys
+:host {
   --ngx-tvk-key-background-color: darkgray;
   --ngx-tvk-key-background-color-hover: orange;
-
- ...
+  --ngx-tvk-key-border-color-pressed: white;
+}
+...
 ```
 
 <div align="center">
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/2ec641fe-0af2-4169-af80-0dbc345cf786" width=45%/>
 </div>
-# Versioning
 
-| Version       | Angular   |
-| :------------ | --------- |
-| up to @latest | >= 14.0.0 |
+# Versionning
 
-## Changelog 1.2.0
+##### Changelog 16.0.0
 
-### New Features:
+New release version for angular16 and further compatibility
+
+##### Changelog 15.0.0
+
+Released all functionality for angular15 compatibility
+
+##### Changelog 1.2.0
+
+###### New Features:
 
 - theme customization. All style can be customized overriding default .scss variables
 
-### Enhancements:
+###### Enhancements:
 
 - keyboard layout changed get property with Observable usage
 - arrow left/right are working better than before when used with a keyboard
 
-### Bug Fixes:
+###### Bug Fixes:
 
 - white space are displayed correctly
 
-### Breaking change
+###### Breaking change
 
 -KEYBOARD_LAYOUT renamed in KEYBOARD_LAYOUT_DEFAULT

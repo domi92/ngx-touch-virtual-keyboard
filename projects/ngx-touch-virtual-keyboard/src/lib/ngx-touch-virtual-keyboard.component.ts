@@ -112,13 +112,13 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   @ViewChild('cursor') cursor!: ElementRef;
 
   @Input('layout')
-  set layout(value: any) {
+  set layout(value: string) {
     if (value !== this._layout) {
       this._layout = value;
       this.evalauteKeyboardLayout();
     }
   }
-  get layout(): any {
+  get layout(): string {
     return this._layout;
   }
 
