@@ -15,7 +15,7 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
 
   private inputValueSubscription: Subscription | undefined;
 
-  @Input('setKeyboardType') setKeyboardType: MapKeyboardType = 'default';
+  @Input('setKeyboardType') setKeyboardType: MapKeyboardType | null = null;
 
   @HostListener('input') // Listen for input events
   onInput() {

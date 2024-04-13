@@ -51,13 +51,15 @@ export class NgxTouchVirtualKeyboardService {
     this.keyboardTypeSubject.next(this.keyboardType);
   }
 
-  setType(type: string, forceType?: MapKeyboardType) {
+  setType(type: string, forceType: MapKeyboardType | null = null) {
     //todo evaluate if there is an overridden configuration provided
     //foreach in array search if exists key and set this.keyboardType = value
 
-    let isPassword = false;
+    if (this.keyboardType === type) return;
 
+    let isPassword = false;
     var mappedType = this._keyboardMapLayoutType.find((e) => e.inputType === type);
+
     if (mappedType) {
       this.keyboardType = mappedType.keyboardType;
       if (mappedType.inputType === 'password') isPassword = true;
