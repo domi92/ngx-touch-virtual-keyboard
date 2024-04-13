@@ -4,10 +4,10 @@
   "configurations": [
     {
       "name": "Demo and library watch",
-      "type": "pwa-chrome",
+      "type": "chrome",
       "request": "launch",
-      "preLaunchTask": "preLaunchTasks",
-      "url": "http://localhost:4200/"
+      "url": "http://localhost:4200",
+      "preLaunchTask": "npm: serve:demo"
     }
   ]
 }
