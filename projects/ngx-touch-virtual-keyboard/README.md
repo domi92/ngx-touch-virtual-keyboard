@@ -290,10 +290,21 @@ Always reference to this file for complete list. If some variable is missing jus
 
 ### Visibility
 
-Input parameter toggleButton: 'dynamic' | 'hidden' | 'visible'. can be used to control default toggle button visibility.
+Input parameter @Input() toggleButton: 'dynamic' | 'hidden' | 'visible'. can be used to control default toggle button visibility.
 Can be changed to always visible or hidden.
 
 Default dynamic is evaluating if any visible element is requesting keyboard and adapt visibility if some element use "useVirtualKeyboard" directive
+
+### Position
+
+Customize style to change default button position
+
+```scss
+--ngx-tvk-toggle-button-position-top: auto;
+--ngx-tvk-toggle-button-position-bottom: 12px;
+--ngx-tvk-toggle-button-position-right: 12px;
+--ngx-tvk-toggle-button-position-left: auto;
+```
 
 # Versionning
 
@@ -301,8 +312,9 @@ Default dynamic is evaluating if any visible element is requesting keyboard and 
 
 ###### New Features:
 
-- Toggle button visibility. @Input() toggleButton: 'dynamic' | 'hidden' | 'visible';
-  - change visibility behaviour of toggle button. Before was always visible not optional
+- Toggle button visibility and position.
+  - Change visibility behaviour of toggle button. Before was always visible
+  - change position with style
 
 ##### Changelog 16.0.0
 

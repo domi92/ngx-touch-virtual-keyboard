@@ -118,9 +118,11 @@
 
 .toggle-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px;
+  top: var(--ngx-tvk-toggle-button-position-top);
+  bottom: var(--ngx-tvk-toggle-button-position-bottom);
+  left: var(--ngx-tvk-toggle-button-position-left);
+  right: var(--ngx-tvk-toggle-button-position-right);
+  padding: var(--ngx-tvk-toggle-button-padding);
   background-color: var(--ngx-tvk-toggle-button-background-color);
   border: 1px solid var(--ngx-tvk-toggle-button-border-color);
   color: var(--ngx-tvk-toggle-button-color);

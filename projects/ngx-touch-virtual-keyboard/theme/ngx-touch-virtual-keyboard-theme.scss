@@ -38,7 +38,9 @@
   //spacebar dimension
   --ngx-tvk-key-spacebar-width: 15rem;
 
+  //default toggle button open/close
   --ngx-tvk-key-shift-background-color: lightblue !important;
+  --ngx-tvk-toggle-button-padding: 10px;
   --ngx-tvk-toggle-button-background-color: #eaeaea;
   --ngx-tvk-toggle-button-border-color: #ccc;
   --ngx-tvk-toggle-button-color: #fff;
@@ -49,6 +51,10 @@
   --ngx-tvk-toggle-button-hover-border-color: var(--ngx-tvk-key-border-color-hover);
   --ngx-tvk-toggle-button-active-background-color: var(--ngx-tvk-background-color-pressed);
   --ngx-tvk-toggle-button-active-border-color: var(--ngx-tvk-key-border-color-pressed);
+  --ngx-tvk-toggle-button-position-top: auto;
+  --ngx-tvk-toggle-button-position-bottom: 12px;
+  --ngx-tvk-toggle-button-position-right: 12px;
+  --ngx-tvk-toggle-button-position-left: auto;
 }
 
 /* TODO add light and dark theme?*/
