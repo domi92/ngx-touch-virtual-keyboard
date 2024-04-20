@@ -1,4 +1,4 @@
-import { ElementRef, Inject, Injectable } from '@angular/core';
+import { ElementRef, Inject, Injectable, Signal, computed, signal } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { KEYBOARD_MAP_INPUT_TO_LAYOUT } from '../public-api';
 import { MapInputType, MapKeyboardType } from './ngx-touch-virtual-keyboard.resources';
@@ -16,8 +16,9 @@ export class NgxTouchVirtualKeyboardService {
   private readonly isOpenSubject = new Subject<{ input: ElementRef | undefined; isOpen: boolean }>();
   private keyboardType: MapKeyboardType = 'default';
   private readonly isPasswordSubject = new Subject<boolean>();
-  private readonly keyboardTypeSubject = new Subject<MapKeyboardType>();
+  private readonly keyboardTypeSubject = new BehaviorSubject<MapKeyboardType>('default');
   private readonly inputValueSubject$ = new BehaviorSubject<string>('');
+  private readonly counter = signal(0);
 
   get isPassword$() {
     return this.isPasswordSubject.asObservable();
@@ -32,6 +33,12 @@ export class NgxTouchVirtualKeyboardService {
   }
 
   isOpen$ = this.isOpenSubject.asObservable();
+
+  public hasInputAttached: Signal<boolean> = computed(() => {
+    if (this.counter() > 0) return true;
+
+    return false;
+  });
 
   openKeyboard(inputElement: ElementRef, value?: string) {
     this.isOpen = true;
@@ -74,5 +81,14 @@ export class NgxTouchVirtualKeyboardService {
 
   changeValue(value: string) {
     this.inputValueSubject$.next(value ?? '');
+  }
+
+  register() {
+    this.counter.set(this.counter() + 1);
+    console.log(this.counter());
+  }
+
+  unregister() {
+    this.counter.set(this.counter() - 1);
   }
 }

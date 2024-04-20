@@ -90,6 +90,17 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
       this._cursorPosition();
       this.adjustCursorPosition();
     });
+
+    effect(
+      () => {
+        this.keyboardService.hasInputAttached();
+        if (this.toggleButton === 'dynamic') {
+          if (this.keyboardService.hasInputAttached()) this.showToggleButton.set(true);
+          else this.showToggleButton.set(false);
+        }
+      },
+      { allowSignalWrites: true }
+    );
   }
   private _layout: string = 'us';
   private keyboardTypeSubscription!: Subscription;
@@ -111,6 +122,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   protected isPassword = signal(false);
   protected passwordShow = signal(false);
   protected showCursor = signal(true);
+  protected showToggleButton = signal(false);
 
   protected cursorPosition = computed(() => this._cursorPosition());
   protected textInputPassword = computed(() => this._textInputPassword());
@@ -128,6 +140,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   get layout(): string {
     return this._layout;
   }
+
+  @Input('toggleButton') toggleButton: 'dynamic' | 'hidden' | 'visible' = 'dynamic';
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
@@ -170,6 +184,9 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (this.toggleButton === 'hidden') this.showToggleButton.set(false);
+    else if (this.toggleButton === 'visible') this.showToggleButton.set(true);
+
     this.elementRef.nativeElement.addEventListener('mousedown', (e: MouseEvent) => {
       this.handleMouseDown(e);
     });
@@ -223,6 +240,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     this.restartCursorVisibility();
   }
 
+  ngAfterViewInit() {}
+
   ngOnDestroy() {
     this.keyboardSubscription.unsubscribe();
     this.keyboardTypeSubscription.unsubscribe();
@@ -232,7 +251,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   }
 
   protected toggleKeyboard() {
-    this.isOpen.set(!this.isOpen);
+    this.isOpen.set(!this.isOpen());
+    console.log('layou', this.layout);
   }
 
   protected pressKey(key: string) {

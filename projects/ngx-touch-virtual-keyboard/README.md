@@ -9,7 +9,7 @@ Simple angular virtual keyboard component.
 | ^16.x.x | ^16.0.0, ^17.0.0      | 🟢 LTS |
 | ^15.x.x | ^15.0.0               | 🔴 EOL |
 
-Version 15 is not planned to get
+Version 15 is not planned to get further updates
 
 # Overview
 
@@ -120,7 +120,7 @@ Current language is displayed inside the space button. If input parameter is not
 ```typescript
 <ngx-touch-virtual-keyboard layout="it"></ngx-touch-virtual-keyboard>
 
-<ngx-touch-virtual-keyboard [layout]="currentLayout"></ngx-touch-virtual-keyboard>
+<ngx-touch-virtual-keyboard [layout]="currentLayout" toggleButton="visible"></ngx-touch-virtual-keyboard>
 ```
 
 ## Customize layout (define how many layout-language you need)
@@ -286,7 +286,23 @@ Always reference to this file for complete list. If some variable is missing jus
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/2ec641fe-0af2-4169-af80-0dbc345cf786" width=45%/>
 </div>
 
+## Customize toggle button (show-hide keyboard)
+
+### Visibility
+
+Input parameter toggleButton: 'dynamic' | 'hidden' | 'visible'. can be used to control default toggle button visibility.
+Can be changed to always visible or hidden.
+
+Default dynamic is evaluating if any visible element is requesting keyboard and adapt visibility if some element use "useVirtualKeyboard" directive
+
 # Versionning
+
+##### Changelog 16.1.0
+
+###### New Features:
+
+- Toggle button visibility. @Input() toggleButton: 'dynamic' | 'hidden' | 'visible';
+  - change visibility behaviour of toggle button. Before was always visible not optional
 
 ##### Changelog 16.0.0
 

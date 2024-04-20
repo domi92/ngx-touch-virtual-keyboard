@@ -46,9 +46,12 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
     this.keyboardService.closeKeyboard();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.keyboardService.register();
+  }
 
   ngOnDestroy(): void {
+    this.keyboardService.unregister();
     if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
   }
 
