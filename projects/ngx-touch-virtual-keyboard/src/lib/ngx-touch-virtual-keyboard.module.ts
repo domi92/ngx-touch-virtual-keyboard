@@ -2,7 +2,8 @@ import { InjectionToken, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UseKeyboardDirective } from './ngx-use-keyboard.directive';
+import { ToggleOpenCloseForDirective } from './ngx-touch-virtual-keyboard-toggle-open-close-for.directive';
+import { UseKeyboardDirective } from './ngx-touch-virtual-keyboard-use-keyboard.directive';
 import { RepeatActionDirective } from './repeat-action.directive';
 import { NgxTouchVirtualKeyboardComponent } from './ngx-touch-virtual-keyboard.component';
 import { INGXKeyElement } from './ngx-key-element';
@@ -54,7 +55,7 @@ export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<{ inputType: MapI
 );
 
 @NgModule({
-  declarations: [UseKeyboardDirective, RepeatActionDirective, NgxTouchVirtualKeyboardComponent],
+  declarations: [UseKeyboardDirective, ToggleOpenCloseForDirective, RepeatActionDirective, NgxTouchVirtualKeyboardComponent],
   providers: [
     { provide: ICON_BACKSPACE, useValue: '../assets/ngx-tvk/icon/delete-left.svg' },
     { provide: ICON_ERASE, useValue: '../assets/ngx-tvk/icon/erase.svg' },
@@ -74,6 +75,6 @@ export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<{ inputType: MapI
   ],
   imports: [FormsModule, BrowserModule, BrowserAnimationsModule],
 
-  exports: [UseKeyboardDirective, NgxTouchVirtualKeyboardComponent],
+  exports: [UseKeyboardDirective, ToggleOpenCloseForDirective, NgxTouchVirtualKeyboardComponent],
 })
 export class NgxTouchVirtualKeyboardModule {}

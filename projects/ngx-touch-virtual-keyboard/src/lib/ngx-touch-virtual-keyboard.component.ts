@@ -240,8 +240,6 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     this.restartCursorVisibility();
   }
 
-  ngAfterViewInit() {}
-
   ngOnDestroy() {
     this.keyboardSubscription.unsubscribe();
     this.keyboardTypeSubscription.unsubscribe();
@@ -250,9 +248,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  protected toggleKeyboard() {
+  public toggleKeyboard() {
     this.isOpen.set(!this.isOpen());
-    console.log('layou', this.layout);
   }
 
   protected pressKey(key: string) {

@@ -286,7 +286,7 @@ Always reference to this file for complete list. If some variable is missing jus
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/2ec641fe-0af2-4169-af80-0dbc345cf786" width=45%/>
 </div>
 
-## Customize toggle button (show-hide keyboard)
+## Customize toggle button (open-close keyboard)
 
 ### Visibility
 
@@ -295,7 +295,7 @@ Can be changed to always visible or hidden.
 
 Default dynamic is evaluating if any visible element is requesting keyboard and adapt visibility if some element use "useVirtualKeyboard" directive
 
-### Position
+### Position (default button)
 
 Customize style to change default button position
 
@@ -306,7 +306,25 @@ Customize style to change default button position
 --ngx-tvk-toggle-button-position-left: auto;
 ```
 
-# Versionning
+### Custom button
+
+Possibility to not use default open keyboard button but use your own button and connect with keyboard with directive.
+Create your own button with toggleOpenCloseFor and connect with reference to keybaord.
+Combine with toggleButton="hidden". To remove default open button from view
+
+```typescript
+  <button [toggleOpenCloseFor]="keyboard" class="button">Open/Close keyb
+
+  <ngx-touch-virtual-keyboard #keyboard toggleButton="hidden"></ngx-touch-virtual-keyboard>
+```
+
+---
+
+---
+
+---
+
+# Versionning history
 
 ##### Changelog 16.1.0
 
@@ -315,6 +333,8 @@ Customize style to change default button position
 - Toggle button visibility and position.
   - Change visibility behaviour of toggle button. Before was always visible
   - change position with style
+- Toggle button custom.
+  - Create your own button and place where you prefer to toggle keyboard open close
 
 ##### Changelog 16.0.0
 
