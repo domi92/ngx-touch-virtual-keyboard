@@ -39,7 +39,6 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
 
   @HostListener('blur') onBlur() {
     // Close the keyboard using the service
-    // console.log('Directive INIT...' + this.isNumericOnly);
     // if (this.isNumericOnly === true) {
     //   this.keyboardService.setNumericOnly(true);
     // } else this.keyboardService.setNumericOnly(false);

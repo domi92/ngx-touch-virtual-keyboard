@@ -170,13 +170,10 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
     this._cursorPosition.set(this.inputElement ? this.inputElement.nativeElement.selectionEnd : this.textInput().length);
   }
 
-  // @HostListener('document:click', ['$event'])
   @HostListener('click', ['$event'])
   handleClick(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
-    // If click was outside, prevent default action
-    // console.log('HERE IT IS A CLICK' + event);
   }
 
   protected get keyboardLayout$() {
@@ -253,6 +250,8 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
   }
 
   protected pressKey(key: string) {
+    if (!this.inputElement) return;
+
     const charToAdd = this.isShift() ? key.toUpperCase() : key;
     const updatedTextInput = `${this.textInput().slice(0, this._cursorPosition())}${charToAdd}${this.textInput().slice(
       this._cursorPosition()
@@ -377,7 +376,7 @@ export class NgxTouchVirtualKeyboardComponent implements OnInit, OnDestroy {
         this.cursor.nativeElement.style.left = beforeCursorWidth + 'px';
       }
 
-      // this.setSourceCursor();
+      this.setSourceCursor();
     }, 0);
   }
 
