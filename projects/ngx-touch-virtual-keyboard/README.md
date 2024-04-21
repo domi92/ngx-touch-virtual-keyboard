@@ -317,6 +317,9 @@ Combine with toggleButton="hidden". To remove default open button from view
 
   <ngx-touch-virtual-keyboard #keyboard toggleButton="hidden"></ngx-touch-virtual-keyboard>
 ```
+<div align="center">
+<img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/9a7ef30f-2cdb-4196-b77f-e9c508210782" width=45%/>
+</div>
 
 ---
 
