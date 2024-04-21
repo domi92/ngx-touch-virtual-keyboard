@@ -6,4 +6,5 @@ export * from './lib/ngx-touch-virtual-keyboard.resources';
 export * from './lib/ngx-touch-virtual-keyboard.service';
 export * from './lib/ngx-touch-virtual-keyboard.component';
 export * from './lib/ngx-touch-virtual-keyboard.module';
-export * from './lib/ngx-use-keyboard.directive';
+export * from './lib/ngx-touch-virtual-keyboard-toggle-open-close-for.directive';
+export * from './lib/ngx-touch-virtual-keyboard-use-keyboard.directive';

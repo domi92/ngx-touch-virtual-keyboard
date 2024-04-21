@@ -9,7 +9,7 @@ Simple angular virtual keyboard component.
 | ^16.x.x | ^16.0.0, ^17.0.0      | 🟢 LTS |
 | ^15.x.x | ^15.0.0               | 🔴 EOL |
 
-Version 15 is not planned to get
+Version 15 is not planned to get further updates
 
 # Overview
 
@@ -120,7 +120,7 @@ Current language is displayed inside the space button. If input parameter is not
 ```typescript
 <ngx-touch-virtual-keyboard layout="it"></ngx-touch-virtual-keyboard>
 
-<ngx-touch-virtual-keyboard [layout]="currentLayout"></ngx-touch-virtual-keyboard>
+<ngx-touch-virtual-keyboard [layout]="currentLayout" toggleButton="visible"></ngx-touch-virtual-keyboard>
 ```
 
 ## Customize layout (define how many layout-language you need)
@@ -286,7 +286,73 @@ Always reference to this file for complete list. If some variable is missing jus
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/2ec641fe-0af2-4169-af80-0dbc345cf786" width=45%/>
 </div>
 
-# Versionning
+## Customize toggle button (open-close keyboard)
+
+### Visibility
+
+Input parameter @Input() toggleButton: 'dynamic' | 'hidden' | 'visible'. can be used to control default toggle button visibility.
+Can be changed to always visible or hidden.
+
+Default dynamic is evaluating if any visible element is requesting keyboard and adapt visibility if some element use "useVirtualKeyboard" directive
+
+### Position (default button)
+
+Customize style to change default button position
+
+```scss
+--ngx-tvk-toggle-button-position-top: auto;
+--ngx-tvk-toggle-button-position-bottom: 12px;
+--ngx-tvk-toggle-button-position-right: 12px;
+--ngx-tvk-toggle-button-position-left: auto;
+```
+
+### Custom button
+
+Possibility to not use default open keyboard button but use your own button and connect with keyboard with directive.
+Create your own button with toggleOpenCloseFor and connect with reference to keybaord.
+Combine with toggleButton="hidden". To remove default open button from view
+
+```typescript
+  <button [toggleOpenCloseFor]="keyboard" class="button">Open/Close keyb
+
+  <ngx-touch-virtual-keyboard #keyboard toggleButton="hidden"></ngx-touch-virtual-keyboard>
+```
+
+<div align="center">
+<img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/9a7ef30f-2cdb-4196-b77f-e9c508210782" width=45%/>
+</div>
+
+## Auto close keyboard on input focus blur
+
+Default behavior is to close keybaord when selected element blur.
+This default behavior can be changed proving FOCUS_AUTO_CLOSE = false. This will prevent automatic close of component on blur.
+
+```typescript
+import { FOCUS_AUTO_CLOSE } from 'ngx-touch-virtual-keyboard';
+
+@Component({
+  providers: [{ provide: FOCUS_AUTO_CLOSE, useValue: false }],
+})
+```
+
+---
+
+---
+
+---
+
+# Versionning history
+
+##### Changelog 16.1.0
+
+###### New Features:
+
+- Toggle button visibility and position.
+  - Change visibility behaviour of toggle button. Before was always visible
+  - change position with style
+- Toggle button custom.
+  - Create your own button and place where you prefer to toggle keyboard open close
+- Automatic close on input blur now is configurable
 
 ##### Changelog 16.0.0
 

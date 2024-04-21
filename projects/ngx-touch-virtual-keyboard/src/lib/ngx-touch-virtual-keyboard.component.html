@@ -1,25 +1,25 @@
-<div class="keyboard-wrapper">
-  <div class="keyboard-fixed" [@slideInOut]="isOpen ? 'in' : 'out'">
+<div class="keyboard-wrapper" [@slideInOut]="isOpen() ? 'in' : 'out'">
+  <ng-container *ngIf="isOpen()">
     <div class="keyboard-row" style="display: flex; align-items: center">
       <button class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="clear()">
         <img [src]="iconErase" alt="cl" />
       </button>
       <div class="keyboard-input">
-        <ng-container *ngIf="!isPassword">
-          <span #beforeCursor>{{ textInput.substring(0, cursorPosition) }}</span>
-          <span>{{ textInput.substring(cursorPosition) }}</span>
+        <ng-container *ngIf="!isPassword()">
+          <span #beforeCursor>{{ textInput().substring(0, cursorPosition()) }}</span>
+          <span>{{ textInput().substring(cursorPosition()) }}</span>
         </ng-container>
-        <ng-container *ngIf="isPassword">
+        <ng-container *ngIf="isPassword()">
           <span #beforeCursor>{{
-            passwordShow ? textInput.substring(0, cursorPosition) : textInputPassword.substring(0, cursorPosition)
+            passwordShow() ? textInput().substring(0, cursorPosition()) : textInputPassword().substring(0, cursorPosition())
           }}</span>
-          <span>{{ passwordShow ? textInput.substring(cursorPosition) : textInputPassword.substring(cursorPosition) }}</span>
+          <span>{{ passwordShow() ? textInput().substring(cursorPosition()) : textInputPassword().substring(cursorPosition()) }}</span>
         </ng-container>
-        <span #cursor class="keyboard-input-cursor" [style.visibility]="showCursor ? 'visible' : 'hidden'"></span>
+        <span #cursor class="keyboard-input-cursor" [style.visibility]="showCursor() ? 'visible' : 'hidden'"></span>
       </div>
-      <button *ngIf="isPassword" class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="showHide()">
-        <img *ngIf="!passwordShow" [src]="iconEye" alt="eye" />
-        <img *ngIf="passwordShow" [src]="iconEyeSlash" alt="eyeSlash" />
+      <button *ngIf="isPassword()" class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="showHide()">
+        <img *ngIf="!passwordShow()" [src]="iconEye" alt="eye" />
+        <img *ngIf="passwordShow()" [src]="iconEyeSlash" alt="eyeSlash" />
       </button>
     </div>
     <ng-container *ngIf="keyboardLayout$ | async as layoutSel">
@@ -27,11 +27,13 @@
         <ng-container *ngTemplateOutlet="content; context: { data: layoutSel }"></ng-container>
       </ng-container>
     </ng-container>
-  </div>
+  </ng-container>
 </div>
-<button class="toggle-button keyboard-key-icon" (click)="toggleKeyboard()">
-  <img *ngIf="!isOpen" [src]="iconKeyboard" alt="keyboard" />
-  <img *ngIf="isOpen" [src]="iconKeyboardClose" alt="keyboard" />
+<button *ngIf="isOpen()" class="toggle-button keyboard-key-icon" (click)="toggleKeyboard()">
+  <img [src]="iconKeyboardClose" alt="keyboard" />
+</button>
+<button *ngIf="!isOpen() && showToggleButton()" class="toggle-button keyboard-key-icon" (click)="toggleKeyboard()">
+  <img [src]="iconKeyboard" alt="keyboard" />
 </button>
 <ng-template #content let-data="data">
   <div *ngFor="let row of data" class="keyboard-row">
@@ -48,7 +50,7 @@
         <button
           *ngIf="key === 'tab'; else left"
           class="keyboard-key keyboard-key-icon"
-          [class.keyboard-shift]="isShift"
+          [class.keyboard-shift]="isShift()"
           (click)="emitTab()"
         >
           <img style="height: 50%; width: 50%" [src]="iconTab" alt="left" />
@@ -67,7 +69,7 @@
       <ng-template #shift>
         <button
           *ngIf="key === 'shift'; else space"
-          [class.keyboard-shift]="isShift"
+          [class.keyboard-shift]="isShift()"
           class="keyboard-key keyboard-key-icon"
           (click)="shiftClick()"
         >
@@ -90,14 +92,14 @@
             [style.visibility]="key.p == '' ? 'hidden' : 'visible'"
             class="keyboard-key-complex"
             appRepeatAction
-            (repeatAction)="pressKey(isShift ? key.s : key.p)"
+            (repeatAction)="pressKey(isShift() ? key.s : key.p)"
           >
             <div>
               <div class="keyboard-key-secondary">
-                {{ !isShift ? key.s : key.p }}
+                {{ !isShift() ? key.s : key.p }}
               </div>
               <div>
-                {{ isShift ? key.s : key.p }}
+                {{ isShift() ? key.s : key.p }}
               </div>
             </div>
           </button>
@@ -109,7 +111,7 @@
             appRepeatAction
             (repeatAction)="pressKey(key)"
           >
-            {{ isShift ? (key | uppercase) : key }}
+            {{ isShift() ? (key | uppercase) : key }}
           </button>
         </ng-container>
       </ng-template>

@@ -1,5 +1,13 @@
 /* Default theme */
 :root {
+  --ngx-tvk-keyboard-wrapper-position: fixed;
+  --ngx-tvk-keyboard-wrapper-position-top: auto;
+  --ngx-tvk-keyboard-wrapper-position-bottom: 0;
+  --ngx-tvk-keyboard-wrapper-position-right: auto;
+  --ngx-tvk-keyboard-wrapper-position-left: 0;
+  --ngx-tvk-keyboard-wrapper-position-width: 100%;
+  --ngx-tvk-keyboard-wrapper-position-padding: 0.4rem;
+
   --ngx-tvk-background-color: rgba(245, 245, 245, 0.86);
   --ngx-tvk-border-top: 1px solid #ccc;
 
@@ -38,7 +46,9 @@
   //spacebar dimension
   --ngx-tvk-key-spacebar-width: 15rem;
 
+  //default toggle button open/close
   --ngx-tvk-key-shift-background-color: lightblue !important;
+  --ngx-tvk-toggle-button-padding: 10px;
   --ngx-tvk-toggle-button-background-color: #eaeaea;
   --ngx-tvk-toggle-button-border-color: #ccc;
   --ngx-tvk-toggle-button-color: #fff;
@@ -49,6 +59,10 @@
   --ngx-tvk-toggle-button-hover-border-color: var(--ngx-tvk-key-border-color-hover);
   --ngx-tvk-toggle-button-active-background-color: var(--ngx-tvk-background-color-pressed);
   --ngx-tvk-toggle-button-active-border-color: var(--ngx-tvk-key-border-color-pressed);
+  --ngx-tvk-toggle-button-position-top: auto;
+  --ngx-tvk-toggle-button-position-bottom: 12px;
+  --ngx-tvk-toggle-button-position-right: 12px;
+  --ngx-tvk-toggle-button-position-left: auto;
 }
 
 /* TODO add light and dark theme?*/

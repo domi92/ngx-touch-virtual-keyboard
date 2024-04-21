@@ -1,7 +1,8 @@
-import { Directive, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgxTouchVirtualKeyboardService } from './ngx-touch-virtual-keyboard.service';
 import { MapKeyboardType } from './ngx-touch-virtual-keyboard.resources';
 import { Subscription } from 'rxjs';
+import { FOCUS_AUTO_CLOSE } from '../public-api';
 
 @Directive({
   selector: '[useVirtualKeyboard]',
@@ -9,13 +10,14 @@ import { Subscription } from 'rxjs';
 })
 export class UseKeyboardDirective implements OnInit, OnDestroy {
   constructor(
+    @Inject(FOCUS_AUTO_CLOSE) private autoClose: boolean,
     private readonly elementRef: ElementRef<HTMLInputElement>,
     private readonly keyboardService: NgxTouchVirtualKeyboardService
   ) {}
 
   private inputValueSubscription: Subscription | undefined;
 
-  @Input('setKeyboardType') setKeyboardType: MapKeyboardType = 'default';
+  @Input('setKeyboardType') setKeyboardType: MapKeyboardType | null = null;
 
   @HostListener('input') // Listen for input events
   onInput() {
@@ -43,12 +45,15 @@ export class UseKeyboardDirective implements OnInit, OnDestroy {
     // } else this.keyboardService.setNumericOnly(false);
     if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
 
-    this.keyboardService.closeKeyboard();
+    if (this.autoClose) this.keyboardService.closeKeyboard();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.keyboardService.register();
+  }
 
   ngOnDestroy(): void {
+    this.keyboardService.unregister();
     if (this.inputValueSubscription) this.inputValueSubscription.unsubscribe();
   }
 

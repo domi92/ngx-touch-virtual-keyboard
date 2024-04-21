@@ -1,15 +1,11 @@
 .keyboard-wrapper {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-}
-
-.keyboard-fixed {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
+  position: var(--ngx-tvk-keyboard-wrapper-position);
+  top: var(--ngx-tvk-keyboard-wrapper-position-top);
+  bottom: var(--ngx-tvk-keyboard-wrapper-position-bottom);
+  left: var(--ngx-tvk-keyboard-wrapper-position-left);
+  right: var(--ngx-tvk-keyboard-wrapper-position-right);
+  width: var(--ngx-tvk-keyboard-wrapper-position-width);
+  padding: var(--ngx-tvk-keyboard-wrapper-position-padding);
   background-color: var(--ngx-tvk-background-color);
   border-top: var(--ngx-tvk-border-top);
 }
@@ -118,9 +114,11 @@
 
 .toggle-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px;
+  top: var(--ngx-tvk-toggle-button-position-top);
+  bottom: var(--ngx-tvk-toggle-button-position-bottom);
+  left: var(--ngx-tvk-toggle-button-position-left);
+  right: var(--ngx-tvk-toggle-button-position-right);
+  padding: var(--ngx-tvk-toggle-button-padding);
   background-color: var(--ngx-tvk-toggle-button-background-color);
   border: 1px solid var(--ngx-tvk-toggle-button-border-color);
   color: var(--ngx-tvk-toggle-button-color);

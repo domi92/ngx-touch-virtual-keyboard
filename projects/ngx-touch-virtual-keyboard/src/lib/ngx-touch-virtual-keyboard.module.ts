@@ -2,7 +2,8 @@ import { InjectionToken, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UseKeyboardDirective } from './ngx-use-keyboard.directive';
+import { ToggleOpenCloseForDirective } from './ngx-touch-virtual-keyboard-toggle-open-close-for.directive';
+import { UseKeyboardDirective } from './ngx-touch-virtual-keyboard-use-keyboard.directive';
 import { RepeatActionDirective } from './repeat-action.directive';
 import { NgxTouchVirtualKeyboardComponent } from './ngx-touch-virtual-keyboard.component';
 import { INGXKeyElement } from './ngx-key-element';
@@ -29,6 +30,7 @@ export const ICON_LEFT = new InjectionToken<string>('ICON_LEFT');
 export const ICON_RIGHT = new InjectionToken<string>('ICON_RIGHT');
 export const ICON_SHIFT = new InjectionToken<string>('ICON_SHIFT');
 export const ICON_TAB = new InjectionToken<string>('ICON_TAB');
+export const FOCUS_AUTO_CLOSE = new InjectionToken<boolean>('FOCUS_AUTO_CLOSE');
 
 export const KEYBOARD_LAYOUT_DEFAULT = new InjectionToken<{ layout: string; values: (INGXKeyElement | string)[][] }>(
   'KEYBOARD_LAYOUT_DEFAULT'
@@ -54,7 +56,7 @@ export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<{ inputType: MapI
 );
 
 @NgModule({
-  declarations: [UseKeyboardDirective, RepeatActionDirective, NgxTouchVirtualKeyboardComponent],
+  declarations: [UseKeyboardDirective, ToggleOpenCloseForDirective, RepeatActionDirective, NgxTouchVirtualKeyboardComponent],
   providers: [
     { provide: ICON_BACKSPACE, useValue: '../assets/ngx-tvk/icon/delete-left.svg' },
     { provide: ICON_ERASE, useValue: '../assets/ngx-tvk/icon/erase.svg' },
@@ -66,6 +68,7 @@ export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<{ inputType: MapI
     { provide: ICON_RIGHT, useValue: '../assets/ngx-tvk/icon/right.svg' },
     { provide: ICON_SHIFT, useValue: '../assets/ngx-tvk/icon/shift.svg' },
     { provide: ICON_TAB, useValue: '../assets/ngx-tvk/icon/tab.svg' },
+    { provide: FOCUS_AUTO_CLOSE, useValue: true },
     { provide: KEYBOARD_LAYOUT_DEFAULT, useValue: defaultKeyboard },
     { provide: KEYBOARD_LAYOUT_NUMBER, useValue: numberKeyboard },
     { provide: KEYBOARD_LAYOUT_TEL, useValue: telKeyboard },
@@ -74,6 +77,6 @@ export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<{ inputType: MapI
   ],
   imports: [FormsModule, BrowserModule, BrowserAnimationsModule],
 
-  exports: [UseKeyboardDirective, NgxTouchVirtualKeyboardComponent],
+  exports: [UseKeyboardDirective, ToggleOpenCloseForDirective, NgxTouchVirtualKeyboardComponent],
 })
 export class NgxTouchVirtualKeyboardModule {}
