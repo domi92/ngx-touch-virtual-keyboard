@@ -317,9 +317,23 @@ Combine with toggleButton="hidden". To remove default open button from view
 
   <ngx-touch-virtual-keyboard #keyboard toggleButton="hidden"></ngx-touch-virtual-keyboard>
 ```
+
 <div align="center">
 <img src="https://github.com/domi92/ngx-touch-virtual-keyboard/assets/10332144/9a7ef30f-2cdb-4196-b77f-e9c508210782" width=45%/>
 </div>
+
+## Auto close keyboard on input focus blur
+
+Default behavior is to close keybaord when selected element blur.
+This default behavior can be changed proving FOCUS_AUTO_CLOSE = false. This will prevent automatic close of component on blur.
+
+```typescript
+import { FOCUS_AUTO_CLOSE } from 'ngx-touch-virtual-keyboard';
+
+@Component({
+  providers: [{ provide: FOCUS_AUTO_CLOSE, useValue: false }],
+})
+```
 
 ---
 
@@ -338,6 +352,7 @@ Combine with toggleButton="hidden". To remove default open button from view
   - change position with style
 - Toggle button custom.
   - Create your own button and place where you prefer to toggle keyboard open close
+- Automatic close on input blur now is configurable
 
 ##### Changelog 16.0.0
 

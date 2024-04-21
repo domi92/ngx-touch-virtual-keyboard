@@ -30,6 +30,7 @@ export const ICON_LEFT = new InjectionToken<string>('ICON_LEFT');
 export const ICON_RIGHT = new InjectionToken<string>('ICON_RIGHT');
 export const ICON_SHIFT = new InjectionToken<string>('ICON_SHIFT');
 export const ICON_TAB = new InjectionToken<string>('ICON_TAB');
+export const FOCUS_AUTO_CLOSE = new InjectionToken<boolean>('FOCUS_AUTO_CLOSE');
 
 export const KEYBOARD_LAYOUT_DEFAULT = new InjectionToken<{ layout: string; values: (INGXKeyElement | string)[][] }>(
   'KEYBOARD_LAYOUT_DEFAULT'
@@ -67,6 +68,7 @@ export const KEYBOARD_MAP_INPUT_TO_LAYOUT = new InjectionToken<{ inputType: MapI
     { provide: ICON_RIGHT, useValue: '../assets/ngx-tvk/icon/right.svg' },
     { provide: ICON_SHIFT, useValue: '../assets/ngx-tvk/icon/shift.svg' },
     { provide: ICON_TAB, useValue: '../assets/ngx-tvk/icon/tab.svg' },
+    { provide: FOCUS_AUTO_CLOSE, useValue: true },
     { provide: KEYBOARD_LAYOUT_DEFAULT, useValue: defaultKeyboard },
     { provide: KEYBOARD_LAYOUT_NUMBER, useValue: numberKeyboard },
     { provide: KEYBOARD_LAYOUT_TEL, useValue: telKeyboard },
