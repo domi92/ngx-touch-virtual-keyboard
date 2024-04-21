@@ -85,7 +85,6 @@ export class NgxTouchVirtualKeyboardService {
 
   register() {
     this.counter.set(this.counter() + 1);
-    console.log(this.counter());
   }
 
   unregister() {

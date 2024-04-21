@@ -1,5 +1,13 @@
 /* Default theme */
 :root {
+  --ngx-tvk-keyboard-wrapper-position: fixed;
+  --ngx-tvk-keyboard-wrapper-position-top: auto;
+  --ngx-tvk-keyboard-wrapper-position-bottom: 0;
+  --ngx-tvk-keyboard-wrapper-position-right: auto;
+  --ngx-tvk-keyboard-wrapper-position-left: 0;
+  --ngx-tvk-keyboard-wrapper-position-width: 100%;
+  --ngx-tvk-keyboard-wrapper-position-padding: 0.4rem;
+
   --ngx-tvk-background-color: rgba(245, 245, 245, 0.86);
   --ngx-tvk-border-top: 1px solid #ccc;
 

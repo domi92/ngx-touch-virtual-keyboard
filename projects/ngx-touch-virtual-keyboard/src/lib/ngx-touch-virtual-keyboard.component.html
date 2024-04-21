@@ -1,5 +1,5 @@
-<div class="keyboard-wrapper">
-  <div class="keyboard-fixed" [@slideInOut]="isOpen() ? 'in' : 'out'">
+<div class="keyboard-wrapper" [@slideInOut]="isOpen() ? 'in' : 'out'">
+  <ng-container *ngIf="isOpen()">
     <div class="keyboard-row" style="display: flex; align-items: center">
       <button class="keyboard-key keyboard-key-icon keyboard-key-icon-clear" (click)="clear()">
         <img [src]="iconErase" alt="cl" />
@@ -27,7 +27,7 @@
         <ng-container *ngTemplateOutlet="content; context: { data: layoutSel }"></ng-container>
       </ng-container>
     </ng-container>
-  </div>
+  </ng-container>
 </div>
 <button *ngIf="isOpen()" class="toggle-button keyboard-key-icon" (click)="toggleKeyboard()">
   <img [src]="iconKeyboardClose" alt="keyboard" />
